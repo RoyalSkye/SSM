@@ -10,7 +10,7 @@ import com.neusoft.po.Branch;
 import com.neusoft.po.Teacher;
 
 public interface TeacherService {
-	public List<Teacher> findAll();
+	public List<Teacher> findAllTeacher();
 
 	public String addTeacher(int tid,String tname,MultipartFile file,String introduction,int qid,HttpServletRequest request);
 	

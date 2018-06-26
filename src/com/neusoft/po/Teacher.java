@@ -7,6 +7,14 @@ public class Teacher {
 	private String tphoto_url;
 	private String introduction;
 	private int qid;
+	public Teacher(int tid, String tname, String tphoto_url, String introduction, int qid) {
+		super();
+		this.tid = tid;
+		this.tname = tname;
+		this.tphoto_url = tphoto_url;
+		this.introduction = introduction;
+		this.qid = qid;
+	}
 	public int getTid() {
 		return tid;
 	}

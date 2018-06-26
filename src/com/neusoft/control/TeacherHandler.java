@@ -24,10 +24,10 @@ public class TeacherHandler {
 	@Autowired
 	private TeacherService teacherService;
 	
-	@RequestMapping(value="/test/TeacherHandler_findAll")
+	@RequestMapping(value="/test/TeacherHandler_findAllTeacher")
 	@ResponseBody
-	public List<Teacher> findAll(HttpServletRequest request){
-		return teacherService.findAll();
+	public List<Teacher> findAllTeacher(){
+		return teacherService.findAllTeacher();
 	}
 	
 	@RequestMapping(value="/test/TeacherHandler_add")

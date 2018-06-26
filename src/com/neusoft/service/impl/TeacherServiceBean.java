@@ -26,9 +26,9 @@ public class TeacherServiceBean implements TeacherService{
 	
 	
 	@Override
-	public List<Teacher> findAll() {
+	public List<Teacher> findAllTeacher() {
 		try {
-			return mapper.findAll();
+			return mapper.findAllTeacher();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -47,7 +47,7 @@ public class TeacherServiceBean implements TeacherService{
 			e1.printStackTrace();
 		}
 		try {
-			mapper.addTeacher(new Teacher(tid,tname,url,introduction,qid));
+			mapper.saveTeacher(new Teacher(tid,tname,url,introduction,qid));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
