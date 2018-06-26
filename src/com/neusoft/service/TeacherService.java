@@ -12,7 +12,7 @@ import com.neusoft.po.Teacher;
 public interface TeacherService {
 	public List<Teacher> findAll();
 
-	public boolean addTeacher(Teacher teacher);
+	public String addTeacher(int tid,String tname,MultipartFile file,String introduction,int qid,HttpServletRequest request);
 	
 	public void addPhoto(MultipartFile file,HttpServletRequest request);
 }
