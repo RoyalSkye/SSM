@@ -2,11 +2,8 @@ package com.neusoft.service.impl;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.neusoft.mapper.TeacherMapper;
 import com.neusoft.po.Teacher;
