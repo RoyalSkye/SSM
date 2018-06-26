@@ -20,10 +20,10 @@ public class BranchServiceBean implements BranchService{
 		try {
 			return mapper.findAllBranch();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return null;
 		}
-		return null;
+		
 	}
 	@Override
 	public Branch findBranchById(int bid){

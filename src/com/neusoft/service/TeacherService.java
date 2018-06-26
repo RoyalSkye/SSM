@@ -10,9 +10,11 @@ import com.neusoft.po.Branch;
 import com.neusoft.po.Teacher;
 
 public interface TeacherService {
-	public List<Teacher> findAll();
-
-	public boolean addTeacher(Teacher teacher);
+	public List<Teacher> findAllTeacher();
+	public Teacher findTeacherById(int tid);
+	public boolean deleteTeacherById(int tid);
+	public boolean updateTeacher(Teacher t);
+	public boolean saveTeacher(Teacher t);
 	
-	public void addPhoto(MultipartFile file,HttpServletRequest request);
+	//public void addPhoto(MultipartFile file,HttpServletRequest request);
 }
