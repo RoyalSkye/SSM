@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.neusoft.po.Teacher;
 import com.neusoft.service.TeacherService;
+import com.neusoft.tools.FileTools;
 
 @Controller
 public class TeacherHandler {
@@ -66,30 +67,14 @@ public class TeacherHandler {
 	
 	@RequestMapping("/test/TeacherHandler_saveimg")
 	@ResponseBody
-	public String uploadajax(String username,String pwd,MultipartFile upload,HttpServletRequest request){
-		//1.文件上传
-		//1.1 重命名 时间戳+文件名/UUID+文件名  时间戳:当前系统时间距离1970年时间原点总的毫秒数
-		String filename=System.currentTimeMillis()+upload.getOriginalFilename();
-		//1.2 文件传到当前工程的同级目录下
-		String path=request.getServletContext().getRealPath("/");
-		File f =new File(path);
-		String ppath=f.getParent();
-		//1.3 临时文件拷贝到目标地址上 '/'任何操作系统都认识
-		File dest=new File(ppath+"/upload",filename);
-		try {
-			upload.transferTo(dest);
-		} catch (IllegalStateException e) {
-			// TODO Auto-generated catch block
-			System.out.println("1");
-			e.printStackTrace();
-			return "{\"result\":false}";
-		} catch (IOException e) {
-			System.out.println("2");
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+	public String saveimg(MultipartFile upload,HttpServletRequest request){
+		//数据库中未存储where to save this photo?
+		String url=FileTools.saveimg(upload,request);
+		if(url!=null){
+			return "{\"result\":true}";
+		}else{
 			return "{\"result\":false}";
 		}
-		return "{\"result\":true}";
 	}
 	
 }
