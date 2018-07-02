@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neusoft.mapper.LessonMapper">                                                                                                                               
+
+	<select id="findAllLesson"  resultType="com.neusoft.po.Lesson">
+		select * from lesson
+	</select>
+	
+	<select id="findLessonById"  parameterType="int" resultType="com.neusoft.po.Lesson">
+		select * from lesson where lid=#{lid}
+	</select>
+	
+	<delete id="deleteLessonById"  parameterType="int">
+		delete from lesson where lid=#{lid}
+	</delete>
+	
+	<update id="updateLesson"  parameterType="com.neusoft.po.Lesson">
+		update lesson set lname=#{lname},imgurl=#{imgurl},lprice=#{lprice},ldesc=#{ldesc},category=#{category},qid=#{qid},pubtime=#{pubtime} where lid=#{lid}
+	</update>
+	
+	<insert id="saveLesson"  parameterType="com.neusoft.po.Lesson">
+		insert into lesson(lid,lname,imgurl,lprice,ldesc,category,qid,pubtime) values(#{fid},#{lname},#{imgurl},#{lprice},#{ldesc},#{category},#{qid},#{pubtime})
+	</insert>
+	
+</mapper>

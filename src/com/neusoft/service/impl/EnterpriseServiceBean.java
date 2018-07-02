@@ -8,13 +8,15 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.neusoft.mapper.EnterpriseMapper;
 import com.neusoft.po.Enterprise;
+import com.neusoft.service.EnterpriseService;
 
 @Service
-public class EnterpriseServiceBean implements com.neusoft.service.EnterpriseService {
+public class EnterpriseServiceBean implements EnterpriseService {
 
 	@Autowired
 	private EnterpriseMapper mapper;
 
+	@Override
 	public Boolean updateEnterprise(Enterprise e) throws Exception{
 		boolean isok=false;
 		int result=mapper.updateEnterprise(e);
