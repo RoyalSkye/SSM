@@ -25,6 +25,7 @@ public class TeacherServiceBean implements TeacherService {
 		return mapper.findTeacherById(tid);
 	}
 
+
 	@Override
 	public boolean deleteTeacherById(int tid) throws Exception{
 		boolean isok=false;

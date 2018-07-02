@@ -61,7 +61,6 @@ public class FreelistenHandler {
 			return "{\"result\":false}";
 		}
 	}
-	
 }
 
 

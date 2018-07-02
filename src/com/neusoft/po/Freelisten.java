@@ -11,6 +11,19 @@ public class Freelisten {
 	private String status;
 	private String qid;
 	private String bid;
+	private Date pubtime;
+	public Freelisten(int fid, String title, String imgurl, String fdesc, String status, String qid, String bid,
+			Date pubtime) {
+		super();
+		this.fid = fid;
+		this.title = title;
+		this.imgurl = imgurl;
+		this.fdesc = fdesc;
+		this.status = status;
+		this.qid = qid;
+		this.bid = bid;
+		this.pubtime = pubtime;
+	}
 	public int getFid() {
 		return fid;
 	}
@@ -59,7 +72,7 @@ public class Freelisten {
 	public void setPubtime(Date pubtime) {
 		this.pubtime = pubtime;
 	}
-	private Date pubtime;
+	
 	@Override
 	public String toString() {
 		return "Freelisten [fid=" + fid + ", title=" + title + ", imgurl=" + imgurl + ", fdesc=" + fdesc + ", status="

@@ -13,3 +13,4 @@ public interface FreelistenMapper {
 	public int updateFreelisten(Freelisten freelisten)throws Exception;
 }
 	
+
