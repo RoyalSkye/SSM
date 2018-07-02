@@ -5,7 +5,8 @@ public class Enterprise {
 	private int qid;
 	private String name;
 	private String videopath;
-	private String inrtoduction;
+	private String introduction;
+	private String text;
 	public int getQid() {
 		return qid;
 	}
@@ -24,11 +25,11 @@ public class Enterprise {
 	public void setVideopath(String videopath) {
 		this.videopath = videopath;
 	}
-	public String getInrtoduction() {
-		return inrtoduction;
+	public String getIntroduction() {
+		return introduction;
 	}
-	public void setInrtoduction(String inrtoduction) {
-		this.inrtoduction = inrtoduction;
+	public void setIntroduction(String introduction) {
+		this.introduction = introduction;
 	}
 	public String getText() {
 		return text;
@@ -36,10 +37,18 @@ public class Enterprise {
 	public void setText(String text) {
 		this.text = text;
 	}
-	private String text;
+	
 	@Override
 	public String toString() {
 		return "Enterprise [qid=" + qid + ", name=" + name + ", videopath=" + videopath + ", inrtoduction="
-				+ inrtoduction + ", text=" + text + "]";
+				+ introduction + ", text=" + text + "]";
+	}
+	public Enterprise(int qid, String name, String videopath, String inrtoduction, String text) {
+		super();
+		this.qid = qid;
+		this.name = name;
+		this.videopath = videopath;
+		this.introduction = inrtoduction;
+		this.text = text;
 	}
 }
