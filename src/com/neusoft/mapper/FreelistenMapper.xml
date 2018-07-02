@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neusoft.mapper.BranchMapper">                                                                                                                               
+
+	<select id="findAllFreelisten"  resultType="com.neusoft.po.Freelisten">
+		select * from freelisten
+	</select>
+	
+	<select id="findFreelistenById"  parameterType="int" resultType="com.neusoft.po.Freelisten">
+		select * from freelisten where fid=#{fid}
+	</select>
+	
+	<delete id="deleteFreelistenById"  parameterType="int">
+		delete from freelisten where fid=#{fid}
+	</delete>
+	
+
+	<update id="updateFreelisten"  parameterType="com.neusoft.po.Freelisten">
+		update freelisten set fid=#{fid},title=#{title},imgurl=#{imgurl},fdesc=#{fdesc},status=#{status},qid=#{qid},bid=#{bid},pubtime=#{pubtime} where fid=#{fid}
+	</update>
+	
+	
+	
+	<insert id="saveFreelisten"  parameterType="com.neusoft.po.Freelisten">
+		insert into freelisten(fid,title,imgurl,fdesc,status,qid,bid,pubtime) values(#{fid},#{title},#{imgurl},#{fdesc},#{status},#{qid},#{bid},#{pubtime})
+	</insert>
+	
+</mapper>

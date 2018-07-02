@@ -18,19 +18,19 @@ public class BranchHandler {
 	
 	@RequestMapping(value="/test/BranchHandler_findAllBranch")
 	@ResponseBody
-	public List<Branch> findAllBranch(){
+	public List<Branch> findAllBranch() throws Exception{
 		return branchService.findAllBranch();
 	}
 	
 	@RequestMapping(value="/test/BranchHandler_findBranchById")
 	@ResponseBody
-	public Branch findBranchById(int bid){
+	public Branch findBranchById(int bid) throws Exception{
 		return branchService.findBranchById(bid);
 	}
 	
 	@RequestMapping(value="/test/BranchHandler_deleteBranchById")
 	@ResponseBody
-	public String deleteBranchById(int bid){
+	public String deleteBranchById(int bid) throws Exception{
 		if(branchService.deleteBranchById(bid)){
 			return "{\"result\":true}";
 		}else{
@@ -40,7 +40,7 @@ public class BranchHandler {
 	
 	@RequestMapping(value="/test/BranchHandler_updateBranch")
 	@ResponseBody
-	public String updateBranch(Branch b){
+	public String updateBranch(Branch b) throws Exception{
 		if(branchService.updateBranch(b)){
 			return "{\"result\":true}";
 		}else{
@@ -51,7 +51,7 @@ public class BranchHandler {
 	
 	@RequestMapping(value="/test/BranchHandler_saveBranch")
 	@ResponseBody
-	public String saveBranch(Branch b){
+	public String saveBranch(Branch b) throws Exception{
 		if(branchService.saveBranch(b)){
 			return "{\"result\":true}";
 		}else{

@@ -22,19 +22,19 @@ public class TeacherHandler {
 	
 	@RequestMapping(value="/test/TeacherHandler_findAllTeacher")
 	@ResponseBody
-	public List<Teacher> findAllBranch(){
+	public List<Teacher> findAllBranch() throws Exception{
 		return teacherService.findAllTeacher();
 	}
 	
 	@RequestMapping(value="/test/TeacherHandler_findTeacherById")
 	@ResponseBody
-	public Teacher findTeacherById(int tid){
+	public Teacher findTeacherById(int tid) throws Exception{
 		return teacherService.findTeacherById(tid);
 	}
 	
 	@RequestMapping(value="/test/TeacherHandler_deleteTeacherById")
 	@ResponseBody
-	public String deleteTeacherById(int tid){
+	public String deleteTeacherById(int tid) throws Exception{
 		if(teacherService.deleteTeacherById(tid)){
 			return "{\"result\":true}";
 		}else{
@@ -44,7 +44,7 @@ public class TeacherHandler {
 	
 	@RequestMapping(value="/test/TeacherHandler_updateTeacher")
 	@ResponseBody
-	public String updateTeacher(Teacher t){
+	public String updateTeacher(Teacher t) throws Exception{
 		if(teacherService.updateTeacher(t)){
 			return "{\"result\":true}";
 		}else{
@@ -55,7 +55,7 @@ public class TeacherHandler {
 	
 	@RequestMapping(value="/test/TeacherHandler_saveTeacher")
 	@ResponseBody
-	public String saveTeacher(Teacher t){
+	public String saveTeacher(Teacher t) throws Exception{
 		if(teacherService.saveTeacher(t)){
 			return "{\"result\":true}";
 		}else{
@@ -65,7 +65,7 @@ public class TeacherHandler {
 	
 	@RequestMapping("/test/TeacherHandler_saveimg")
 	@ResponseBody
-	public String saveimg(MultipartFile upload,HttpServletRequest request){
+	public String saveimg(MultipartFile upload,HttpServletRequest request) throws Exception{
 		//Êý¾Ý¿âÖÐÎ´´æ´¢where to save this photo?
 		String url=FileTools.saveimg(upload,request);
 		if(url!=null){

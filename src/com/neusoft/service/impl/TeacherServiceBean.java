@@ -16,73 +16,47 @@ public class TeacherServiceBean implements TeacherService {
 	private TeacherMapper mapper;
 	
 	@Override
-	public List<Teacher> findAllTeacher() {
-		try {
-			return mapper.findAllTeacher();
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
+	public List<Teacher> findAllTeacher() throws Exception{
+		return mapper.findAllTeacher();
 	}
 
 	@Override
-	public Teacher findTeacherById(int tid) {
-		try {
-			return mapper.findTeacherById(tid);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
+	public Teacher findTeacherById(int tid) throws Exception{
+		return mapper.findTeacherById(tid);
 	}
 
 	@Override
-	public boolean deleteTeacherById(int tid) {
+	public boolean deleteTeacherById(int tid) throws Exception{
 		boolean isok=false;
-		try {
-			int result=mapper.deleteTeacherById(tid);
-			if(result>0){
-				isok=true;
-			}else{
-				isok=false;
-			}
-		} catch (Exception e) {
+		int result=mapper.deleteTeacherById(tid);
+		if(result>0){
+			isok=true;
+		}else{
 			isok=false;
-			e.printStackTrace();
 		}
 		return isok;
 	}
 
 	@Override
-	public boolean updateTeacher(Teacher t) {
+	public boolean updateTeacher(Teacher t) throws Exception{
 		boolean isok=false;
-		try {
-			int result=mapper.updateTeacher(t);
-			if(result>0){
-				isok=true;
-			}else{
-				isok=false;
-			}
-		} catch (Exception e) {
+		int result=mapper.updateTeacher(t);
+		if(result>0){
+			isok=true;
+		}else{
 			isok=false;
-			e.printStackTrace();
 		}
 		return isok;
 	}
 
 	@Override
-	public boolean saveTeacher(Teacher t) {
+	public boolean saveTeacher(Teacher t) throws Exception{
 		boolean isok=false;
-		try {
-			int result=mapper.saveTeacher(t);
-			if(result>0){
-				isok=true;
-			}else{
-				isok=false;
-			}
-		} catch (Exception e) {
+		int result=mapper.saveTeacher(t);
+		if(result>0){
+			isok=true;
+		}else{
 			isok=false;
-			e.printStackTrace();
 		}
 		return isok;
 	}

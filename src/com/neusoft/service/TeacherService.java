@@ -5,11 +5,11 @@ import java.util.List;
 import com.neusoft.po.Teacher;
 
 public interface TeacherService {
-	public List<Teacher> findAllTeacher();
-	public Teacher findTeacherById(int tid);
-	public boolean deleteTeacherById(int tid);
-	public boolean updateTeacher(Teacher t);
-	public boolean saveTeacher(Teacher t);
+	public List<Teacher> findAllTeacher() throws Exception;
+	public Teacher findTeacherById(int tid) throws Exception;
+	public boolean deleteTeacherById(int tid) throws Exception;
+	public boolean updateTeacher(Teacher t) throws Exception;
+	public boolean saveTeacher(Teacher t) throws Exception;
 	
 	//public void addPhoto(MultipartFile file,HttpServletRequest request);
 }

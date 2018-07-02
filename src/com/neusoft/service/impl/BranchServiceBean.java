@@ -16,73 +16,47 @@ public class BranchServiceBean implements BranchService{
 	private BranchMapper mapper;
 	
 	@Override
-	public List<Branch> findAllBranch() {
-		try {
-			return mapper.findAllBranch();
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
+	public List<Branch> findAllBranch() throws Exception{
+		return mapper.findAllBranch();
+	}
+	@Override
+	public Branch findBranchById(int bid) throws Exception{
+		return mapper.findBranchById(bid);
 		
 	}
-	@Override
-	public Branch findBranchById(int bid){
-		try {
-			return mapper.findBranchById(bid);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
-	}
 	
 	@Override
-	public boolean deleteBranchById(int bid){
+	public boolean deleteBranchById(int bid) throws Exception{
 		boolean isok=false;
-		try {
-			int result=mapper.deleteBranchById(bid);
-			if(result>0){
-				isok=true;
-			}else{
-				isok=false;
-			}
-		} catch (Exception e) {
+		int result=mapper.deleteBranchById(bid);
+		if(result>0){
+			isok=true;
+		}else{
 			isok=false;
-			e.printStackTrace();
 		}
 		return isok;
 	}
 	
 	@Override
-	public boolean updateBranch(Branch b) {
+	public boolean updateBranch(Branch b) throws Exception{
 		boolean isok=false;
-		try {
-			int result=mapper.updateBranch(b);
-			if(result>0){
-				isok=true;
-			}else{
-				isok=false;
-			}
-		} catch (Exception e) {
+		int result=mapper.updateBranch(b);
+		if(result>0){
+			isok=true;
+		}else{
 			isok=false;
-			e.printStackTrace();
 		}
 		return isok;
 	}
 	
 	@Override
-	public boolean saveBranch(Branch b) {
+	public boolean saveBranch(Branch b) throws Exception{
 		boolean isok=false;
-		try {
-			int result=mapper.saveBranch(b);
-			if(result>0){
-				isok=true;
-			}else{
-				isok=false;
-			}
-		} catch (Exception e) {
+		int result=mapper.saveBranch(b);
+		if(result>0){
+			isok=true;
+		}else{
 			isok=false;
-			e.printStackTrace();
 		}
 		return isok;
 	}
