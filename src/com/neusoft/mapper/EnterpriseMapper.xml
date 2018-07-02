@@ -4,9 +4,12 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.neusoft.mapper.EnterpriseMapper">                                                                                                                               
 
+	<select id="findEnterpriseById"  parameterType="int" resultType="com.neusoft.po.Enterprise">
+		select * from enterprise where qid=#{qid}
+	</select>
 
 	<select id="updateEnterprise"  parameterType="com.neusoft.po.Enterprise">
-		update branch set qid=#{qid},name=#{name},videopath=#{videopath},
-		introduction=#{introduction},text=#{text}
+		update enterprise set name=#{name},videopath=#{videopath},introduction=#{introduction},text=#{text} where qid=#{qid}
 	</select>
-	</mapper>
+	
+</mapper>

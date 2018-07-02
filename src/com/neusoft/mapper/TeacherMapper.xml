@@ -13,7 +13,7 @@
 	</select>
 
 	<delete id="deleteTeacherById"  parameterType="int">
-		delete from TEACHER where tid=#{tid}
+		delete from teacher where tid=#{tid}
 	</delete>
 
 	<update id="updateTeacher"  parameterType="com.neusoft.po.Teacher">

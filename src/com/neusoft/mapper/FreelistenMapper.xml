@@ -5,26 +5,26 @@
 <mapper namespace="com.neusoft.mapper.FreelistenMapper">                                                                                                                               
 
 	<select id="findAllFreelisten"  resultType="com.neusoft.po.Freelisten">
-		select * from Freelisten
+		select * from freelisten
 	</select>
 	
 	<select id="findFreelistenById"  parameterType="int" resultType="com.neusoft.po.Freelisten">
-		select * from branch where fid=#{fid}
+		select * from freelisten where fid=#{fid}
 	</select>
 	
 	<delete id="deleteFreelistenById"  parameterType="int">
-		delete from branch where fid=#{fid}
+		delete from freelisten where fid=#{fid}
 	</delete>
 	
 
 	<update id="updateFreelisten"  parameterType="com.neusoft.po.Freelisten">
-		update branch set fid=#{fid},title=#{title},imgurl=#{imgurl},fdesc=#{fdesc},status=#{status},qid=#{qid},bid=#{bid},pubtime=#{pubtime} where fid=#{fid}
+		update freelisten set fid=#{fid},title=#{title},imgurl=#{imgurl},fdesc=#{fdesc},status=#{status},qid=#{qid},bid=#{bid},pubtime=#{pubtime} where fid=#{fid}
 	</update>
 	
 	
 	
 	<insert id="saveFreelisten"  parameterType="com.neusoft.po.Freelisten">
-		insert into Freelisten(fid,title,imgurl,fdesc,status,qid,bid,pubtime) values(#{fid},#{title},#{imgurl},#{fdesc},#{status},#{qid},#{bid},#{pubtime})
+		insert into freelisten(fid,title,imgurl,fdesc,status,qid,bid,pubtime) values(#{fid},#{title},#{imgurl},#{fdesc},#{status},#{qid},#{bid},#{pubtime})
 	</insert>
 	
 </mapper>

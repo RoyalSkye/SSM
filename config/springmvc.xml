@@ -26,17 +26,16 @@
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver" />
 	<context:component-scan base-package="com.neusoft.control" />
 	
-		<!-- 拦截器的配置：只能拦截处理器路径 
-	<mvc:interceptors>
+	<!--<mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/**"/>
-			不对哪些内容进行拦截 
-			<mvc:exclude-mapping path="/MessageHandler_login"/>    
+			 不对哪些内容进行拦截  
+			<mvc:exclude-mapping path="/MessageHandler_login"/>  
 			
-			<bean class="com.neusoft.interceptor.MyInterceptor"></bean>
+			<bean class="com.neusoft.interceptor.LoginInterceptor"></bean>
 		</mvc:interceptor>
-	</mvc:interceptors>
-	  -->
+	</mvc:interceptors>-->
+	  
 	
 	<!-- 配置静态资源 css,js,img,html -->
 	 <mvc:default-servlet-handler/>
@@ -49,6 +48,8 @@
 		</property>
 	</bean>
 	
+	<!-- 配置全局异常处理器 -->
+	<bean class="com.neusoft.control.GlobalExceptionResolver"></bean>
 
 </beans>
 

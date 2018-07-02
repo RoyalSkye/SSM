@@ -1,7 +1,5 @@
 package com.neusoft.control;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,11 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.neusoft.po.Branch;
 import com.neusoft.po.Teacher;
-import com.neusoft.service.BranchService;
 import com.neusoft.service.TeacherService;
-import com.neusoft.tools.Tools;
+import com.neusoft.tools.FileTools;
 
 @Controller
 public class TeacherHandler {
@@ -26,21 +22,57 @@ public class TeacherHandler {
 	
 	@RequestMapping(value="/test/TeacherHandler_findAllTeacher")
 	@ResponseBody
-	public List<Teacher> findAllTeacher(){
+	public List<Teacher> findAllBranch() throws Exception{
 		return teacherService.findAllTeacher();
 	}
 	
-	@RequestMapping(value="/test/TeacherHandler_add")
+	@RequestMapping(value="/test/TeacherHandler_findTeacherById")
 	@ResponseBody
-	public String addTeacher(int tid,String tname,MultipartFile file,String introduction,int qid,HttpServletRequest request)
-	{
-			return teacherService.addTeacher(tid, tname, file, introduction, qid, request);
+	public Teacher findTeacherById(int tid) throws Exception{
+		return teacherService.findTeacherById(tid);
 	}
 	
-	
-	public void addPhoto(MultipartFile file,HttpServletRequest request){
-			teacherService.addPhoto(file,request);
+	@RequestMapping(value="/test/TeacherHandler_deleteTeacherById")
+	@ResponseBody
+	public String deleteTeacherById(int tid) throws Exception{
+		if(teacherService.deleteTeacherById(tid)){
+			return "{\"result\":true}";
+		}else{
+			return "{\"result\":false}";
+		}
 	}
-
+	
+	@RequestMapping(value="/test/TeacherHandler_updateTeacher")
+	@ResponseBody
+	public String updateTeacher(Teacher t) throws Exception{
+		if(teacherService.updateTeacher(t)){
+			return "{\"result\":true}";
+		}else{
+			return "{\"result\":false}";
+		}
+		//return to the findallbranch html
+	}
+	
+	@RequestMapping(value="/test/TeacherHandler_saveTeacher")
+	@ResponseBody
+	public String saveTeacher(Teacher t) throws Exception{
+		if(teacherService.saveTeacher(t)){
+			return "{\"result\":true}";
+		}else{
+			return "{\"result\":false}";
+		}
+	}
+	
+	@RequestMapping("/test/TeacherHandler_saveimg")
+	@ResponseBody
+	public String saveimg(MultipartFile upload,HttpServletRequest request) throws Exception{
+		//Êý¾Ý¿âÖÐÎ´´æ´¢where to save this photo?
+		String url=FileTools.saveimg(upload,request);
+		if(url!=null){
+			return "{\"result\":true}";
+		}else{
+			return "{\"result\":false}";
+		}
+	}
+	
 }
-
