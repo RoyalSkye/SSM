@@ -17,11 +17,7 @@ public class OrderHandler {
 	
 	OrderService service;
 	
-	public int oid;
-	public String status;
-	public Date beginDate;
-	public Date endDate;
-	public int qid;
+	
 	
 	@RequestMapping(value="/test/OrderHandler_findAllOrder")
 	@ResponseBody

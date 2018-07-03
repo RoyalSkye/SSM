@@ -2,47 +2,36 @@ package com.neusoft.vo;
 
 import java.util.Date;
 
-public class OrderVo {
+public class FreelistenbookVo {
 
-	private int oid;
+	private int id;
+	private String cname;
 	private String status;
 	private Date beginDate;
 	private Date endDate;
-	private int qid;
 	
 	
-	public OrderVo(int oid, String status) {
+	
+	public FreelistenbookVo(int id, String cname, String status, Date beginDate, Date endDate) {
 		super();
-		this.oid = oid;
-		this.status = status;
-	}
-
-	public int getQid() {
-		return qid;
-	}
-
-	public void setQid(int qid) {
-		this.qid = qid;
-	}
-
-	public OrderVo(int qid,int oid, String status, Date beginDate, Date endDate) {
-		super();
-		this.qid = qid;
-		this.oid = oid;
+		this.id = id;
+		this.cname = cname;
 		this.status = status;
 		this.beginDate = beginDate;
 		this.endDate = endDate;
 	}
 	
-	public OrderVo() {
-		// TODO Auto-generated constructor stub
+	public int getId() {
+		return id;
 	}
-
-	public int getOid() {
-		return oid;
+	public void setId(int id) {
+		this.id = id;
 	}
-	public void setOid(int oid) {
-		this.oid = oid;
+	public String getCname() {
+		return cname;
+	}
+	public void setCname(String cname) {
+		this.cname = cname;
 	}
 	public String getStatus() {
 		return status;
@@ -62,5 +51,12 @@ public class OrderVo {
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
+	
+
+	
+	
+	
+	
+	
 	
 }
