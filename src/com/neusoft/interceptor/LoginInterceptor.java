@@ -26,7 +26,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object arg2) throws Exception {
 		System.out.println("...MyInterceptor...preHandle()...Ç°ÖÃÍ¨Öª...");
-		HttpSession session=request.getSession();
+		/*HttpSession session=request.getSession();
 		boolean isLoginOK=Boolean.parseBoolean((session.getAttribute("isLoginOK")+""));
 		if(isLoginOK){
 			return true;
@@ -36,7 +36,8 @@ public class LoginInterceptor implements HandlerInterceptor {
 			request.getRequestDispatcher("index.jsp").forward(request, response);
 			//response.sendRedirect("index.jsp");
 			return false;
-		}
+		}*/
+		return true;
 	}
 
 }

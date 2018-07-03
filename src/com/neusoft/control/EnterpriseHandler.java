@@ -22,6 +22,7 @@ public class EnterpriseHandler {
 	@RequestMapping(value="/test/EnterpriseHandler_findEnterpriseById")
 	@ResponseBody
 	public Enterprise findEnterpriseById(int qid) throws Exception{
+		System.out.println("qid="+qid);
 		return enterpriseService.findEnterpriseById(qid);
 	}
 	

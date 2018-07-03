@@ -9,7 +9,7 @@
 	</select>
 
 	<select id="updateEnterprise"  parameterType="com.neusoft.po.Enterprise">
-		update enterprise set name=#{name},videopath=#{videopath},introduction=#{introduction},text=#{text} where qid=#{qid}
+		update enterprise set name=#{name},videopath=#{videopath},introduction=#{introduction},uetext=#{uetext} where qid=#{qid}
 	</select>
 	
 </mapper>

@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.0.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>NeuSoft introduction</title>
+  <link rel="stylesheet" href="./layui/css/layui.css">
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.0.js"></script>
 <script>
 	$(function(){
 		
@@ -13,37 +15,148 @@
 		jsp写绝对路径，工程名通过方法动态获取   html写相对路径
 		*/
 		$.ajax({
-			url:"test/BranchHandler_findAllBranch",
+			url:"test/EnterpriseHandler_findEnterpriseById?qid=1",
 			success:function(data)
 			{
-				for(var i=0;i<data.length;i++){
-					var tr='<tr>';
-					tr+='<td>'+data[i].bid+'</td>';
-					tr+='<td>'+data[i].qid+'</td>';
-					tr+='<td>'+data[i].name+'</td>';
-					tr+='<td>'+data[i].address+'</td>';
-					tr+='<td>'+data[i].tel+'</td>';
-					tr+='</tr>';
-					$("#tab").append(tr);				
-				}
+				console.log(data);
+				//alert($("#enterprisephoto1").attr("src"));
+				$("#enterprisephoto1").attr("src","./img/mainBg0.jpg");
+				$("#enterprisephoto2").attr("src","./img/mainBg1.jpg");
 			}
 		})
 		
 	})
 </script>
 </head>
-<body>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+  <div class="layui-header">
+    <div class="layui-logo">NeuSoft</div>
+    <!-- 头部区域（可配合layui已有的水平导航） -->
+    <!--
+    <ul class="layui-nav layui-layout-left">
+      <li class="layui-nav-item"><a href="">1</a></li>
+      <li class="layui-nav-item"><a href="">2</a></li>
+      <li class="layui-nav-item">
+        <a href="javascript:;">3</a>
+        <dl class="layui-nav-child">
+          <dd><a href="">1</a></dd>
+          <dd><a href="">2</a></dd>
+          <dd><a href="">3</a></dd>
+        </dl>
+      </li>
+    </ul>
+    -->
+    <ul class="layui-nav layui-layout-right">
+      <li class="layui-nav-item">
+        <a href="javascript:;">
+          <img src="../SSM/img/profile.jpg" class="layui-nav-img">
+          RoyalSkye
+        </a>
+        <dl class="layui-nav-child">
+          <dd><a href="">基本资料</a></dd>
+          <dd><a href="">安全设置</a></dd>
+        </dl>
+      </li>
+      <li class="layui-nav-item"><a href="login.html">Logout</a></li>
+    </ul>
+  </div>
+  
+  <div class="layui-side layui-bg-black">
+    <div class="layui-side-scroll">
+      <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+      <ul class="layui-nav layui-nav-tree"  lay-filter="test">
+        <li class="layui-nav-item layui-nav-itemed">
+          <a class="" href="javascript:;">企业管理</a>
+          <dl class="layui-nav-child">
+            <dd><a href="index.html">企业基本信息</a></dd>
+            <dd><a href="branchinfo.html">企业分部信息</a></dd>
+          </dl>
+        </li>
+        <li class="layui-nav-item">
+          <a href="javascript:;">师资管理</a>
+          <dl class="layui-nav-child">
+            <dd><a href="teacherinfo.html">师资力量</a></dd>
+            <dd><a href="teacherimg.html">师资首页图片</a></dd>
+          </dl>
+        </li>
+        <li class="layui-nav-item">
+          <a href="javascript:;">课程管理</a>
+          <dl class="layui-nav-child">
+            <dd><a href="lessoninfo.html">课程信息管理</a></dd>
+            <dd><a href="lessonimg.html">课程首页图片</a></dd>
+          </dl>
+        </li>
+        <li class="layui-nav-item">
+          <a href="javascript:;">预约管理</a>
+          <dl class="layui-nav-child">
+            <dd><a href="freelisteninfo.html">预约课程查询</a></dd>
+            <dd><a href="freelistenorder.html">预约课程处理</a></dd>
+          </dl>
+        </li>
+        <li class="layui-nav-item">
+          <a href="javascript:;">订单管理</a>
+          <dl class="layui-nav-child">
+            <dd><a href="orderinfo.html">订单查询</a></dd>
+            <dd><a href="orderrefund.html">退款处理</a></dd>
+            <dd><a href="ordercancel.html">订单核销</a></dd>
+          </dl>
+        </li>
+        <li class="layui-nav-item">
+          <a href="javascript:;">朋友圈管理</a>
+          <dl class="layui-nav-child">
+            <dd><a href="messageinfo.html">消息列表</a></dd>
+            <dd><a href="messagereply.html">评论列表</a></dd>
+            <dd><a href="messageimg.html">朋友圈首页图片</a></dd>
+          </dl>
+        </li>
+      </ul>
+    </div>
+  </div>
+  
+  <div class="layui-body">
+    <!-- 内容主体区域 -->
+    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+		  <legend>Neusoft</legend>
+		</fieldset>
 
-	<table id="tab">
-		<tr>
-			<th>公司编号</th>
-			<th>总公司编号</th>
-			<th>公司名称</th>
-			<th>公司地址</th>
-			<th>公司电话</th>
-		</tr>
-	
-	</table>
-
+<div class="layui-collapse">
+  <div class="layui-colla-item">
+    <h2 class="layui-colla-title">企业名称</h2>
+    <div class="layui-colla-content layui-show">东软睿道</div>
+  </div>
+  <div class="layui-colla-item">
+    <h2 class="layui-colla-title">企业图片</h2>
+    <div class="layui-colla-content layui-show"><img id="enterprisephoto1" src=""  width="300" height="300"><img id="enterprisephoto2" src=""  width="300" height="300"></div>
+  </div>
+  <div class="layui-colla-item">
+    <h2 class="layui-colla-title">企业简介</h2>
+    <div class="layui-colla-content layui-show">沈阳东软睿道教育服务有限公司（简称东软睿道）由东软创办，基于东软的产业发展与人才培养实践，提供更加符合IT行业发展需求的人才培养体系和方法学，精准提升大学生和大学后的就业、创业技能，为新经济时代的转型发展提供高质量规模化的人才供给。</div>
+  </div>
+  <div class="layui-colla-item">
+    <h2 class="layui-colla-title">企业视频</h2>
+    <div class="layui-colla-content layui-show"><video controls="controls" controls="controls"><source src="./img/1.mp4" type="video/mp4" /></video></div>
+  </div>
+  <div class="layui-colla-item">
+    <h2 class="layui-colla-title">精彩展示</h2>
+    <div class="layui-colla-content layui-show"><img src="./img/mainBg0.jpg"  width="300" height="300"><img src="./img/mainBg1.jpg"  width="300" height="300"></div>
+  </div>
+</div>
+  	<a href="updateindex.html"><button class="layui-btn layui-btn-lg">修改信息</button></a>
+  </div>
+  
+  <div class="layui-footer">
+    <!-- 底部固定区域 -->
+    © NeuSoft 
+  </div>
+</div>
+<script src="../SSM/layui/layui.js"></script>
+<script>
+//JavaScript代码区域
+layui.use('element', function(){
+  var element = layui.element;
+  
+});
+</script>
 </body>
 </html>
