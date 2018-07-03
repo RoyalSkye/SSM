@@ -4,10 +4,12 @@ import java.util.Date;
 
 public class Messagelike {
 
+	
 	private int id;
 	private int mid;
 	private String nickname;
 	private Date stime;
+	
 	public int getId() {
 		return id;
 	}

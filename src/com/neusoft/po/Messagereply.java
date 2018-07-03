@@ -8,6 +8,7 @@ public class Messagereply {
 	private int mid;
 	private String content;
 	private String nickname;
+	
 	public int getId() {
 		return id;
 	}

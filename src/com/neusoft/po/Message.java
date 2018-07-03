@@ -1,6 +1,8 @@
 package com.neusoft.po;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Message {
 
@@ -8,6 +10,29 @@ public class Message {
 	private String mtitle;
 	private Date mtime;
 	private int qid;
+	
+	List<Messageimg> messageimgList=new ArrayList<Messageimg>();
+	List<Messagereply> messagereplyList=new ArrayList<Messagereply>();
+	List<Messagelike> messagelikeList=new ArrayList<Messagelike>();
+	
+	public List<Messagereply> getMessagereplyList() {
+		return messagereplyList;
+	}
+	public void setMessagereplyList(List<Messagereply> messagereplyList) {
+		this.messagereplyList = messagereplyList;
+	}
+	public List<Messagelike> getMessagelikeList() {
+		return messagelikeList;
+	}
+	public void setMessagelikeList(List<Messagelike> messagelikeList) {
+		this.messagelikeList = messagelikeList;
+	}
+	public List<Messageimg> getMessageimgList() {
+		return messageimgList;
+	}
+	public void setMessageimgList(List<Messageimg> messageimgList) {
+		this.messageimgList = messageimgList;
+	}
 	public int getMid() {
 		return mid;
 	}

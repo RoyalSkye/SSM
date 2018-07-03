@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neusoft.mapper.OrderMapper">                                                                                                                               
+
+	<select id="findAllOrder"  resultType="com.neusoft.po.Order">
+		select * from order
+	</select>
+	
+	<select id="findOrder"  parameterType="OrderVo" resultType="com.neusoft.po.Order">
+		select * from order where 1=1
+		<if test="oid != null">
+			and oid=#{oid}
+		</if>
+		<if test="status != null">
+			and status like '%${status}%'
+		</if>
+		<if test="starttime != null">
+			and ordertime &gt;='%${beginDate}%'
+		</if>
+		<if test="endtime != null">
+			and ordertime &lt;= '%${endDate}%'
+		</if>		
+	</select>
+	
+	<update id="updateOrder" parameterType="com.neusoft.po.Order">
+			update order set status=#{status} where oid=#{oid}
+	</update>
+	
+	
+	
+</mapper>

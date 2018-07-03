@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neusoft.mapper.MessageMapper">                                                                                                                               
+	
+	<!-- 配置   (1对多)   关系的映射类型 -->
+	<resultMap type="com.neusoft.po.Message" id="message_messageimg_map">
+		<id property="mid" column="mid"/>
+		<result property="mtitle" column="mtitle"/>
+		<result property="mtime" column="mtime"/>
+		<result property="qid" column="qid"/>
+		<collection property="messageimgList" ofType="com.neusoft.po.Messageimg">
+			<id property="id" column="id" />
+			<result property="mid" column="mid" />
+			<result property="imgurl" column="imgurl" />
+		</collection>
+	</resultMap>
+	<resultMap type="com.neusoft.po.Message" id="message_messagereply_map">
+		<id property="mid" column="mid"/>
+		<result property="mtitle" column="mtitle"/>
+		<result property="mtime" column="mtime"/>
+		<result property="qid" column="qid"/>
+		<collection property="messagereplyList" ofType="com.neusoft.po.Messagereply">
+			<id property="id" column="id" />
+			<result property="mid" column="mid" />
+			<result property="content" column="content" />
+			<result property="nickname" column="nickname" />
+			<result property="stime" column="stime" />
+		</collection>
+	</resultMap>
+
+	<select id="findAllMessage"  resultType="message_messageimg_map">
+		select * from message left join messageimg on message.mid=messageimg.mid
+	</select>
+	
+	<select id="findMessageById"  resultType="message_messageimg_map">
+		select * from message left join messageimg on message.mid=messageimg.mid where mid=#{mid}
+	</select>
+	
+	<delete id="deleteMessage"  parameterType="int">  <!-- 会删除此条朋友圈的所有相关内容 级联删除 cascade -->
+		delete from message where mid=#{mid}
+	</delete>
+	
+	<update id="updateMessage"  parameterType="int">  <!-- 未向表messageimg中insert delete -->
+		update message,messageimg set message.mtitle=#{mtitle},message.mtime=#{mtime} where message.mid=#{mid}
+	</update>
+
+	<select id="findMessagereplyById"  parameterType="int" resultType="message_messagereply_map">
+		select * from message left join messagereply on message.mid=messagereply.mid where message.mid=#{mid}
+	</select>
+	
+	<delete id="deleteMessagereply"  parameterType="int">
+		delete from messagereply where id=#{id}
+	</delete>
+	
+</mapper>
