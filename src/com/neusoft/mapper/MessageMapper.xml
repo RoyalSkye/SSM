@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neusoft.mapper.MessageMapper">                                                                                                                               
+
+	<select id="findAllMessage"  resultType="com.neusoft.po.Message">
+		select * from Message
+	</select>
+	
+	<select id="findAllMessagereply"  resultType="com.neusoft.po.Messagereply">
+		select * from Messagereply
+	</select>
+	
+	<delete id="deleteMessage"  parameterType="int">
+		delete from Message where mid=#{mid}
+	</delete>
+	
+		<delete id="deleteMessagereply"  parameterType="int">
+		delete from Message where id=#{id}
+	</delete>
+	
+	
+	<update id="updateMessage"  parameterType="com.neusoft.po.Message">
+		update Message set mid=#{mid},mtitle=#{mtitle},mtime=#{mtime},qid=#{qid} where mid=#{mid}
+	</update>
+	
+	
+	
+</mapper>

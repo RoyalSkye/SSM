@@ -8,6 +8,19 @@ public class Messagereply {
 	private int mid;
 	private String content;
 	private String nickname;
+	
+	public Messagereply() {
+		super();
+	}
+	public Messagereply(int id, int mid, String content, String nickname, Date stime) {
+		super();
+		this.id = id;
+		this.mid = mid;
+		this.content = content;
+		this.nickname = nickname;
+		this.stime = stime;
+	}
+	
 	public int getId() {
 		return id;
 	}

@@ -8,6 +8,18 @@ public class Message {
 	private String mtitle;
 	private Date mtime;
 	private int qid;
+	
+	
+	public Message() {
+		super();
+	}
+	public Message(int mid, String mtitle, Date mtime, int qid) {
+		super();
+		this.mid = mid;
+		this.mtitle = mtitle;
+		this.mtime = mtime;
+		this.qid = qid;
+	}
 	public int getMid() {
 		return mid;
 	}
