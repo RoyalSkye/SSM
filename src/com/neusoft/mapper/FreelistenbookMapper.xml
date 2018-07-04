@@ -4,12 +4,12 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.neusoft.mapper.FreelistenbookMapper">                                                                                                                               
 
-	<select id="findAllFreelistenbook"  resultType="com.neusoft.po.Freelistenbook">
-		select * from freelistenbook
+	<select id="findAllFreelistenbook" parameterType="int" resultType="com.neusoft.po.Freelistenbook">
+		select * from freelistenbook where qid=#{qid}
 	</select>
 	
 	<select id="findFreelistenbook"  parameterType="Map" resultType="com.neusoft.po.Freelistenbook">
-		select * from freelistenbook where 1=1
+		select * from freelistenbook where qid=#{qid}
 		<if test="cname != null">
 			and cname like '%${cname}%'
 		</if>

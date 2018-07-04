@@ -25,8 +25,8 @@ public class FreelistenbookHandler {
 	
 	@RequestMapping(value="/test/FreelistenbookHandler_findAllFreelistenbook")
 	@ResponseBody
-	public List<Freelistenbook> findAllFreelistenbook() throws Exception{
-		return freelistenbookService.findAllFreelistenbook();
+	public List<Freelistenbook> findAllFreelistenbook(int qid) throws Exception{
+		return freelistenbookService.findAllFreelistenbook(qid);
 	}
 	
 	@RequestMapping(value="/test/FreelistenbookHandler_findFreelistenbook")
@@ -37,10 +37,12 @@ public class FreelistenbookHandler {
 		String cname=request.getParameter("cname");
 		String starttime=request.getParameter("starttime");
 		String endtime=request.getParameter("endtime");
+		String qid=request.getParameter("qid");
 		map.put("fid", fid);
 		map.put("cname", cname);
 		map.put("starttime", starttime);
 		map.put("endtime", endtime);
+		map.put("qid",qid);
 		return freelistenbookService.findFreelistenbook(map);
 	}
 	

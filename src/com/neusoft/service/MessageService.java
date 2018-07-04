@@ -8,7 +8,7 @@ import com.neusoft.po.Messagereply;
 public interface MessageService {
 
 	
-	public List<Message> findAllMessage() throws Exception;
+	public List<Message> findAllMessage(int qid) throws Exception;
 	public Message findMessageById(int mid) throws Exception;
 	public boolean updateMessage(Message message) throws Exception;
 	public boolean deleteMessage(int mid) throws Exception;

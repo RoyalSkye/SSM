@@ -22,8 +22,8 @@ public class TeacherHandler {
 	
 	@RequestMapping(value="/test/TeacherHandler_findAllTeacher")
 	@ResponseBody
-	public List<Teacher> findAllBranch() throws Exception{
-		return teacherService.findAllTeacher();
+	public List<Teacher> findAllTeacher(int qid) throws Exception{
+		return teacherService.findAllTeacher(qid);
 	}
 	
 	@RequestMapping(value="/test/TeacherHandler_findTeacherById")

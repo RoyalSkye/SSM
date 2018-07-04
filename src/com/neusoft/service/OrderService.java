@@ -7,7 +7,7 @@ import com.neusoft.po.Order;
 
 public interface OrderService {
 
-	public List<Order> findAllOrder() throws Exception;
+	public List<Order> findAllOrder(int qid) throws Exception;
 	public List<Order> findOrder(Map map) throws Exception;
 	public boolean updateOrder(Order order) throws Exception;
 }

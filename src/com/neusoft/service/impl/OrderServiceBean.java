@@ -17,8 +17,8 @@ public class OrderServiceBean implements OrderService {
 	private OrderMapper mapper;
 	
 	@Override
-	public List<Order> findAllOrder() throws Exception {
-		return mapper.findAllOrder();
+	public List<Order> findAllOrder(int qid) throws Exception {
+		return mapper.findAllOrder(qid);
 	}
 
 	@Override

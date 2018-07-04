@@ -16,8 +16,8 @@ public class TeacherServiceBean implements TeacherService {
 	private TeacherMapper mapper;
 	
 	@Override
-	public List<Teacher> findAllTeacher() throws Exception{
-		return mapper.findAllTeacher();
+	public List<Teacher> findAllTeacher(int qid) throws Exception{
+		return mapper.findAllTeacher(qid);
 	}
 
 	@Override

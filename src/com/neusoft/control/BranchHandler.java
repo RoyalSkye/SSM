@@ -18,8 +18,8 @@ public class BranchHandler {
 	
 	@RequestMapping(value="/test/BranchHandler_findAllBranch")
 	@ResponseBody
-	public List<Branch> findAllBranch() throws Exception{
-		return branchService.findAllBranch();
+	public List<Branch> findAllBranch(int qid) throws Exception{
+		return branchService.findAllBranch(qid);
 	}
 	
 	@RequestMapping(value="/test/BranchHandler_findBranchById")

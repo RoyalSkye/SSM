@@ -17,8 +17,8 @@ public class MessageServiceBean implements MessageService {
 	private MessageMapper mapper;
 	
 	@Override
-	public List<Message> findAllMessage() throws Exception {
-		return mapper.findAllMessage();
+	public List<Message> findAllMessage(int qid) throws Exception {
+		return mapper.findAllMessage(qid);
 	}
 
 	@Override

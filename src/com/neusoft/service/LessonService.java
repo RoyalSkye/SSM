@@ -7,7 +7,7 @@ import com.neusoft.po.Lesson;
 
 public interface LessonService {
 	
-	public List<Lesson> findAllLesson() throws Exception;
+	public List<Lesson> findAllLesson(int qid) throws Exception;
 	public Lesson findLessonById(int lid) throws Exception;
 	public boolean deleteLessonById(int lid) throws Exception;
 	public boolean saveLesson(Lesson lesson) throws Exception;

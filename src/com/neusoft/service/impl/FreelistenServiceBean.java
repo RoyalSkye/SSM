@@ -17,8 +17,8 @@ public class FreelistenServiceBean implements FreelistenService {
 	private FreelistenMapper mapper;
 	
 	@Override
-	public List<Freelisten> findAllFreelisten() throws Exception {
-		return mapper.findAllFreelisten();
+	public List<Freelisten> findAllFreelisten(int qid) throws Exception {
+		return mapper.findAllFreelisten(qid);
 	}
 
 	@Override

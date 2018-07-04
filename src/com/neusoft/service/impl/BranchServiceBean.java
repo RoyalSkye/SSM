@@ -16,8 +16,8 @@ public class BranchServiceBean implements BranchService{
 	private BranchMapper mapper;
 	
 	@Override
-	public List<Branch> findAllBranch() throws Exception{
-		return mapper.findAllBranch();
+	public List<Branch> findAllBranch(int qid) throws Exception{
+		return mapper.findAllBranch(qid);
 	}
 	@Override
 	public Branch findBranchById(int bid) throws Exception{

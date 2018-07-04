@@ -20,8 +20,8 @@ public class MessageHandler {
 	
 	@RequestMapping(value="/test/MessageHandler_findAllMessage")
 	@ResponseBody
-	public List<Message> findAllMessage() throws Exception{
-		return messageService.findAllMessage();
+	public List<Message> findAllMessage(int qid) throws Exception{
+		return messageService.findAllMessage(qid);
 	}
 	
 	@RequestMapping(value="/test/MessageHandler_findMessageById")

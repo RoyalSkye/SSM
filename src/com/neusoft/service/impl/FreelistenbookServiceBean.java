@@ -22,8 +22,8 @@ public class FreelistenbookServiceBean implements FreelistenbookService {
 	}
 
 	@Override
-	public List<Freelistenbook> findAllFreelistenbook() throws Exception {
-		return mapper.findAllFreelistenbook();
+	public List<Freelistenbook> findAllFreelistenbook(int qid) throws Exception {
+		return mapper.findAllFreelistenbook(qid);
 	}
 
 	@Override

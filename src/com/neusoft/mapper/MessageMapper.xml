@@ -30,8 +30,8 @@
 		</collection>
 	</resultMap>
 
-	<select id="findAllMessage"  resultMap="message_messageimg_map">
-		select * from message left join messageimg on message.mid=messageimg.mid
+	<select id="findAllMessage" parameterType="int" resultMap="message_messageimg_map">
+		select * from message left join messageimg on message.mid=messageimg.mid where qid=#{qid}
 	</select>
 	
 	<select id="findMessageById"  resultMap="message_messageimg_map">

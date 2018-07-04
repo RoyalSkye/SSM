@@ -17,8 +17,8 @@ public class LessonServiceBean implements LessonService {
 	private LessonMapper mapper;
 	
 	@Override
-	public List<Lesson> findAllLesson() throws Exception {
-		return mapper.findAllLesson();
+	public List<Lesson> findAllLesson(int qid) throws Exception {
+		return mapper.findAllLesson(qid);
 	}
 
 	@Override

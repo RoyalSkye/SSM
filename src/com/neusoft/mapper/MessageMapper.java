@@ -7,7 +7,7 @@ import com.neusoft.po.Messagereply;
 
 public interface MessageMapper {
 	
-	public List<Message> findAllMessage() throws Exception;
+	public List<Message> findAllMessage(int qid) throws Exception;
 	public Message findMessageById(int mid) throws Exception;
 	public int updateMessage(Message message) throws Exception;
 	public int deleteMessage(int mid) throws Exception;

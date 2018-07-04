@@ -24,8 +24,8 @@ public class OrderHandler {
 	
 	@RequestMapping(value="/test/OrderHandler_findAllOrder")
 	@ResponseBody
-	public List<Order> findAllOrder() throws Exception{
-		return orderService.findAllOrder();
+	public List<Order> findAllOrder(int qid) throws Exception{
+		return orderService.findAllOrder(qid);
 	}
 	
 	@RequestMapping(value="/test/OrderHandler_findOrder")
@@ -36,10 +36,12 @@ public class OrderHandler {
 		String status=request.getParameter("status");
 		String starttime=request.getParameter("starttime");
 		String endtime=request.getParameter("endtime");
+		String qid = request.getParameter("qid");
 		map.put("oid", oid);
 		map.put("status", status);
 		map.put("starttime", starttime);
 		map.put("endtime", endtime);
+		map.put("qid", qid);
 		return orderService.findOrder(map);
 	}
 	

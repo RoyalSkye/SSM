@@ -11,7 +11,7 @@ import com.neusoft.po.Freelisten;
 
 public interface FreelistenService {
 	
-	public List<Freelisten> findAllFreelisten() throws Exception;
+	public List<Freelisten> findAllFreelisten(int qid) throws Exception;
 	public Freelisten findFreelistenById(int fid) throws Exception;
 	public boolean deleteFreelistenById(int fid) throws Exception;
 	public boolean saveFreelisten(Freelisten freelisten) throws Exception;

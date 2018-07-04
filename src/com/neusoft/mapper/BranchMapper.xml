@@ -4,8 +4,8 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.neusoft.mapper.BranchMapper">                                                                                                                               
 
-	<select id="findAllBranch"  resultType="com.neusoft.po.Branch">
-		select * from branch
+	<select id="findAllBranch"  parameterType="int" resultType="com.neusoft.po.Branch">
+		select * from branch where qid=#{qid}
 	</select>
 	
 	<select id="findBranchById"  parameterType="int" resultType="com.neusoft.po.Branch">

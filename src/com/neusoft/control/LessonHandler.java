@@ -22,8 +22,8 @@ public class LessonHandler {
 	
 	@RequestMapping(value="/test/LessonHandler_findAllLesson")
 	@ResponseBody
-	public List<Lesson> findAllLesson() throws Exception{
-		return lessonService.findAllLesson();
+	public List<Lesson> findAllLesson(int qid) throws Exception{
+		return lessonService.findAllLesson(qid);
 	}
 	
 	@RequestMapping(value="/test/LessonHandler_findLessonById")

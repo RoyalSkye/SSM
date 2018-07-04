@@ -22,8 +22,8 @@ public class FreelistenHandler {
 	
 	@RequestMapping(value="/test/FreelistenHandler_findAllFreelisten")
 	@ResponseBody
-	public List<Freelisten> findAllTeacher() throws Exception{
-		return freelistenService.findAllFreelisten();
+	public List<Freelisten> findAllTeacher(int qid) throws Exception{
+		return freelistenService.findAllFreelisten(qid);
 	}
 	
 	@RequestMapping(value="/test/FreelistenHandler_findFreelistenById")

@@ -4,8 +4,8 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.neusoft.mapper.LessonMapper">                                                                                                                               
 
-	<select id="findAllLesson"  resultType="com.neusoft.po.Lesson">
-		select * from lesson
+	<select id="findAllLesson" parameterType="int" resultType="com.neusoft.po.Lesson">
+		select * from lesson where qid=#{qid}
 	</select>
 	
 	<select id="findLessonById"  parameterType="int" resultType="com.neusoft.po.Lesson">

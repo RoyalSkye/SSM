@@ -6,7 +6,7 @@ import com.neusoft.po.Teacher;
 
 public interface TeacherMapper {
 	
-	public List<Teacher> findAllTeacher() throws Exception;
+	public List<Teacher> findAllTeacher(int qid) throws Exception;
 	public Teacher findTeacherById(int tid) throws Exception;
 	public int saveTeacher(Teacher t) throws Exception;
 	public int deleteTeacherById(int tid) throws Exception;
