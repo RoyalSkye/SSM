@@ -11,6 +11,20 @@
       height: 300px;
     }
   </style>
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.0.js"></script>
+  <script>
+	$(function(){
+		$.ajax({
+			url:"test/BranchHandler_findBranchById?bid=1",
+			success:function(data)
+			{
+				console.log(data);
+				alert(JSON.stringify( data ));
+			}
+		})
+		
+	})
+</script>
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">

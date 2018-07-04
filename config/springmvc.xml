@@ -26,15 +26,22 @@
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver" />
 	<context:component-scan base-package="com.neusoft.control" />
 	
-	<!--<mvc:interceptors>
+	 <mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/**"/>
-			 不对哪些内容进行拦截  
-			<mvc:exclude-mapping path="/MessageHandler_login"/>  
+			 <!-- 不对哪些内容进行拦截 -->
+			<mvc:exclude-mapping path="/**/login.html"/>  
+			<mvc:exclude-mapping path="/**/UserHandler_login"/>
+			<mvc:exclude-mapping path="/**/*.css"/>
+           <mvc:exclude-mapping path="/**/*.js"/>
+           <mvc:exclude-mapping path="/**/*.png"/>
+           <mvc:exclude-mapping path="/**/*.gif"/>
+           <mvc:exclude-mapping path="/**/*.jpg"/>
+           <mvc:exclude-mapping path="/**/*.mp4"/>
 			
 			<bean class="com.neusoft.interceptor.LoginInterceptor"></bean>
 		</mvc:interceptor>
-	</mvc:interceptors>-->
+	</mvc:interceptors> 
 	  
 	
 	<!-- 配置静态资源 css,js,img,html -->

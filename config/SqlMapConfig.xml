@@ -15,6 +15,6 @@
 		</environment>
 	</environments>  -->
 	<mappers>
-		<mapper resource="com/neusoft/mapper/BranchMapper.xml" />
+		<package name="com.neusoft.mapper" />
 	</mappers>
 </configuration>

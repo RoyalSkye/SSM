@@ -17,7 +17,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 	}
 
 	@Override
-	public void postHandle(HttpServletRequest arg0, HttpServletResponse arg1, Object arg2, ModelAndView arg3)
+	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object arg2, ModelAndView arg3)
 			throws Exception {
 		System.out.println("...MyInterceptor...postHandle()...后置通知...");
 
@@ -26,18 +26,18 @@ public class LoginInterceptor implements HandlerInterceptor {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object arg2) throws Exception {
 		System.out.println("...MyInterceptor...preHandle()...前置通知...");
-		/*HttpSession session=request.getSession();
+		HttpSession session=request.getSession();
 		boolean isLoginOK=Boolean.parseBoolean((session.getAttribute("isLoginOK")+""));
+		System.out.println("isLoginOK"+isLoginOK);
 		if(isLoginOK){
+			System.out.println("登录成功");
 			return true;
 		}else{
-			request.setAttribute("msg", "您还未登录，请先登录");
 			System.out.println("您还未登录，请先登录");
-			request.getRequestDispatcher("index.jsp").forward(request, response);
-			//response.sendRedirect("index.jsp");
+			//request.getRequestDispatcher("/login.html").forward(request, response);
+			response.sendRedirect(request.getContextPath() +"/login.html");
 			return false;
-		}*/
-		return true;
+		}
 	}
 
 }
