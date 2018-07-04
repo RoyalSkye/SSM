@@ -8,7 +8,7 @@
 		select * from order
 	</select>
 	
-	<select id="findOrder"  parameterType="OrderVo" resultType="com.neusoft.po.Order">
+	<select id="findOrder"  parameterType="Map" resultType="com.neusoft.po.Order">
 		select * from order where 1=1
 		<if test="oid != null">
 			and oid=#{oid}

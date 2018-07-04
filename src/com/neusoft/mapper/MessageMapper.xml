@@ -30,11 +30,11 @@
 		</collection>
 	</resultMap>
 
-	<select id="findAllMessage"  resultType="message_messageimg_map">
+	<select id="findAllMessage"  resultMap="message_messageimg_map">
 		select * from message left join messageimg on message.mid=messageimg.mid
 	</select>
 	
-	<select id="findMessageById"  resultType="message_messageimg_map">
+	<select id="findMessageById"  resultMap="message_messageimg_map">
 		select * from message left join messageimg on message.mid=messageimg.mid where mid=#{mid}
 	</select>
 	
@@ -46,7 +46,7 @@
 		update message,messageimg set message.mtitle=#{mtitle},message.mtime=#{mtime} where message.mid=#{mid}
 	</update>
 
-	<select id="findMessagereplyById"  parameterType="int" resultType="message_messagereply_map">
+	<select id="findMessagereplyById"  parameterType="int" resultMap="message_messagereply_map">
 		select * from message left join messagereply on message.mid=messagereply.mid where message.mid=#{mid}
 	</select>
 	
