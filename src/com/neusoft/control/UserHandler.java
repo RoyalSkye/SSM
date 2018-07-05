@@ -28,7 +28,7 @@ public class UserHandler {
 			session.setAttribute("qid", u.getQid());
 			session.setAttribute("user", u);
 			session.setAttribute("isLoginOK", true);
-			session.setMaxInactiveInterval(60);
+			session.setMaxInactiveInterval(60*10);
 			return "{\"result\":true}";
 		}else{
 			return "{\"result\":false}";

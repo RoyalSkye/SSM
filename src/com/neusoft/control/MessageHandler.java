@@ -3,14 +3,18 @@ package com.neusoft.control;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.neusoft.po.Message;
 import com.neusoft.po.Messagereply;
 import com.neusoft.service.MessageService;
+import com.neusoft.tools.FileTools;
 
 @Controller
 public class MessageHandler {
@@ -65,4 +69,21 @@ public class MessageHandler {
 			return "{\"result\":false}";
 		}
 	}
+	
+	@RequestMapping(value="/test/MessageHandler_saveimg")
+	@ResponseBody
+	public String saveimg(MultipartFile file,HttpServletRequest request) throws Exception{
+		if(file==null){
+			System.out.println("ÎÄ¼þÎª¿Õ");
+			return "{\"result\":false}";
+		}
+		String url=FileTools.saveimg(file,request);
+		System.out.println("---------------------url:"+url);
+		if(url==null||url==""){
+			return "{\"result\":false}";
+		}else{
+			return "{\"result\":true}";
+		}
+	}
+	
 }

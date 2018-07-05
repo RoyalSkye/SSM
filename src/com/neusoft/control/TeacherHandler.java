@@ -1,5 +1,7 @@
 package com.neusoft.control;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -63,15 +65,19 @@ public class TeacherHandler {
 		}
 	}
 	
-	@RequestMapping("/test/TeacherHandler_saveimg")
+	@RequestMapping(value="/test/TeacherHandler_saveimg")
 	@ResponseBody
-	public String saveimg(MultipartFile upload,HttpServletRequest request) throws Exception{
-		//数据库中未存储where to save this photo?
-		String url=FileTools.saveimg(upload,request);
-		if(url!=null){
-			return "{\"result\":true}";
-		}else{
+	public String saveimg(MultipartFile file,HttpServletRequest request) throws Exception{
+		if(file==null){
+			System.out.println("文件为空");
 			return "{\"result\":false}";
+		}
+		String url=FileTools.saveimg(file,request);
+		System.out.println("---------------------url:"+url);
+		if(url==null||url==""){
+			return "{\"result\":false}";
+		}else{
+			return "{\"result\":true}";
 		}
 	}
 	

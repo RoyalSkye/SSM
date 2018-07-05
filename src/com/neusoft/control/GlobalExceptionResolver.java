@@ -30,7 +30,7 @@ public class GlobalExceptionResolver implements HandlerExceptionResolver {
                 .getHeader("X-Requested-With").indexOf("XMLHttpRequest") > -1))) {  
             // 如果不是异步请求  
         	ModelAndView mav = new ModelAndView();
-    		mav.setViewName("/error.html");
+    		//mav.setViewName("/error.html");
     		return mav; 
         } else {  
             try {  

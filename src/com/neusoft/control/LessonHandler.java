@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.neusoft.po.Lesson;
 import com.neusoft.service.LessonService;
+import com.neusoft.tools.FileTools;
 
 @Controller
 public class LessonHandler {
@@ -61,6 +62,23 @@ public class LessonHandler {
 			return "{\"result\":false}";
 		}
 	}
+	
+	@RequestMapping(value="/test/LessonHandler_saveimg")
+	@ResponseBody
+	public String saveimg(MultipartFile file,HttpServletRequest request) throws Exception{
+		if(file==null){
+			System.out.println("ÎÄ¼þÎª¿Õ");
+			return "{\"result\":false}";
+		}
+		String url=FileTools.saveimg(file,request);
+		System.out.println("---------------------url:"+url);
+		if(url==null||url==""){
+			return "{\"result\":false}";
+		}else{
+			return "{\"result\":true}";
+		}
+	}
+	
 }
 
 
