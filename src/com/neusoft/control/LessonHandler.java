@@ -71,11 +71,13 @@ public class LessonHandler {
 			return "{\"result\":false}";
 		}
 		String url=FileTools.saveimg(file,request);
-		System.out.println("---------------------url:"+url);
+		//System.out.println("---------------------url:"+url);
 		if(url==null||url==""){
 			return "{\"result\":false}";
 		}else{
-			return "{\"result\":true}";
+			//result="../upload/15307951697841.jpg";
+			//System.out.println("{\"result\":true,\"imgurl\":\""+url+"\"}");
+			return "{\"result\":true,\"imgurl\":\""+url+"\"}";
 		}
 	}
 	

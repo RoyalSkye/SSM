@@ -147,7 +147,7 @@ layui.use('upload', function(){
   var demoListView = $('#demoList')
   ,uploadListIns = upload.render({
     elem: '#testList'
-    ,url: '/upload/'
+    ,url: '/SSM/test/MessageHandler_saveimg'
     ,accept: 'file'
     ,multiple: true
     ,auto: false
@@ -182,7 +182,8 @@ layui.use('upload', function(){
       });
     }
     ,done: function(res, index, upload){
-      if(res.code == 0){ //上传成功
+    	console.log(res)
+      if(res.result){ //上传成功
         var tr = demoListView.find('tr#upload-'+ index)
         ,tds = tr.children();
         tds.eq(2).html('<span style="color: #5FB878;">上传成功</span>');

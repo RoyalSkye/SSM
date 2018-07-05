@@ -13,7 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.neusoft.po.Enterprise;
 
 import com.neusoft.service.impl.EnterpriseServiceBean;
-
+import com.neusoft.tools.FileTools;
 import com.neusoft.service.EnterpriseService;
 
 
@@ -39,4 +39,22 @@ public class EnterpriseHandler {
 			return "{\"result\":false}";
 		}
 	}
+	@RequestMapping(value="/test/EnterpriseHandler_saveimg")
+	@ResponseBody
+	public String saveimg(MultipartFile file,HttpServletRequest request) throws Exception{
+		if(file==null){
+			System.out.println("ÎÄ¼þÎª¿Õ");
+			return "{\"result\":false}";
+		}
+		String url=FileTools.saveimg(file,request);
+		//System.out.println("---------------------url:"+url);
+		if(url==null||url==""){
+			return "{\"result\":false}";
+		}else{
+			//result="../upload/15307951697841.jpg";
+			//System.out.println("{\"result\":true,\"imgurl\":\""+url+"\"}");
+			return "{\"result\":true,\"imgurl\":\""+url+"\"}";
+		}
+	}
+	
 }

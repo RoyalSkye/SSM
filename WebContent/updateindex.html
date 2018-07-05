@@ -110,7 +110,7 @@
   <div class="layui-colla-item">
     <h2 class="layui-colla-title">企业图片</h2>
     <div class="layui-colla-content layui-show">
-      <img src="../SSM/img/mainBg0.jpg"  width="300" height="300"><img src="./img/mainBg1.jpg"  width="300" height="300">
+      <img src="./img/mainBg0.jpg"  width="300" height="300"><img src="./img/mainBg1.jpg"  width="300" height="300">
       <div class="button-wrap">
         <button type="button" class="layui-btn layui-btn-radius" id="test7"><i class="layui-icon"></i>上传图片</button>
       </div>
@@ -163,7 +163,7 @@ layui.use('upload', function(){
 //上传视频
 	upload.render({
     elem: '#test5'
-    ,url: '/upload/'
+    ,url: '/SSM/test/EnterpriseHandler_saveimg'
     ,size: 102400 //限制文件大小，单位 KB
     ,accept: 'video' //视频
     ,done: function(res){
@@ -173,7 +173,7 @@ layui.use('upload', function(){
 //设定文件大小限制
   upload.render({
     elem: '#test7'
-    ,url: '/upload/'
+    ,url: '/SSM/test/EnterpriseHandler_saveimg'
     ,size: 1024 //限制文件大小，单位 KB
     ,done: function(res){
       console.log(res)

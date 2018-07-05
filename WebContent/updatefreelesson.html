@@ -178,20 +178,10 @@ layui.use('upload', function(){
   var $ = layui.jquery
   ,upload = layui.upload;
   
-//上传视频
-	upload.render({
-    elem: '#test5'
-    ,url: '/upload/'
-    ,size: 102400 //限制文件大小，单位 KB
-    ,accept: 'video' //视频
-    ,done: function(res){
-      console.log(res)
-    }
- });
 //设定文件大小限制
   upload.render({
     elem: '#test7'
-    ,url: '/upload/'
+    ,url: '/SSM/test/FreelistenHandler_saveimg'
     ,size: 1024 //限制文件大小，单位 KB
     ,done: function(res){
       console.log(res)

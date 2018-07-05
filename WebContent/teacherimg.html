@@ -83,7 +83,7 @@
     <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
   		<legend>师资首页图片</legend>
 		</fieldset>
-     <img src="../SSM/img/mainBg1.jpg"  width="750" height="500">
+     <img src="./img/mainBg1.jpg"  width="750" height="500">
      <div class="button-wrap">
       <button type="button" class="layui-btn layui-btn-radius" id="test7"><i class="layui-icon"></i>上传图片</button>
       <div class="layui-inline layui-word-aux">
@@ -113,8 +113,9 @@ layui.use('upload', function(){
     elem: '#test7'
     ,url: '/SSM/test/TeacherHandler_saveimg'
     ,size: 1024 //限制文件大小，单位 KB
+    ,dataType:"json"
     ,done: function(res){
-      console.log(res)
+    	console.log(res)
     }
   });
  });

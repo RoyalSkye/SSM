@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.neusoft.po.Freelisten;
 import com.neusoft.service.FreelistenService;
+import com.neusoft.tools.FileTools;
 
 @Controller
 public class FreelistenHandler {
@@ -61,6 +62,25 @@ public class FreelistenHandler {
 			return "{\"result\":false}";
 		}
 	}
+	
+	@RequestMapping(value="/test/FreelistenHandler_saveimg")
+	@ResponseBody
+	public String saveimg(MultipartFile file,HttpServletRequest request) throws Exception{
+		if(file==null){
+			System.out.println("ÎÄ¼þÎª¿Õ");
+			return "{\"result\":false}";
+		}
+		String url=FileTools.saveimg(file,request);
+		//System.out.println("---------------------url:"+url);
+		if(url==null||url==""){
+			return "{\"result\":false}";
+		}else{
+			//result="../upload/15307951697841.jpg";
+			//System.out.println("{\"result\":true,\"imgurl\":\""+url+"\"}");
+			return "{\"result\":true,\"imgurl\":\""+url+"\"}";
+		}
+	}
+	
 }
 
 
