@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <title>NeuSoft introduction</title>
-  <link rel="stylesheet" href="../SSM/layui/css/layui.css">
+  <link rel="stylesheet" href="./layui/css/layui.css">
   <style type="text/css">
     #map {
       width: 100%;
@@ -19,7 +19,8 @@
 			success:function(data)
 			{
 				console.log(data);
-				alert(JSON.stringify( data ));
+				var longitude=data.longitude;
+				var latitude=data.latitude;
 			}
 		})
 		
@@ -129,7 +130,7 @@
 <script src="../SSM/layui/layui.js"></script>
 <script type="text/javascript" src="http://api.map.baidu.com/api?v=3.0&ak=pZbFQstsAiFjDtaphyFfA6Xj4U7FXucM"></script>
 <script>
-//JavaScript代码区域
+
 layui.use('element', function(){
   var element = layui.element;
   
@@ -137,13 +138,11 @@ layui.use('element', function(){
 
 var map = new BMap.Map("map");
 // 创建地图实例  
-var point = new BMap.Point(123.445967,41.711486);
+var point = new BMap.Point(longitude,latitude);
 // 创建点坐标  
 map.centerAndZoom(point, 15);
-        
 map.enableScrollWheelZoom(true);
 map.addControl(new BMap.NavigationControl());
-
 var marker = new BMap.Marker(point);        // 创建标注    
 map.addOverlay(marker);
 var label = new BMap.Label("<div class='map-title'>沈阳东软睿道</div><div>地址:世纪路51附近</div>",  {

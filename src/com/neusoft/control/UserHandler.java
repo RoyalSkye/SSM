@@ -3,6 +3,7 @@ package com.neusoft.control;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,6 @@ public class UserHandler {
 	private UserService userService;
 	
 	@RequestMapping(value="/test/UserHandler_login")
-	@ResponseBody
 	public String login(User user,HttpServletRequest request) throws Exception{
 		if(userService.login(user)){
 			User u=userService.findUserinfoByUsername(user);
@@ -29,9 +29,11 @@ public class UserHandler {
 			session.setAttribute("user", u);
 			session.setAttribute("isLoginOK", true);
 			session.setMaxInactiveInterval(60*10);
-			return "{\"result\":true}";
+			//return "{\"result\":true}";
+			return "redirect:/index.html";
 		}else{
-			return "{\"result\":false}";
+			//return "{\"result\":false}";
+			return "redirect:/login.html";
 		}
 	}
 	
