@@ -21,6 +21,9 @@
 				console.log(data);
 				var longitude=data.longitude;
 				var latitude=data.latitude;
+				var address=data.address;
+				var name=data.name;
+				mymap(longitude,latitude,name,address);
 			}
 		})
 		
@@ -136,29 +139,32 @@ layui.use('element', function(){
   
 });
 
-var map = new BMap.Map("map");
-// 创建地图实例  
-var point = new BMap.Point(longitude,latitude);
-// 创建点坐标  
-map.centerAndZoom(point, 15);
-map.enableScrollWheelZoom(true);
-map.addControl(new BMap.NavigationControl());
-var marker = new BMap.Marker(point);        // 创建标注    
-map.addOverlay(marker);
-var label = new BMap.Label("<div class='map-title'>沈阳东软睿道</div><div>地址:世纪路51附近</div>",  {
-    offset: new BMap.Size(25, 15)
-});
-label.setStyle({
-    color: '#555',
-    padding: "10px",
-    background: '#fff',
-    border: "1px solid #1cb6b3",
-    borderRadius: "5px",
-    overflow: "hidden",
-    lineHeight: "26px",
-    fontSize: "15px",
-    });
-marker.setLabel(label);
+function mymap(longitude,latitude,name,address){
+	var map = new BMap.Map("map");
+	// 创建地图实例  
+	var point = new BMap.Point(longitude,latitude);
+	// 创建点坐标  
+	map.centerAndZoom(point, 15);
+	map.enableScrollWheelZoom(true);
+	map.addControl(new BMap.NavigationControl());
+	var marker = new BMap.Marker(point);        // 创建标注    
+	map.addOverlay(marker);
+	var label = new BMap.Label("<div class='map-title'>"+name+"</br>地址："+address+"</br>经度："+longitude+"</br>纬度："+latitude+"</div>",  {
+	    offset: new BMap.Size(25, 15)
+	});
+	label.setStyle({
+	    color: '#555',
+	    padding: "10px",
+	    background: '#fff',
+	    border: "1px solid #1cb6b3",
+	    borderRadius: "5px",
+	    overflow: "hidden",
+	    lineHeight: "26px",
+	    fontSize: "15px",
+	    });
+	marker.setLabel(label);
+}
+
 </script>
 </body>
 </html>
