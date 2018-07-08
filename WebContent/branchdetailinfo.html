@@ -13,16 +13,20 @@
   </style>
   <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.0.js"></script>
   <script>
+  //var longitude;
+  //var latitude;
+  //var address;
+  //var name;
 	$(function(){
 		$.ajax({
 			url:"test/BranchHandler_findBranchById?bid=1",
 			success:function(data)
 			{
 				console.log(data);
-				var longitude=data.longitude;
-				var latitude=data.latitude;
-				var address=data.address;
-				var name=data.name;
+				longitude=data.longitude;
+				latitude=data.latitude;
+				address=data.address;
+				name=data.name;
 				mymap(longitude,latitude,name,address);
 			}
 		})

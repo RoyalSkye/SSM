@@ -20,6 +20,56 @@
 	<script type="text/javascript" src="./js/ueditor.config.js"></script>
 	<!-- 编辑器源码文件 -->
 	<script type="text/javascript" src="./js/ueditor.all.js"></script>
+	<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.0.js"></script>
+<script>
+	$(function(){
+		$.ajax({
+			url:"test/EnterpriseHandler_findEnterpriseById?qid=1",
+			success:function(data)
+			{
+				console.log(data);
+				var updatename=data.name;
+				updatename+='<br><input type="text" name="name" id="name" required  lay-verify="required" value="'+data.name+'">'
+				$("#updatename").append(updatename);
+				var updateintroduction=data.introduction;
+				updateintroduction+='<br><textarea cols="100" rows="5" name="introduction" id="introduction" style="resize: none;" required  lay-verify="required">'+data.introduction+'</textarea>'
+				$("#updateintroduction").append(updateintroduction);
+				var imgurl='';
+				for(var i=0;i<data.swiperList.length;i++){
+					imgurl+='<img src="/upload/'+data.swiperList[i].imgurl+'" width="300" height="300">';
+				}
+				$("#imgurl").before(imgurl);
+				var videopath='<video controls="controls" controls="controls"><source src="/upload/'+data.videopath+'"type="video/mp4" /></video>';
+				$("#videopath").before(videopath);
+				//var uetext='<script id="container" name="content" type="text/plain">'+data.uetext+'<\/script>';
+				var uetext=data.uetext;
+				$("#uetext").append(uetext);
+			}
+		});
+		
+		$("#btn_submit").click(function(){
+			var name=$("#name").val();
+		    var introduction=$("#introduction").val();
+		    //var uetext=$("#uetext").val;
+			$.ajax({
+				url:"/SSM/test/EnterpriseHandler_updateEnterprise",
+				type:"post",
+				data:{name:name,introduction:introduction},
+		    	dataType:"json", 
+				success:function(data)
+				{
+					if(data.result){
+						console.log(data);
+						alert("update successfully");
+					}else{
+						console.log(data);
+						alert("update failed");
+					}
+				}
+			});
+		});
+	})
+</script>
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
@@ -29,7 +79,7 @@
     <ul class="layui-nav layui-layout-right">
       <li class="layui-nav-item">
         <a href="javascript:;">
-          <img src="../SSM/img/profile.jpg" class="layui-nav-img">
+          <img src="./img/profile.jpg" class="layui-nav-img">
           RoyalSkye
         </a>
         <dl class="layui-nav-child">
@@ -103,14 +153,11 @@
 <div class="layui-collapse">
   <div class="layui-colla-item">
     <h2 class="layui-colla-title">企业名称</h2>
-    <div class="layui-colla-content layui-show">东软睿道
-    	<br><input type="text" name="name" id="name" required  lay-verify="required" value="东软睿道">
-    </div>
+    <div class="layui-colla-content layui-show" id="updatename"></div>
   </div>
   <div class="layui-colla-item">
     <h2 class="layui-colla-title">企业图片</h2>
-    <div class="layui-colla-content layui-show">
-      <img src="./img/mainBg0.jpg"  width="300" height="300"><img src="./img/mainBg1.jpg"  width="300" height="300">
+    <div class="layui-colla-content layui-show" id="imgurl">
       <div class="button-wrap">
         <button type="button" class="layui-btn layui-btn-radius" id="test7"><i class="layui-icon"></i>上传图片</button>
       </div>
@@ -118,13 +165,11 @@
   </div>
   <div class="layui-colla-item">
     <h2 class="layui-colla-title">企业简介</h2>
-    <div class="layui-colla-content layui-show">沈阳东软睿道教育服务有限公司（简称东软睿道）由东软创办，基于东软的产业发展与人才培养实践，提供更加符合IT行业发展需求的人才培养体系和方法学，精准提升大学生和大学后的就业、创业技能，为新经济时代的转型发展提供高质量规模化的人才供给。
-    	<br><textarea cols="100" rows="5" name="introduction" id="introduction" style="resize: none;" required  lay-verify="required" value="沈阳东软睿道教育服务有限公司（简称东软睿道）由东软创办，基于东软的产业发展与人才培养实践，提供更加符合IT行业发展需求的人才培养体系和方法学，精准提升大学生和大学后的就业、创业技能，为新经济时代的转型发展提供高质量规模化的人才供给。">沈阳东软睿道教育服务有限公司（简称东软睿道）由东软创办，基于东软的产业发展与人才培养实践，提供更加符合IT行业发展需求的人才培养体系和方法学，精准提升大学生和大学后的就业、创业技能，为新经济时代的转型发展提供高质量规模化的人才供给。</textarea>
-    </div>
+    <div class="layui-colla-content layui-show" id="updateintroduction"></div>
   </div>
   <div class="layui-colla-item">
     <h2 class="layui-colla-title">企业视频</h2>
-    <div class="layui-colla-content layui-show"><video controls="controls" controls="controls"><source src="./img/1.mp4" type="video/mp4" /></video>
+    <div class="layui-colla-content layui-show" id="videopath">
       <div class="button-wrap">
         <button type="button" class="layui-btn layui-btn-radius" id="test5"><i class="layui-icon"></i>上传视频</button>
       </div>
@@ -132,14 +177,14 @@
   </div>
   <div class="layui-colla-item">
     <h2 class="layui-colla-title">精彩展示</h2>
-        <!-- 加载编辑器的容器 -->
-        <script id="container" name="content" type="text/plain">
-        		<div class="layui-colla-content layui-show"><img src="../SSM/img/mainBg0.jpg"  width="300" height="300"><img src="./img/mainBg1.jpg"  width="300" height="300"></div>
+		<script id="container" name="content" type="text/plain">
+			<div id="uetext"></div>
         </script>
+        <!--<img src="/upload/1.jpg" width="300" height="300"></img>-->
   </div>
 </div>
   <div class="button-wrap">
-  	<button class="layui-btn layui-btn-lg per-button" lay-submit lay-filter="updateindex">保存信息</button> 
+  	<button class="layui-btn layui-btn-lg per-button" lay-submit lay-filter="updateindex" id="btn_submit" type="button">保存信息</button> 
   </div>
   </form>
 </div>
@@ -163,11 +208,18 @@ layui.use('upload', function(){
 //上传视频
 	upload.render({
     elem: '#test5'
-    ,url: '/SSM/test/EnterpriseHandler_saveimg'
+    ,url: '/SSM/test/EnterpriseHandler_savevideo'
     ,size: 102400 //限制文件大小，单位 KB
     ,accept: 'video' //视频
     ,done: function(res){
       console.log(res)
+      if(res.result){
+    	//alert("upload successfully!");
+		  var videopath='<video controls="controls" controls="controls"><source src="/upload/'+res.imgurl+'"type="video/mp4" /></video>';
+		  $("#videopath").before(videopath);
+      }else{
+    	  alert("upload failed");
+      }
     }
  });
 //设定文件大小限制
@@ -177,6 +229,13 @@ layui.use('upload', function(){
     ,size: 1024 //限制文件大小，单位 KB
     ,done: function(res){
       console.log(res)
+      if(res.result){
+    	  //alert("upload successfully!");
+    	  var imgurl='<img src="'+res.imgurl+'" width="300" height="300">';
+		  $("#imgurl").before(imgurl);
+      }else{
+    	  alert("upload failed");
+      }
     }
   });
  });
@@ -185,12 +244,12 @@ layui.use('upload', function(){
   var form = layui.form;
   
  //监听提交，最后需要去掉！
-  form.on('submit(updateindex)', function(data){
+  /*form.on('submit(updateindex)', function(data){
     layer.alert(JSON.stringify(data.field), {
       title: '最终的提交信息'
     })
     return false;
-  }); 
+  }); */
   
 });
 

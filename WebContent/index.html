@@ -20,9 +20,20 @@
 			{
 				console.log(data);
 				//alert(JSON.stringify( data ));
-				//alert($("#enterprisephoto1").attr("src"));
-				$("#enterprisephoto1").attr("src","./img/mainBg0.jpg");
-				$("#enterprisephoto2").attr("src","./img/mainBg1.jpg");
+				//$("#enterprisephoto1").attr("src","./img/mainBg0.jpg");
+				var name=data.name;
+				$("#name").append(name);
+				var imgurl='';
+				for(var i=0;i<data.swiperList.length;i++){
+					imgurl+='<img src="/upload/'+data.swiperList[i].imgurl+'" width="300" height="300">';
+				}
+				$("#imgurl").append(imgurl);
+				var introduction=data.introduction;
+				$("#introduction").append(introduction);
+				var videopath='<video controls="controls" controls="controls"><source src="/upload/'+data.videopath+'"type="video/mp4" /></video>';
+				$("#videopath").append(videopath);
+				var uetext=data.uetext;
+				$("#uetext").append(uetext);
 			}
 		})
 		
@@ -51,7 +62,7 @@
     <ul class="layui-nav layui-layout-right">
       <li class="layui-nav-item">
         <a href="javascript:;">
-          <img src="../SSM/img/profile.jpg" class="layui-nav-img">
+          <img src="./img/profile.jpg" class="layui-nav-img">
           RoyalSkye
         </a>
         <dl class="layui-nav-child">
@@ -124,23 +135,23 @@
 <div class="layui-collapse">
   <div class="layui-colla-item">
     <h2 class="layui-colla-title">企业名称</h2>
-    <div class="layui-colla-content layui-show">东软睿道</div>
+    <div class="layui-colla-content layui-show" id="name"></div>
   </div>
   <div class="layui-colla-item">
     <h2 class="layui-colla-title">企业图片</h2>
-    <div class="layui-colla-content layui-show"><img id="enterprisephoto1" src=""  width="300" height="300"><img id="enterprisephoto2" src=""  width="300" height="300"></div>
+    <div class="layui-colla-content layui-show" id="imgurl"></div>
   </div>
   <div class="layui-colla-item">
     <h2 class="layui-colla-title">企业简介</h2>
-    <div class="layui-colla-content layui-show">沈阳东软睿道教育服务有限公司（简称东软睿道）由东软创办，基于东软的产业发展与人才培养实践，提供更加符合IT行业发展需求的人才培养体系和方法学，精准提升大学生和大学后的就业、创业技能，为新经济时代的转型发展提供高质量规模化的人才供给。</div>
+    <div class="layui-colla-content layui-show" id="introduction"></div>
   </div>
   <div class="layui-colla-item">
     <h2 class="layui-colla-title">企业视频</h2>
-    <div class="layui-colla-content layui-show"><video controls="controls" controls="controls"><source src="./img/1.mp4" type="video/mp4" /></video></div>
+    <div class="layui-colla-content layui-show" id="videopath"></div>
   </div>
   <div class="layui-colla-item">
     <h2 class="layui-colla-title">精彩展示</h2>
-    <div class="layui-colla-content layui-show"><img src="./img/mainBg0.jpg"  width="300" height="300"><img src="./img/mainBg1.jpg"  width="300" height="300"></div>
+    <div class="layui-colla-content layui-show" id="uetext"></div>
   </div>
 </div>
   	<a href="updateindex.html"><button class="layui-btn layui-btn-lg">修改信息</button></a>
@@ -151,7 +162,7 @@
     © NeuSoft 
   </div>
 </div>
-<script src="../SSM/layui/layui.js"></script>
+<script src="./layui/layui.js"></script>
 <script>
 //JavaScript代码区域
 layui.use('element', function(){

@@ -49,10 +49,10 @@
 	 <mvc:default-servlet-handler/>
 	
 	<!-- 配置文件上传，所有的二进制提交都需要配置这个 -->
-	<!-- 文件大小的单位是字节  5MB -->
+	<!-- 文件大小的单位是字节  10MB -->
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<property name="maxUploadSize">
-		<value>5242880</value>
+		<value>10485760</value>
 		</property>
 	</bean>
 	

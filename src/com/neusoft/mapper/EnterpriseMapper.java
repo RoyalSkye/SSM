@@ -6,6 +6,6 @@ import com.neusoft.po.Enterprise;
 
 public interface EnterpriseMapper {
 	public Enterprise findEnterpriseById(int qid) throws Exception;
-	public int updateEnterprise(Enterprise enterprise)throws Exception;
+	public int updateEnterprise(Enterprise e)throws Exception;
 }
 

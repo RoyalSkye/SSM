@@ -1,5 +1,8 @@
 package com.neusoft.po;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Enterprise {
  
 	private int qid;
@@ -7,8 +10,15 @@ public class Enterprise {
 	private String videopath;
 	private String introduction;
 	private String uetext;
+	List<Swiper> swiperList=new ArrayList<Swiper>();
 	public int getQid() {
 		return qid;
+	}
+	public List<Swiper> getSwiperList() {
+		return swiperList;
+	}
+	public void setSwiperList(List<Swiper> swiperList) {
+		this.swiperList = swiperList;
 	}
 	public void setQid(int qid) {
 		this.qid = qid;
