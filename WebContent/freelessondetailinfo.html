@@ -5,6 +5,39 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <title>NeuSoft introduction</title>
   <link rel="stylesheet" href="../SSM/layui/css/layui.css">
+   <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.0.js"></script>
+   <script>
+  function GetQueryString(name)
+  {
+       var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+       var r = window.location.search.substr(1).match(reg);
+       if(r!=null)return  unescape(r[2]); return null;
+  }
+  	var bid=GetQueryString("fid");
+	//console.log(bid);
+	$(function(){
+		$.ajax({
+			url:"test/FreelistenHandler_findFreelistenById?fid="+fid,				
+			success:function(data)
+			{
+				
+
+				
+				console.log(data);
+				var fid=data.fid;
+				var title=data.title;
+				var imgurl=data.imgurl;
+				var fdesc=data.fdesc;
+				var status=data.status;
+				var qid=data.qid;
+				var bid=data.bid;
+				var pubtime=data.pubtime;
+
+			}
+		})
+		
+	})
+</script>
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
@@ -87,26 +120,26 @@
 <div class="layui-collapse">
   <div class="layui-colla-item">
     <h2 class="layui-colla-title">预约课程编号</h2>
-    <div class="layui-colla-content layui-show">2</div>
+    <div class="layui-colla-content layui-show" id="fid"></div>
   </div>
   <div class="layui-colla-item">
     <h2 class="layui-colla-title">预约课程标题</h2>
-    <div class="layui-colla-content layui-show">大数据免费试听课大咖讲师</div>
+    <div class="layui-colla-content layui-show" id="title"></div>
   </div>
   <div class="layui-colla-item">
     <h2 class="layui-colla-title">预约课程图片</h2><br>
-    <div class="layui-colla-content layui-show"><img src="../SSM/img/mainBg0.jpg"  width="100" height="100"></div>
+    <div class="layui-colla-content layui-show"><img src="{{imgurl}}"  width="100" height="100"></div>
   <div class="layui-colla-item">
     <h2 class="layui-colla-title">预约课程详情</h2>
-    <div class="layui-colla-content layui-show"><img src="../SSM/img/halloween1.jpg"></div>
+    <div class="layui-colla-content layui-show"><img src="{{fdesc}}"></div>
   </div>
   <div class="layui-colla-item">
     <h2 class="layui-colla-title">预约课程状态</h2>
-    <div class="layui-colla-content layui-show">进行中</div>
+    <div class="layui-colla-content layui-show" id="status"></div>
   </div>
   <div class="layui-colla-item">
     <h2 class="layui-colla-title">分部名字</h2>
-    <div class="layui-colla-content layui-show">艺术中心</div>
+    <div class="layui-colla-content layui-show" id="bid"></div>
   </div>
 </div>
 </div>

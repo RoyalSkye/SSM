@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.neusoft.po.Freelistenbook;
 import com.neusoft.service.FreelistenbookService;
 import com.neusoft.service.impl.FreelistenbookServiceBean;
+import com.neusoft.tools.FileTools;
 
 @Controller
 public class FreelistenbookHandler {
@@ -31,7 +32,7 @@ public class FreelistenbookHandler {
 	
 	@RequestMapping(value="/test/FreelistenbookHandler_findFreelistenbook")
 	@ResponseBody
-	public List<Freelistenbook> findFreelistenbook(HttpServletRequest request) throws Exception{
+	public String findFreelistenbook(HttpServletRequest request) throws Exception{
 		Map<String,Object> map=new HashMap<String,Object>();
 		String fid=request.getParameter("fid");
 		String cname=request.getParameter("cname");
@@ -43,7 +44,7 @@ public class FreelistenbookHandler {
 		map.put("starttime", starttime);
 		map.put("endtime", endtime);
 		map.put("qid",qid);
-		return freelistenbookService.findFreelistenbook(map);
+		return FileTools.addHeader(freelistenbookService.findFreelistenbook(map));
 	}
 	
 	@RequestMapping(value="/test/FreelistenbookHandler_updateFreelistenbook")

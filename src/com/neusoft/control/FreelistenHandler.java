@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,15 +22,19 @@ public class FreelistenHandler {
 	@Autowired
 	private FreelistenService freelistenService;
 	
-	@RequestMapping(value="/test/FreelistenHandler_findAllFreelisten")
+	
+	@RequestMapping(value="/test/FreelistenHandler_findAllFreelisten",produces = "application/json; charset=utf-8")
 	@ResponseBody
-	public List<Freelisten> findAllTeacher(int qid) throws Exception{
-		return freelistenService.findAllFreelisten(qid);
+	public String findAllFreelisten(HttpServletRequest request) throws Exception{
+		HttpSession session=request.getSession();
+		int qid=(int)session.getAttribute("qid");
+		return FileTools.addHeader(freelistenService.findAllFreelisten(qid));
 	}
 	
 	@RequestMapping(value="/test/FreelistenHandler_findFreelistenById")
 	@ResponseBody
 	public Freelisten findFreelistenById(int fid) throws Exception{
+		System.out.println("suck"+freelistenService.findFreelistenById(fid).getFdesc());
 		return freelistenService.findFreelistenById(fid);
 	}
 	
@@ -67,7 +72,7 @@ public class FreelistenHandler {
 	@ResponseBody
 	public String saveimg(MultipartFile file,HttpServletRequest request) throws Exception{
 		if(file==null){
-			System.out.println("ÎÄ¼þÎª¿Õ");
+			System.out.println("ï¿½Ä¼ï¿½Îªï¿½ï¿½");
 			return "{\"result\":false}";
 		}
 		String url=FileTools.saveimg(file,request);
