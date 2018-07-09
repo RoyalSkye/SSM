@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.google.gson.Gson;
+
 public class FileTools {
 	
 	public static String saveimg(MultipartFile upload,HttpServletRequest request){
@@ -31,6 +33,13 @@ public class FileTools {
 			e.printStackTrace();
 		}
 		return url;
+	}
+	
+	public static String addHeader(Object obj) {
+		Gson gson = new Gson();
+		String str = " {\"code\":0,\"msg\":\"\",\"count\":1000,\"data\":"+(gson.toJson(obj))+"}";
+		System.out.println(str);
+		return str;
 	}
 	
 }

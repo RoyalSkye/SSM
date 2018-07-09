@@ -43,7 +43,17 @@
 				$("#videopath").before(videopath);
 				//var uetext='<script id="container" name="content" type="text/plain">'+data.uetext+'<\/script>';
 				var uetext=data.uetext;
-				$("#uetext").append(uetext);
+				UE.getEditor('container', {
+				    toolbars: [
+				    ['fullscreen', 'source', 'undo', 'redo', 'bold', 'italic', 'underline', 'strikethrough', 'forecolor', 'backcolor', 'insertimage']
+				    ],
+				    autoHeightEnabled: true,
+				    autoFloatEnabled: true
+			    });
+				setTimeout( () => {
+				var ue = UE.getEditor('container');
+				ue.setContent(uetext);
+				}, 1000);
 			}
 		});
 		
@@ -177,8 +187,9 @@
   </div>
   <div class="layui-colla-item">
     <h2 class="layui-colla-title">精彩展示</h2>
+    
+    	<div id="ueditor"></div>
 		<script id="container" name="content" type="text/plain">
-			<div id="uetext"></div>
         </script>
         <!--<img src="/upload/1.jpg" width="300" height="300"></img>-->
   </div>
@@ -253,13 +264,7 @@ layui.use('upload', function(){
   
 });
 
-    UE.getEditor('container', {
-    toolbars: [
-    ['fullscreen', 'source', 'undo', 'redo', 'bold', 'italic', 'underline', 'strikethrough', 'forecolor', 'backcolor', 'insertimage']
-    ],
-    autoHeightEnabled: true,
-    autoFloatEnabled: true
-    });
+    
 </script>
 </body>
 </html>

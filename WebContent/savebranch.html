@@ -24,6 +24,35 @@
       text-align: center;
     }
   </style>
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.0.js"></script>
+<script>
+	$(function(){	
+		$("#btn_submit").click(function(){
+			var name=$("#name").val();
+		    var tel=$("#tel").val();
+		    var address=$("#address").val();
+		    var longitude=$("#longitude").val();
+		    var latitude=$("#latitude").val();
+		    if(name&tel&address&)
+			$.ajax({
+				url:"/SSM/test/BranchHandler_saveBranch",
+				type:"post",
+				data:{name:name,tel:tel,address:address,longitude:longitude,latitude:latitude},
+		    	dataType:"json", 
+				success:function(data)
+				{
+					if(data.result){
+						console.log(data);
+						alert("save successfully");
+					}else{
+						console.log(data);
+						alert("save failed");
+					}
+				}
+			});
+		});
+	})
+</script>
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
@@ -120,17 +149,17 @@
     <div class="layui-form-item">
         <label class="layui-form-label">地址</label>
         <div class="layui-input-block">
-          <input type="text" name="name" id="address" required  lay-verify="required" autocomplete="off" placeholder="请输入详细地址" class="layui-input">
+          <input type="text" name="address" id="address" required  lay-verify="required" autocomplete="off" placeholder="请输入详细地址" class="layui-input">
         </div>
     </div>
      <div class="layui-form-item">
       <label class="layui-form-label" for="longitude">经度</label>
       <div class="layui-input-inline">
-        <input type="text" name="longitude" id="longitude" required autocomplete="off" placeholder="经度" class="layui-input">
+        <input type="text" name="longitude" id="longitude" required lay-verify="required" autocomplete="off" placeholder="经度" class="layui-input">
       </div>
       <label class="layui-form-label" for="latitude">纬度</label>
       <div class="layui-input-inline">
-        <input type="text" name="latitude" id="latitude" required autocomplete="off" placeholder="纬度" class="layui-input">
+        <input type="text" name="latitude" id="latitude" required lay-verify="required" autocomplete="off" placeholder="纬度" class="layui-input">
       </div>
       <div class="button-wrap">
 		<button class="layui-btn layui-btn-lg per-button" type="button" onclick="createMarker()">查询</button>
@@ -142,13 +171,13 @@
     <div class="layui-form-item">
       <label class="layui-form-label">分部电话</label>
       <div class="layui-input-inline">
-        <input type="number" oninput="if(value.length>11)value=value.slice(0,11)" name="tel" required  lay-verify="required" autocomplete="off" placeholder="请输入分部电话" class="layui-input">
+        <input type="number" oninput="if(value.length>11)value=value.slice(0,11)" name="tel" id="tel" required  lay-verify="required" autocomplete="off" placeholder="请输入分部电话" class="layui-input">
       </div>
   </div>
   </div>
 </div>
   <div class="button-wrap">
-    <button class="layui-btn layui-btn-lg per-button" lay-submit lay-filter="savebranch">保存信息</button>
+    <button class="layui-btn layui-btn-lg per-button" lay-submit lay-filter="savebranch" id="btn_submit" type="button">保存信息</button>
   </div>
  </form>
   
@@ -179,12 +208,12 @@ layui.use('form', function(){
   var form = layui.form;
   
  //监听提交，最后需要去掉！
-  form.on('submit(savebranch)', function(data){
+  /*form.on('submit(savebranch)', function(data){
     layer.alert(JSON.stringify(data.field), {
       title: '最终的提交信息'
     })
     return false;
-  }); 
+  }); */
 });
 
 function createMarker() {

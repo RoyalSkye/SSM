@@ -127,6 +127,7 @@ layui.use('table', function(){
   
   table.render({
     elem: '#demo'
+    ,url:'/SSM/test/BranchHandler_findAllBranch'
     ,cols: [[ //标题栏
       {field: 'bid', title: 'ID', width: '20%', sort: true}
       ,{field: 'name', title: '分部名字', width: '20%'}
@@ -134,22 +135,14 @@ layui.use('table', function(){
       ,{field: 'tel', title: '分部电话', Width: '20%'}
       ,{field: 'operation', title: '操作',width:'20%', align:'center', toolbar: '#barDemo'}
     ]]
-    ,data: [{
-      "bid": "1"
-      ,"name": "艺术中心"
-      ,"address": "沈阳"
-      ,"tel": "10087"
-    },{
-      "bid": "2"
-      ,"name": "实训中心"
-      ,"address": "北京"
-      ,"tel": "10086"
-    }]
      //,skin: 'line' //表格风格
     ,even: true
     ,page: true //是否显示分页
     ,limits: [5, 7, 10]
     ,limit: 5 //每页默认显示的数量
+    ,done: function(res){
+        console.log(res)
+    }
   });
   
 });
