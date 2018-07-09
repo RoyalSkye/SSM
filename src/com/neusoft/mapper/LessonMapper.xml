@@ -24,7 +24,7 @@
 	    insert into lesson(lname,imgurl,lprice,ldesc,category,qid,pubtime) values(#{lname}, #{imgurl}, #{lprice},#{ldesc},#{category},#{qid},#{pubtime})
 	</insert>
 	
-	<insert id="saveLessonbranch" parameterType="com.neusoft.po.Lessonbranch">
+	<insert id="saveLessonbranch" parameterType="com.neusoft.po.LessonBranch">
 		insert into lessonbranch(lid,bid) values(LAST_INSERT_ID(),#{bid})
 		<!--insert into lessonbranch(lid,bid) values(null,#{bid})
 	    <selectKey keyProperty="lid" order="AFTER" resultType="java.lang.Integer">

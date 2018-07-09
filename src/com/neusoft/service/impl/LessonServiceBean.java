@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import com.neusoft.mapper.FreelistenMapper;
 import com.neusoft.mapper.LessonMapper;
 import com.neusoft.po.Lesson;
-import com.neusoft.po.Lessonbranch;
+import com.neusoft.po.LessonBranch;
 import com.neusoft.po.Swiper;
 import com.neusoft.service.LessonService;
 
@@ -48,7 +48,7 @@ public class LessonServiceBean implements LessonService {
 		int result=mapper.saveLesson(lesson);
 		if(result>0){
 			isok=true;
-			Lessonbranch lessonbranch=new Lessonbranch();
+			LessonBranch lessonbranch=new LessonBranch();
 			lessonbranch.setBid(5);
 			mapper.saveLessonbranch(lessonbranch);
 		}else{

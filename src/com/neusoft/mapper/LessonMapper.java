@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.neusoft.po.Lesson;
-import com.neusoft.po.Lessonbranch;
+import com.neusoft.po.LessonBranch;
 import com.neusoft.po.Swiper;
 
 public interface LessonMapper {
@@ -15,7 +15,7 @@ public interface LessonMapper {
 	public int updateLesson(Lesson lesson)throws Exception;
 	public Swiper findimgurl(int qid) throws Exception;
 	public int saveLesson(Lesson lesson)throws Exception;
-	public int saveLessonbranch(Lessonbranch lessonbranch) throws Exception;
+	public int saveLessonbranch(LessonBranch lessonbranch) throws Exception;
 	//public int saveLesson(Map map)throws Exception;
 }
 	
