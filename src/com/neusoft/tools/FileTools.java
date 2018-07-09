@@ -38,7 +38,7 @@ public class FileTools {
 	public static String addHeader(Object obj) {
 		Gson gson = new Gson();
 		String str = " {\"code\":0,\"msg\":\"\",\"count\":1000,\"data\":"+(gson.toJson(obj))+"}";
-		System.out.println(str);
+		System.out.println("str:"+str);
 		return str;
 	}
 	

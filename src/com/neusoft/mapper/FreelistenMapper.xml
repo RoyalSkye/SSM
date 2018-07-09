@@ -5,7 +5,7 @@
 <mapper namespace="com.neusoft.mapper.FreelistenMapper">                                                                                                                               
 
 	<select id="findAllFreelisten" parameterType="int" resultType="com.neusoft.po.Freelisten">
-		select * from freelisten where qid=#{qid}
+		select * from freelisten where qid=#{qid} 
 	</select>
 	
 	<select id="findFreelistenById"  parameterType="int" resultType="com.neusoft.po.Freelisten">
