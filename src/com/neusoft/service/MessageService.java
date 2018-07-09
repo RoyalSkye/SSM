@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.neusoft.po.Message;
 import com.neusoft.po.Messagereply;
+import com.neusoft.po.Swiper;
 
 public interface MessageService {
 
@@ -14,6 +15,7 @@ public interface MessageService {
 	public boolean deleteMessage(int mid) throws Exception;
 	public List<Messagereply> findMessagereplyById(int mid) throws Exception;
 	public boolean deleteMessagereply(int id) throws Exception;
+	public Swiper findimgurl(int qid) throws Exception;
 	
 	//public boolean updateIndexphoto():是否要把首页照片存到某个地址？
 	/*public List<Messagelike> findAllMessagelike() throws Exception; 与前端关联，需多表连接

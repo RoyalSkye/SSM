@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.neusoft.mapper.MessageMapper;
 import com.neusoft.po.Message;
 import com.neusoft.po.Messagereply;
+import com.neusoft.po.Swiper;
 import com.neusoft.service.MessageService;
 
 @Service
@@ -65,6 +66,11 @@ public class MessageServiceBean implements MessageService {
 			isok=false;
 		}
 		return isok;
+	}
+
+	@Override
+	public Swiper findimgurl(int qid) throws Exception {
+		return mapper.findimgurl(qid);
 	}
 	
 	

@@ -9,4 +9,8 @@
 		insert into swiper(qid,imgurl,category) values(#{qid},#{imgurl},#{category})
 	</insert>
 	
+	<update id="updateSwiper"  parameterType="com.neusoft.po.Swiper">
+		update swiper set imgurl=#{imgurl} where qid=#{qid} and category=#{category}
+	</update>
+	
 </mapper>

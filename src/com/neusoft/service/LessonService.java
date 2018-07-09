@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.neusoft.po.Lesson;
+import com.neusoft.po.Swiper;
 
 public interface LessonService {
 	
@@ -12,5 +13,5 @@ public interface LessonService {
 	public boolean deleteLessonById(int lid) throws Exception;
 	public boolean saveLesson(Lesson lesson) throws Exception;
 	public boolean updateLesson(Lesson lesson) throws Exception;
-
+	public Swiper findimgurl(int qid) throws Exception;
 }

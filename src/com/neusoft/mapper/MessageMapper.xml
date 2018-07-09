@@ -54,4 +54,8 @@
 		delete from messagereply where id=#{id}
 	</delete>
 	
+	<select id="findimgurl" parameterType="int" resultType="com.neusoft.po.Swiper">
+		select * from swiper where qid=#{qid} and category="D"
+	</select>
+	
 </mapper>

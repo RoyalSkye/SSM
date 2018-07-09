@@ -31,8 +31,6 @@ public class BranchHandler {
 	@RequestMapping(value="/test/BranchHandler_findBranchById")
 	@ResponseBody
 	public Branch findBranchById(int bid) throws Exception{
-		//System.out.println("bid:"+bid);
-		//int bid1=Integer.parseInt(bid);
 		return branchService.findBranchById(bid);
 	}
 	

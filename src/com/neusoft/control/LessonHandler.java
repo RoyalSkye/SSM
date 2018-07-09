@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,7 +13,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.neusoft.po.Lesson;
+import com.neusoft.po.Swiper;
 import com.neusoft.service.LessonService;
+import com.neusoft.service.SwiperService;
 import com.neusoft.tools.FileTools;
 
 @Controller
@@ -20,6 +23,8 @@ public class LessonHandler {
 	
 	@Autowired
 	private LessonService lessonService;
+	@Autowired
+	private SwiperService swiperService;
 	
 	@RequestMapping(value="/test/LessonHandler_findAllLesson")
 	@ResponseBody
@@ -63,6 +68,15 @@ public class LessonHandler {
 		}
 	}
 	
+	@RequestMapping(value="/test/LessonHandler_findimgurl")
+	@ResponseBody
+	public String findimgurl(HttpServletRequest request) throws Exception{
+		HttpSession session=request.getSession();
+		int qid=(int)session.getAttribute("qid");
+		String imgurl="/upload/"+lessonService.findimgurl(qid).getImgurl();
+		return imgurl;
+	}
+	
 	@RequestMapping(value="/test/LessonHandler_saveimg")
 	@ResponseBody
 	public String saveimg(MultipartFile file,HttpServletRequest request) throws Exception{
@@ -78,6 +92,32 @@ public class LessonHandler {
 			//result="../upload/15307951697841.jpg";
 			//System.out.println("{\"result\":true,\"imgurl\":\""+url+"\"}");
 			return "{\"result\":true,\"imgurl\":\""+url+"\"}";
+		}
+	}
+	
+	@RequestMapping(value="/test/LessonHandler_saveswiperimg")
+	@ResponseBody
+	public String saveswiperimg(MultipartFile file,HttpServletRequest request) throws Exception{
+		if(file==null){
+			System.out.println("ÎÄ¼þÎª¿Õ");
+			return "{\"result\":false}";
+		}
+		String url=FileTools.saveimg(file,request);
+		if(url==null||url==""){
+			return "{\"result\":false}";
+		}else{
+			HttpSession session=request.getSession();
+			int qid=(int)session.getAttribute("qid");
+			Swiper swiper=new Swiper();
+			swiper.setCategory("C");
+			swiper.setQid(qid);
+			String imgurl=url.substring(10);
+			swiper.setImgurl(imgurl);
+			if(swiperService.updateSwiper(swiper)){
+				return "{\"result\":true,\"imgurl\":\""+url+"\"}";
+			}else{
+				return "{\"result\":false}";
+			}
 		}
 	}
 	

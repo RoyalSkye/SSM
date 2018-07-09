@@ -24,4 +24,8 @@
 	    insert into teacher(tname,tphoto_url,introduction,qid) values(#{tname},#{tphoto_url},#{introduction},#{qid});
 	</insert>
 	
+	<select id="findimgurl" parameterType="int" resultType="com.neusoft.po.Swiper">
+		select * from swiper where qid=#{qid} and category="B"
+	</select>
+	
 </mapper>

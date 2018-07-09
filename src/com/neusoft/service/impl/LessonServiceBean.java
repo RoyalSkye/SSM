@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.neusoft.mapper.FreelistenMapper;
 import com.neusoft.mapper.LessonMapper;
 import com.neusoft.po.Lesson;
+import com.neusoft.po.Swiper;
 import com.neusoft.service.LessonService;
 
 @Service
@@ -60,6 +61,11 @@ public class LessonServiceBean implements LessonService {
 			isok=false;
 		}
 		return isok;
+	}
+
+	@Override
+	public Swiper findimgurl(int qid) throws Exception {
+		return mapper.findimgurl(qid);
 	}
 
 }

@@ -25,4 +25,16 @@ public class SwiperServiceBean implements SwiperService {
 		return isok;
 	}
 
+	@Override
+	public boolean updateSwiper(Swiper swiper) throws Exception {
+		boolean isok=false;
+		int result=mapper.updateSwiper(swiper);
+		if(result>0){
+			isok=true;
+		}else{
+			isok=false;
+		}
+		return isok;
+	}
+
 }

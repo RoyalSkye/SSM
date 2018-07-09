@@ -90,8 +90,11 @@ public class EnterpriseHandler {
 			String imgurl=url.substring(10);  //  ../upload/....jpg
 			swiper.setImgurl(imgurl);
 			swiper.setCategory("A");
-			swiperService.saveSwiper(swiper);
-			return "{\"result\":true,\"imgurl\":\""+url+"\"}";
+			if(swiperService.saveSwiper(swiper)){
+				return "{\"result\":true,\"imgurl\":\""+url+"\"}";
+			}else{
+				return "{\"result\":false}";
+			}
 		}
 	}
 	

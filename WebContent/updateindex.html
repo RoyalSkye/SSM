@@ -60,23 +60,29 @@
 		$("#btn_submit").click(function(){
 			var name=$("#name").val();
 		    var introduction=$("#introduction").val();
-		    //var uetext=$("#uetext").val;
-			$.ajax({
-				url:"/SSM/test/EnterpriseHandler_updateEnterprise",
-				type:"post",
-				data:{name:name,introduction:introduction},
-		    	dataType:"json", 
-				success:function(data)
-				{
-					if(data.result){
-						console.log(data);
-						alert("update successfully");
-					}else{
-						console.log(data);
-						alert("update failed");
+		    var ue = UE.getEditor('container');
+		    var uetext=ue.getContent();
+		    if(name==""||introduction==""||uetext==""){
+		    	alert("必填项不能为空!")
+		    }else{
+		    	$.ajax({
+					url:"/SSM/test/EnterpriseHandler_updateEnterprise",
+					type:"post",
+					data:{name:name,introduction:introduction,uetext:uetext},
+			    	dataType:"json", 
+					success:function(data)
+					{
+						if(data.result){
+							console.log(data);
+							alert("update successfully");
+							location.href='index.html';
+						}else{
+							console.log(data);
+							alert("update failed");
+						}
 					}
-				}
-			});
+				});
+		    }
 		});
 	})
 </script>
@@ -253,14 +259,6 @@ layui.use('upload', function(){
  
  layui.use('form', function(){
   var form = layui.form;
-  
- //监听提交，最后需要去掉！
-  /*form.on('submit(updateindex)', function(data){
-    layer.alert(JSON.stringify(data.field), {
-      title: '最终的提交信息'
-    })
-    return false;
-  }); */
   
 });
 
