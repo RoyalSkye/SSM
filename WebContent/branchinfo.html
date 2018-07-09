@@ -124,7 +124,7 @@ layui.use('table', function(){
       //layer.alert('编辑行：<br>'+ JSON.stringify(data))
     }
    });
-  
+ 
   table.render({
     elem: '#demo'
     ,url:'/SSM/test/BranchHandler_findAllBranch'
@@ -138,8 +138,6 @@ layui.use('table', function(){
      //,skin: 'line' //表格风格
     ,even: true
     ,page: true //是否显示分页
-    ,limits: [5, 7, 10]
-    ,limit: 5 //每页默认显示的数量
     ,done: function(res){
         console.log(res)
     }
