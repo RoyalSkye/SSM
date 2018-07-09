@@ -3,11 +3,13 @@ package com.neusoft.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.neusoft.mapper.RefundMapper;
 import com.neusoft.po.Refund;
 import com.neusoft.service.RefundService;
 
+@Service
 public class RefundServiceBean  implements RefundService{
 	
 	@Autowired

@@ -50,7 +50,15 @@ public class LessonHandler {
 	
 	@RequestMapping(value="/test/LessonHandler_saveLesson")
 	@ResponseBody
-	public String saveLesson(Lesson lesson) throws Exception{
+	public String saveLesson() throws Exception{  //Lesson lesson
+		Lesson lesson=new Lesson();
+		lesson.setCategory("test");
+		lesson.setImgurl("test");
+		lesson.setLdesc("test");
+		//lesson.setPubtime("test");
+		lesson.setLname("test");
+		lesson.setLprice(0.01);
+		lesson.setQid(1);
 		if(lessonService.saveLesson(lesson)){
 			return "{\"result\":true}";
 		}else{

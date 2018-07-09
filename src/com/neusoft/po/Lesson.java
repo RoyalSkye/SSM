@@ -11,7 +11,7 @@ public class Lesson {
 	private String ldesc;
 	private String category;
 	private int qid;
-	private Date datetime;
+	private String pubtime;
 	public int getLid() {
 		return lid;
 	}
@@ -54,16 +54,16 @@ public class Lesson {
 	public void setQid(int qid) {
 		this.qid = qid;
 	}
-	public Date getDatetime() {
-		return datetime;
+	public String getPubtime() {
+		return pubtime;
 	}
-	public void setDatetime(Date datetime) {
-		this.datetime = datetime;
+	public void setPubtime(String pubtime) {
+		this.pubtime = pubtime;
 	}
 	@Override
 	public String toString() {
 		return "Lesson [lid=" + lid + ", lname=" + lname + ", imgurl=" + imgurl + ", lprice=" + lprice + ", ldesc="
-				+ ldesc + ", category=" + category + ", qid=" + qid + ", datetime=" + datetime + "]";
+				+ ldesc + ", category=" + category + ", qid=" + qid + ", pubtime=" + pubtime + "]";
 	}
 	
 }

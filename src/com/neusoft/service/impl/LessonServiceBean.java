@@ -1,6 +1,8 @@
 package com.neusoft.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.neusoft.mapper.FreelistenMapper;
 import com.neusoft.mapper.LessonMapper;
 import com.neusoft.po.Lesson;
+import com.neusoft.po.Lessonbranch;
 import com.neusoft.po.Swiper;
 import com.neusoft.service.LessonService;
 
@@ -45,6 +48,9 @@ public class LessonServiceBean implements LessonService {
 		int result=mapper.saveLesson(lesson);
 		if(result>0){
 			isok=true;
+			Lessonbranch lessonbranch=new Lessonbranch();
+			lessonbranch.setBid(5);
+			mapper.saveLessonbranch(lessonbranch);
 		}else{
 			isok=false;
 		}
