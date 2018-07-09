@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="lcw.dao.refundMapper">
+  <resultMap id="BaseResultMap" type="lcw.model.refund">
+    <id column="oid" jdbcType="INTEGER" property="oid" />
+    <result column="refundreason" jdbcType="VARCHAR" property="refundreason" />
+    <result column="refundtime" jdbcType="TIMESTAMP" property="refundtime" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    oid, refundreason, refundtime, status
+  </sql>
+  
+   <select id="findAllRefund" parameterType="java.lang.Int" resultType="com.neusoft.po.Refund">
+    select *
+    from refund
+  </select>
+  
+  <select id="selectById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from refund
+    where oid = #{oid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteById" parameterType="java.lang.Integer">
+    delete from refund
+    where oid = #{oid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.neusoft.po.Refund">
+    insert into refund (oid, refundreason, refundtime, 
+      status)
+    values (#{oid,jdbcType=INTEGER}, #{refundreason,jdbcType=VARCHAR}, #{refundtime,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.neusoft.po.Refund">
+    insert into refund
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="oid != null">
+        oid,
+      </if>
+      <if test="refundreason != null">
+        refundreason,
+      </if>
+      <if test="refundtime != null">
+        refundtime,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="oid != null">
+        #{oid,jdbcType=INTEGER},
+      </if>
+      <if test="refundreason != null">
+        #{refundreason,jdbcType=VARCHAR},
+      </if>
+      <if test="refundtime != null">
+        #{refundtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByIdSelective" parameterType="com.neusoft.po.Refund">
+    update refund
+    <set>
+      <if test="refundreason != null">
+        refundreason = #{refundreason,jdbcType=VARCHAR},
+      </if>
+      <if test="refundtime != null">
+        refundtime = #{refundtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where oid = #{oid,jdbcType=INTEGER}
+  </update>
+  <update id="updateById" parameterType="com.neusoft.po.Refund">
+    update refund
+    set refundreason = #{refundreason,jdbcType=VARCHAR},
+      refundtime = #{refundtime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=VARCHAR}
+    where oid = #{oid,jdbcType=INTEGER}
+  </update>
+</mapper>
