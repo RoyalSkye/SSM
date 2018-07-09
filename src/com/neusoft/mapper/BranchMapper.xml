@@ -13,7 +13,7 @@
 	</select>
 	
 	<delete id="deleteBranchById"  parameterType="int">
-		delete from branch where bid=#{bid}
+		delete from branch where bid=#{bid} 
 	</delete>
 	
 	<update id="updateBranch"  parameterType="com.neusoft.po.Branch">

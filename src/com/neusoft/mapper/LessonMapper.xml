@@ -24,4 +24,8 @@
 		insert into lesson(lid,lname,imgurl,lprice,ldesc,category,qid,pubtime) values(#{fid},#{lname},#{imgurl},#{lprice},#{ldesc},#{category},#{qid},#{pubtime})
 	</insert>
 	
+	<select id="findimgurl"  parameterType="int" resultType="com.neusoft.po.Swiper">
+		select * from swiper where qid=#{qid} and category="C"
+	</select>
+	
 </mapper>

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.neusoft.mapper.TeacherMapper;
+import com.neusoft.po.Swiper;
 import com.neusoft.po.Teacher;
 import com.neusoft.service.TeacherService;
 
@@ -60,6 +61,11 @@ public class TeacherServiceBean implements TeacherService {
 			isok=false;
 		}
 		return isok;
+	}
+
+	@Override
+	public Swiper findimgurl(int qid) throws Exception {
+		return mapper.findimgurl(qid);
 	}
 
 }

@@ -49,7 +49,7 @@
 				$("#updatelatitude").append(updatelatitude);
 				var updateaddress='<input type="text" name="address" id="address" required  lay-verify="required" autocomplete="off" placeholder="请输入详细地址" class="layui-input" value="'+data.address+'">';
 				$("#updateaddress").append(updateaddress);
-				createMarker();
+				showmap();
 			}
 		})
 		$("#btn_submit").click(function(){
@@ -71,6 +71,7 @@
 						if(data.result){
 							console.log(data);
 							alert("update successfully");
+							location.href='branchinfo.html';
 						}else{
 							console.log(data);
 							alert("update failed");
@@ -229,7 +230,25 @@ layui.use('form', function(){
   
 });
 
-function createMarker() {
+function showmap(){  //根据经纬度定位
+	console.log("showmap");
+	var longitude=document.getElementById("longitude").value;
+	var latitude=document.getElementById("latitude").value;
+	var address = document.getElementById('address').value;
+	var map = new BMap.Map("map");
+	var point = new BMap.Point(longitude,latitude);
+	 map.centerAndZoom(point, 15);
+	 map.enableContinuousZoom(true);
+	 map.enableScrollWheelZoom(true);
+	 map.addControl(new BMap.NavigationControl());	
+	 var marker = new BMap.Marker(new BMap.Point(longitude, latitude));
+     map.addOverlay(marker);
+     var content ="地址："+address+"<br/>经度：" + longitude + "<br/>纬度：" + latitude;
+     var infoWindow = new BMap.InfoWindow("<p style='font-size:14px;'>" + content + "</p>");
+     marker.addEventListener("click", function () { this.openInfoWindow(infoWindow); });
+}
+
+function createMarker() {  //根据地址搜索 并返回经纬度
 	  var address = document.getElementById('address').value;
 	  var name = document.getElementById("name").value;
 	  if (address) {
