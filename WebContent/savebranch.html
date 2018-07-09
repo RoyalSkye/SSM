@@ -33,23 +33,27 @@
 		    var address=$("#address").val();
 		    var longitude=$("#longitude").val();
 		    var latitude=$("#latitude").val();
-		    if(name&tel&address&)
-			$.ajax({
-				url:"/SSM/test/BranchHandler_saveBranch",
-				type:"post",
-				data:{name:name,tel:tel,address:address,longitude:longitude,latitude:latitude},
-		    	dataType:"json", 
-				success:function(data)
-				{
-					if(data.result){
-						console.log(data);
-						alert("save successfully");
-					}else{
-						console.log(data);
-						alert("save failed");
+		    if(name==""||tel==""||address==""||longitude==""||latitude==""){
+		    	alert("必填项不能为空!")
+		    }else{
+				$.ajax({
+					url:"/SSM/test/BranchHandler_saveBranch",
+					type:"post",
+					data:{name:name,tel:tel,address:address,longitude:longitude,latitude:latitude},
+			    	dataType:"json", 
+					success:function(data)
+					{
+						if(data.result){
+							console.log(data);
+							alert("save successfully");
+							location.href='branchinfo.html';
+						}else{
+							console.log(data);
+							alert("save failed");
+						}
 					}
-				}
-			});
+				});
+		    }
 		});
 	})
 </script>

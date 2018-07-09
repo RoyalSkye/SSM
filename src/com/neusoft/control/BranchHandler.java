@@ -31,6 +31,8 @@ public class BranchHandler {
 	@RequestMapping(value="/test/BranchHandler_findBranchById")
 	@ResponseBody
 	public Branch findBranchById(int bid) throws Exception{
+		//System.out.println("bid:"+bid);
+		//int bid1=Integer.parseInt(bid);
 		return branchService.findBranchById(bid);
 	}
 	
@@ -46,7 +48,10 @@ public class BranchHandler {
 	
 	@RequestMapping(value="/test/BranchHandler_updateBranch")
 	@ResponseBody
-	public String updateBranch(Branch b) throws Exception{
+	public String updateBranch(Branch b,HttpServletRequest request) throws Exception{
+		HttpSession session=request.getSession();
+		int qid=(int)session.getAttribute("qid");
+		b.setQid(qid);
 		if(branchService.updateBranch(b)){
 			return "{\"result\":true}";
 		}else{

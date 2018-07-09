@@ -13,20 +13,27 @@
   </style>
   <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.0.js"></script>
   <script>
-  //var longitude;
-  //var latitude;
-  //var address;
-  //var name;
+  function GetQueryString(name)
+  {
+       var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+       var r = window.location.search.substr(1).match(reg);
+       if(r!=null)return  unescape(r[2]); return null;
+  }
+  	var bid=GetQueryString("bid");
+	//console.log(bid);
 	$(function(){
 		$.ajax({
-			url:"test/BranchHandler_findBranchById?bid=1",
+			url:"test/BranchHandler_findBranchById?bid="+bid,				
 			success:function(data)
 			{
 				console.log(data);
-				longitude=data.longitude;
-				latitude=data.latitude;
-				address=data.address;
-				name=data.name;
+				var name=data.name;
+				$("#name").append(name);
+				var tel=data.tel;
+				$("#tel").append(tel);
+				var longitude=data.longitude;
+				var latitude=data.latitude;
+				var address=data.address;
 				mymap(longitude,latitude,name,address);
 			}
 		})
@@ -115,16 +122,16 @@
 <div class="layui-collapse">
   <div class="layui-colla-item">
     <h2 class="layui-colla-title">分部名字</h2>
-    <div class="layui-colla-content layui-show">艺术中心</div>
+    <div class="layui-colla-content layui-show" id="name"></div>
   </div>
   <div class="layui-colla-item">
     <h2 class="layui-colla-title">分部地址</h2><br>
-    艺术中心
+   
     <div id="map"></div>
   </div>
   <div class="layui-colla-item">
     <h2 class="layui-colla-title">分部电话</h2>
-    <div class="layui-colla-content layui-show">10087</div>
+    <div class="layui-colla-content layui-show" id="tel"></div>
   </div>
 </div>
 </div>

@@ -24,6 +24,63 @@
       text-align: center;
     }
   </style>
+   <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.0.js"></script>
+  <script>
+  function GetQueryString(name)
+  {
+       var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+       var r = window.location.search.substr(1).match(reg);
+       if(r!=null)return  unescape(r[2]); return null;
+  }
+  	var bid=GetQueryString("bid");
+  	$(function(){
+		$.ajax({
+			url:"test/BranchHandler_findBranchById?bid="+bid,				
+			success:function(data)
+			{
+				console.log(data);
+				var updatename='<input type="text" name="name" id="name" required  lay-verify="required" value="'+data.name+'">';
+				$("#updatename").append(updatename);
+				var updatetel='<input class="layui-input" type="text" name="tel" id="tel" required  lay-verify="required" value="'+data.tel+'">';
+				$("#updatetel").append(updatetel);
+				var updatelongitude='<input type="text" name="longitude" id="longitude" required autocomplete="off" placeholder="经度" class="layui-input" value="'+data.longitude+'">';
+				$("#updatelongitude").append(updatelongitude);
+				var updatelatitude='<input type="text" name="latitude" id="latitude" required autocomplete="off" placeholder="纬度" class="layui-input" value="'+data.latitude+'">';
+				$("#updatelatitude").append(updatelatitude);
+				var updateaddress='<input type="text" name="address" id="address" required  lay-verify="required" autocomplete="off" placeholder="请输入详细地址" class="layui-input" value="'+data.address+'">';
+				$("#updateaddress").append(updateaddress);
+				createMarker();
+			}
+		})
+		$("#btn_submit").click(function(){
+			var name=$("#name").val();
+		    var tel=$("#tel").val();
+		    var address=$("#address").val();
+		    var longitude=$("#longitude").val();
+		    var latitude=$("#latitude").val();
+		    if(name==""||tel==""||address==""||longitude==""||latitude==""){
+		    	alert("必填项不能为空!")
+		    }else{
+		    	$.ajax({
+					url:"/SSM/test/BranchHandler_updateBranch?bid="+bid,
+					type:"post",
+					data:{name:name,tel:tel,address:address,longitude:longitude,latitude:latitude},
+			    	dataType:"json", 
+					success:function(data)
+					{
+						if(data.result){
+							console.log(data);
+							alert("update successfully");
+						}else{
+							console.log(data);
+							alert("update failed");
+						}
+					}
+				});
+		    }
+		});
+	})
+  </script>
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
@@ -107,26 +164,21 @@
 <div class="layui-collapse">
   <div class="layui-colla-item">
     <h2 class="layui-colla-title">分部名字</h2>
-    <div class="layui-colla-content layui-show"><input  class="layui-input" type="text" name="name" id="name" required  lay-verify="required" value="艺术中心"></div>
+    <div class="layui-colla-content layui-show" id="updatename"></div>
   </div>
     <div class="layui-colla-item">
     <h2 class="layui-colla-title">分部地址</h2>
     <div id="map"></div>
     <div class="layui-form-item">
         <label class="layui-form-label">地址</label>
-        <div class="layui-input-block">
-          <input type="text" name="name" id="address" required  lay-verify="required" autocomplete="off" placeholder="请输入详细地址" class="layui-input">
+        <div class="layui-input-block" id="updateaddress">
         </div>
     </div>
      <div class="layui-form-item">
       <label class="layui-form-label" for="longitude">经度</label>
-      <div class="layui-input-inline">
-        <input type="text" name="longitude" id="longitude" required autocomplete="off" placeholder="经度" class="layui-input">
-      </div>
+      <div class="layui-input-inline" id="updatelongitude"></div>
       <label class="layui-form-label" for="latitude">纬度</label>
-      <div class="layui-input-inline">
-        <input type="text" name="latitude" id="latitude" required autocomplete="off" placeholder="纬度" class="layui-input">
-      </div>
+      <div class="layui-input-inline" id="updatelatitude"></div>
       <div class="button-wrap">
 		<button class="layui-btn layui-btn-lg per-button" type="button" onclick="createMarker()">查询</button>
 	  </div>
@@ -134,10 +186,10 @@
   </div>
   <div class="layui-colla-item">
     <h2 class="layui-colla-title">分部电话</h2>
-    <div class="layui-colla-content layui-show layui-input"><input class="layui-input" type="text" name="name" id="phone" required  lay-verify="required" value="10087"></div>
+    <div class="layui-colla-content layui-show layui-input" id="updatetel"></div>
   </div>
 </div>
-	<br><button class="layui-btn layui-btn-lg per-button" lay-submit lay-filter="updatebranch">保存信息</button><br><br>
+	<br><button class="layui-btn layui-btn-lg per-button" lay-submit lay-filter="updatebranch" id="btn_submit" type="button">保存信息</button><br><br>
 </form>
 </div>
   
@@ -167,13 +219,13 @@ layui.use('element', function(){
 layui.use('form', function(){
   var form = layui.form;
   
- //监听提交，最后需要去掉！
-  form.on('submit(updatebranch)', function(data){
+
+  /*form.on('submit(updatebranch)', function(data){
     layer.alert(JSON.stringify(data.field), {
       title: '最终的提交信息'
     })
     return false;
-  }); 
+  }); */
   
 });
 
