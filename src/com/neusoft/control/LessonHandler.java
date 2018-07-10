@@ -70,9 +70,9 @@ public class LessonHandler {
 	@ResponseBody
 	public String updateLesson(Lesson lesson) throws Exception{
 		if(lessonService.updateLesson(lesson)){
-			return "{\"result\":true}";
+			return "redirect:/freelisteninfo.html";
 		}else{
-			return "{\"result\":false}";
+			return "redirect:/freelisteninfo.html";
 		}
 	}
 	

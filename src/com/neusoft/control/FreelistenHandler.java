@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.neusoft.po.Freelisten;
 import com.neusoft.service.FreelistenService;
 import com.neusoft.tools.FileTools;
+import com.neusoft.tools.Page;
 
 @Controller
 public class FreelistenHandler {
@@ -27,8 +28,9 @@ public class FreelistenHandler {
 	@ResponseBody
 	public String findAllFreelisten(HttpServletRequest request) throws Exception{
 		HttpSession session=request.getSession();
-		int qid=(int)session.getAttribute("qid");
-		return FileTools.addHeader(freelistenService.findAllFreelisten(qid));
+		Page page = new Page((int)session.getAttribute("limit"),(int)session.getAttribute("currentPage"),(int)session.getAttribute("qid"));
+		page.setTotalPage(freelistenService.findCount());
+		return FileTools.addHeader(freelistenService.findAllFreelisten(page),page.getTotalPage());
 	}
 	
 	@RequestMapping(value="/test/FreelistenHandler_findFreelistenById")
@@ -39,8 +41,11 @@ public class FreelistenHandler {
 	
 	@RequestMapping(value="/test/FreelistenHandler_findFreelistenByBid",produces = "application/json; charset=utf-8")
 	@ResponseBody
-	public String findFreelistenByBid(int bid) throws Exception{
-		return FileTools.addHeader(freelistenService.findFreelistenByBid(bid));
+	public String findFreelistenByBid(HttpServletRequest request) throws Exception{
+		HttpSession session=request.getSession();
+		Page page = new Page((int)session.getAttribute("limit"),(int)session.getAttribute("currentPage"),(int)session.getAttribute("bid"));
+		page.setTotalPage(freelistenService.findCount());
+		return FileTools.addHeader(freelistenService.findAllFreelisten(page),page.getTotalPage());
 	}
 	
 	@RequestMapping(value="/test/FreelistenHandler_deleteFreelistenById")

@@ -4,16 +4,16 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.neusoft.mapper.FreelistenMapper">                                                                                                                               
 
-	<select id="findAllFreelisten" parameterType="int" resultType="com.neusoft.po.Freelisten">
-		select * from freelisten where qid=#{qid} 
+	<select id="findAllFreelisten" parameterType="com.neusoft.tools.Page" resultType="com.neusoft.po.Freelisten">
+		select * from freelisten where qid=#{id} limit#{minNum},#{maxNum} 
 	</select>
 	
 	<select id="findFreelistenById"  parameterType="int" resultType="com.neusoft.po.Freelisten">
 		select * from freelisten where fid=#{fid}
 	</select>
 	
-	<select id="findFreelistenByBid"  parameterType="int" resultType="com.neusoft.po.Freelisten">
-		select * from freelisten where bid=#{bid}
+	<select id="findFreelistenByBid"  parameterType="com.neusoft.tools.Page" resultType="com.neusoft.po.Freelisten">
+		select * from freelisten where bid=#{id} limit#{minNum},#{maxNum} 
 	</select>
 	
 	<delete id="deleteFreelistenById"  parameterType="int">
@@ -30,5 +30,10 @@
 	<insert id="saveFreelisten"  parameterType="com.neusoft.po.Freelisten">
 		insert into freelisten(fid,title,imgurl,fdesc,status,qid,bid,pubtime) values(#{fid},#{title},#{imgurl},#{fdesc},#{status},#{qid},#{bid},#{pubtime})
 	</insert>
+	
+	
+	<select id="findCount" resultType="int">
+	SELECT COUNT(*) FROM branch
+	</select>
 	
 </mapper>
