@@ -9,6 +9,7 @@ public interface FreelistenMapper {
 
 	public List<Freelisten> findAllFreelisten(int qid) throws Exception;
 	public Freelisten findFreelistenById(int fid)throws Exception;
+	public List<Freelisten> findFreelistenByBid(int bid)throws Exception;
 	public int deleteFreelistenById(int fid)throws Exception;
 	public int saveFreelisten(Freelisten freelisten)throws Exception;
 	public int updateFreelisten(Freelisten freelisten)throws Exception;

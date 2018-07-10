@@ -12,6 +12,10 @@
 		select * from freelisten where fid=#{fid}
 	</select>
 	
+	<select id="findFreelistenByBid"  parameterType="int" resultType="com.neusoft.po.Freelisten">
+		select * from freelisten where bid=#{bid}
+	</select>
+	
 	<delete id="deleteFreelistenById"  parameterType="int">
 		delete from freelisten where fid=#{fid}
 	</delete>

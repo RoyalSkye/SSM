@@ -10,7 +10,27 @@
        height: 100%;
        max-width: 100%;
    } </style>
-
+ <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.0.js"></script>
+<script>
+	$(function(){
+		$.ajax({
+			url:"test/BranchHandler_findAllBranch",
+			success:function(data)
+			{
+				console.log(data);
+				//console.log(data.length);
+				//console.log(data.data.length);
+				var name='<select name="modules" lay-verify="required" lay-search="" lay-filter="test">';
+				for(var i=0;i<data.data.length;i++){
+					name+=' <option value="'+(i+1)+'">'+data.data[i].name+'</option>';
+				}
+				name+='</select>';
+				$("#selectbox").append(name);
+				//console.log(name);
+			}
+		})
+	})
+</script>
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
@@ -35,7 +55,7 @@
   <div class="layui-side layui-bg-black">
     <div class="layui-side-scroll">
       <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
-      <ul class="layui-nav layui-nav-tree"  lay-filter="test">
+      <ul class="layui-nav layui-nav-tree" >
         <li class="layui-nav-item">
           <a class="" href="javascript:;">企业管理</a>
           <dl class="layui-nav-child">
@@ -87,14 +107,12 @@
   <div class="layui-body">
     <!-- 内容主体区域 -->
     <div style="padding: 15px; display: flex; justify-content: space-between; align-items: center;"><span>预约课程信息表</span>
-			 <form class="layui-form" action="">
-			<div class="layui-input-inline">
-	        <select name="modules" lay-verify="required" lay-search="" lay-filter="test ">
-	          <option value="1">艺术中心</option>
-	          <option value="2">实训中心</option>
-	        </select>
-	        
-	  </div></form>
+    
+		<form class="layui-form" action="" id="selectform">
+			<div class="layui-input-inline" id="selectbox">
+	  		</div>
+	  	</form>
+	  
     	<a href="savefreelesson.html" style="margin-right: 40px"><button class="layui-btn layui-btn-sm">添加预约课程</button></a>
     </div>
 	    <table class="layui-hide" id="demo" lay-filter="demo">
@@ -117,18 +135,35 @@
 <script>
 //JavaScript代码区域
 
-  	
-
-
-layui.use('element', function(){
+layui.use(['element','form','jquery','layer','table'], function(){
   var element = layui.element;
-  
-});
-
-
-layui.use('table', function(){
+  var $=layui.jquery;
+  var form = layui.form;
   var table = layui.table;
-  
+  var layer=parent.layer===undefined?layui.layer:parent.layer;
+  var url='/SSM/test/FreelistenHandler_findAllFreelisten';
+  showtable(url);
+  form.on('select(test)',function(data){
+		console.log(data);
+		//console.log(data.value);
+		var bid=data.value;
+		console.log(data);
+		var url='/SSM/test/FreelistenHandler_findFreelistenByBid?bid='+bid;
+		showtable(url);
+		/*$.ajax({
+			url:"test/FreelistenHandler_findFreelistenByBid",
+			type:"post",
+			data:{bid:bid},
+	    	dataType:"json", 
+	    	success:function(data)
+	    	{
+	    		console.log(data);
+	    		var url='/SSM/test/FreelistenHandler_findFreelistenByBid?bid='+bid;
+	    		showtable(url);
+	    	}
+		});*/
+	});
+  function showtable(url){
   table.on('tool(demo)', function(obj){
     var data = obj.data;
     if(obj.event === 'detail'){
@@ -144,8 +179,45 @@ layui.use('table', function(){
       //layer.alert('编辑行：<br>'+ JSON.stringify(data))
     }
    });
-  
-  
+
+  table.render({
+    elem: '#demo'
+   	,url: url
+    ,cols: [[ //表头
+      {field: 'title', title: '预约课程标题', width:'20%',style:'height:100px;'}
+      ,{field: 'imgurl', title: '课程图片', width:'20%',style:'height:100px;',templet:'<div><img src="{{d.imgurl}}"></div>'}
+      ,{field: 'status', title: '预约课程状态', width:'20%',style:'height:100px;'}
+      ,{field: 'pubtime', title: '预约课程发布时间', width:'20%',style:'height:100px;'}
+       ,{field: 'operation', title: '操作',width:'20%',align:'center',style:'height:100px;', toolbar: '#barDemo'}
+    ]]
+    ,even: true
+    ,page: true //是否显示分页
+    ,limits: [5, 7, 10]
+    ,limit: 5 //每页默认显示的数量
+    ,done: function(res){
+        console.log(res)
+    }
+   });
+  }
+});
+
+/*layui.use('table', function(){
+  var table = layui.table;
+  table.on('tool(demo)', function(obj){
+    var data = obj.data;
+    if(obj.event === 'detail'){
+    	location.href='freelessondetailinfo.html?fid='+obj.data.fid;
+      //layer.msg('ID：'+ data.id + ' 的查看操作');
+    } else if(obj.event === 'del'){
+      layer.confirm('真的删除行么', function(index){
+        obj.del();
+        layer.close(index);
+      });
+    } else if(obj.event === 'edit'){
+    	location.href='updatefreelesson.html?fid='+obj.data.fid;
+      //layer.alert('编辑行：<br>'+ JSON.stringify(data))
+    }
+   });
   table.render({
     elem: '#demo'
    	,url:'/SSM/test/FreelistenHandler_findAllFreelisten?qid=1'
@@ -160,15 +232,15 @@ layui.use('table', function(){
     ,page: true //是否显示分页
     ,limits: [5, 7, 10]
     ,limit: 5 //每页默认显示的数量
+    ,done: function(res){
+        console.log(res)
+    }
   });
-    layui.use('form', function(){
+  layui.use('form', function(){
   var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
   form.render();
-  
-});  
-    
-  
-});
+	});   
+});*/
 </script>
 </body>
 </html>

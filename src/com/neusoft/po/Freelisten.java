@@ -29,7 +29,7 @@ public class Freelisten {
 		return imgurl;
 	}
 	public void setImgurl(String imgurl) {
-		this.imgurl = imgurl;
+		this.imgurl = "/upload/"+imgurl;
 	}
 	public String getFdesc() {
 		return fdesc;

@@ -62,4 +62,9 @@ public class FreelistenServiceBean implements FreelistenService {
 		return isok;
 	}
 
+	@Override
+	public List<Freelisten> findFreelistenByBid(int bid) throws Exception {
+		return mapper.findFreelistenByBid(bid);
+	}
+
 }

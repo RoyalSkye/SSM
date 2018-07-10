@@ -29,7 +29,9 @@ public class EnterpriseHandler {
 
 	@RequestMapping(value="/test/EnterpriseHandler_findEnterpriseById")
 	@ResponseBody
-	public Enterprise findEnterpriseById(int qid) throws Exception{
+	public Enterprise findEnterpriseById(HttpServletRequest request) throws Exception{
+		HttpSession session=request.getSession();
+		int qid=(int)session.getAttribute("qid");
 		return enterpriseService.findEnterpriseById(qid);
 	}
 	

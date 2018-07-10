@@ -34,8 +34,13 @@ public class FreelistenHandler {
 	@RequestMapping(value="/test/FreelistenHandler_findFreelistenById")
 	@ResponseBody
 	public Freelisten findFreelistenById(int fid) throws Exception{
-		System.out.println("suck"+freelistenService.findFreelistenById(fid).getFdesc());
 		return freelistenService.findFreelistenById(fid);
+	}
+	
+	@RequestMapping(value="/test/FreelistenHandler_findFreelistenByBid",produces = "application/json; charset=utf-8")
+	@ResponseBody
+	public String findFreelistenByBid(int bid) throws Exception{
+		return FileTools.addHeader(freelistenService.findFreelistenByBid(bid));
 	}
 	
 	@RequestMapping(value="/test/FreelistenHandler_deleteFreelistenById")
