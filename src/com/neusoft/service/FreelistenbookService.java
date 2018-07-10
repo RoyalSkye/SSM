@@ -9,5 +9,6 @@ public interface FreelistenbookService {
 
 	public List<Freelistenbook> findFreelistenbook(Map map) throws Exception;
 	public List<Freelistenbook> findAllFreelistenbook(int qid) throws Exception;
-	public boolean updateFreelistenbook(int id) throws Exception;
+	public boolean updateFreelistenbook(Freelistenbook freelistenbook) throws Exception;
+	public boolean saveFreelistenbook(Freelistenbook freelistenbook) throws Exception;
 }

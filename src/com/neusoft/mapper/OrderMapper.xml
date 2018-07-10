@@ -8,6 +8,10 @@
 		select * from order where qid=#{qid}
 	</select>
 	
+	<select id="findAllOrderByPhone"  parameterType="string" resultType="com.neusoft.po.Order">
+		select * from `order` where openid=#{_parameter}
+	</select>
+	
 	<select id="findOrder"  parameterType="Map" resultType="com.neusoft.po.Order">
 		select * from order where qid=#{qid}
 		<if test="oid != null">

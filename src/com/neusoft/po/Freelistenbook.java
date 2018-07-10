@@ -8,7 +8,7 @@ public class Freelistenbook {
 	private int fid;
 	private String cname;
 	private String tel;
-	private Date booktime;
+	private String booktime;
 	private String status;
 	private String comment;
 	private String openid;
@@ -36,10 +36,10 @@ public class Freelistenbook {
 	public void setTel(String tel) {
 		this.tel = tel;
 	}
-	public Date getBooktime() {
+	public String getBooktime() {
 		return booktime;
 	}
-	public void setBooktime(Date booktime) {
+	public void setBooktime(String booktime) {
 		this.booktime = booktime;
 	}
 	public String getStatus() {

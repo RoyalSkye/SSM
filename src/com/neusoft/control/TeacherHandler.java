@@ -29,7 +29,9 @@ public class TeacherHandler {
 	
 	@RequestMapping(value="/test/TeacherHandler_findAllTeacher")
 	@ResponseBody
-	public List<Teacher> findAllTeacher(int qid) throws Exception{
+	public List<Teacher> findAllTeacher(HttpServletRequest request) throws Exception{
+		HttpSession session=request.getSession();
+		int qid=(int)session.getAttribute("qid");
 		return teacherService.findAllTeacher(qid);
 	}
 	

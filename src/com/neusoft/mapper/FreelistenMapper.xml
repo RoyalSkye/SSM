@@ -12,6 +12,10 @@
 		select * from freelisten where fid=#{fid}
 	</select>
 	
+	<select id="findOnlineFreelisten" parameterType="int" resultType="com.neusoft.po.Freelisten">
+		select * from freelisten where qid=#{qid} and status="进行中"
+	</select>
+	
 	<select id="findFreelistenByBid"  parameterType="int" resultType="com.neusoft.po.Freelisten">
 		select * from freelisten where bid=#{bid}
 	</select>
@@ -27,8 +31,6 @@
   			<if test="imgurl!=null">imgurl=#{imgurl},</if>
   			<if test="fdesc!=null">fdesc=#{fdesc},</if>
   			<if test="status!=null">status=#{status},</if>
-  			<if test="qid!=null">qid=#{qid},</if>
-  			<if test="bid!=null">bid=#{bid},</if>
   			<if test="pubtime!=null">pubtime=#{pubtime},</if>
   		</trim>
 		where fid=#{fid}

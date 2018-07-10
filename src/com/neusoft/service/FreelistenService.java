@@ -13,6 +13,7 @@ public interface FreelistenService {
 	
 	public List<Freelisten> findAllFreelisten(int qid) throws Exception;
 	public Freelisten findFreelistenById(int fid) throws Exception;
+	public List<Freelisten> findOnlineFreelisten(int qid)throws Exception;
 	public List<Freelisten> findFreelistenByBid(int bid)throws Exception;
 	public boolean deleteFreelistenById(int fid) throws Exception;
 	public boolean saveFreelisten(Freelisten freelisten) throws Exception;

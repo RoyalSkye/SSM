@@ -27,9 +27,21 @@ public class FreelistenbookServiceBean implements FreelistenbookService {
 	}
 
 	@Override
-	public boolean updateFreelistenbook(int id) throws Exception {
+	public boolean updateFreelistenbook(Freelistenbook freelistenbook) throws Exception {
 		boolean isok=false;
-		int result=mapper.updateFreelistenbook(id);
+		int result=mapper.updateFreelistenbook(freelistenbook);
+		if(result>0){
+			isok=true;
+		}else{
+			isok=false;
+		}
+		return isok;
+	}
+
+	@Override
+	public boolean saveFreelistenbook(Freelistenbook freelistenbook) throws Exception {
+		boolean isok=false;
+		int result=mapper.saveFreelistenbook(freelistenbook);
 		if(result>0){
 			isok=true;
 		}else{

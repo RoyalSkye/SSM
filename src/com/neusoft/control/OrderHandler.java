@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -55,6 +56,12 @@ public class OrderHandler {
 		}
 	}
 	
-	
+	@RequestMapping(value="/test/OrderHandler_findAllOrderByPhone")
+	@ResponseBody
+	public List<Order> findAllOrderByPhone(HttpServletRequest request) throws Exception{
+		HttpSession session=request.getSession();
+		String phone=(String)session.getAttribute("phone");
+		return orderService.findAllOrderByPhone(phone);
+	}
 
 }

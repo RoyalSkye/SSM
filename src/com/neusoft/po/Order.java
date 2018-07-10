@@ -10,7 +10,7 @@ public class Order {
 	private double total;
 	private double actual;
 	private String status;
-	private Date ordertime;
+	private String ordertime;
 	private int qid;
 	private String transactionid;
 	private String nickname;
@@ -51,10 +51,10 @@ public class Order {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	public Date getOrdertime() {
+	public String getOrdertime() {
 		return ordertime;
 	}
-	public void setOrdertime(Date ordertime) {
+	public void setOrdertime(String ordertime) {
 		this.ordertime = ordertime;
 	}
 	public int getQid() {

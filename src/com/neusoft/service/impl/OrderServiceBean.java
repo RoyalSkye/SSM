@@ -37,4 +37,9 @@ public class OrderServiceBean implements OrderService {
 		}
 		return isok;
 	}
+
+	@Override
+	public List<Order> findAllOrderByPhone(String phone) throws Exception {
+		return mapper.findAllOrderByPhone(phone);
+	}
 }

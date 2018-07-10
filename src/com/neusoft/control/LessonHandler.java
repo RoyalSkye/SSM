@@ -28,7 +28,9 @@ public class LessonHandler {
 	
 	@RequestMapping(value="/test/LessonHandler_findAllLesson")
 	@ResponseBody
-	public List<Lesson> findAllLesson(int qid) throws Exception{
+	public List<Lesson> findAllLesson(HttpServletRequest request) throws Exception{
+		HttpSession session=request.getSession();
+		int qid=(int)session.getAttribute("qid");
 		return lessonService.findAllLesson(qid);
 	}
 	

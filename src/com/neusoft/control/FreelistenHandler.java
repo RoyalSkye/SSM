@@ -32,6 +32,14 @@ public class FreelistenHandler {
 		return FileTools.addHeader(freelistenService.findAllFreelisten(qid));
 	}
 	
+	@RequestMapping(value="/test/FreelistenHandler_findOnlineFreelisten")
+	@ResponseBody
+	public List<Freelisten> findOnlineFreelisten(HttpServletRequest request) throws Exception{
+		HttpSession session=request.getSession();
+		int qid=(int)session.getAttribute("qid");
+		return freelistenService.findOnlineFreelisten(qid);
+	}
+	
 	@RequestMapping(value="/test/FreelistenHandler_findFreelistenById")
 	@ResponseBody
 	public Freelisten findFreelistenById(int fid) throws Exception{
