@@ -29,7 +29,7 @@ public class FreelistenHandler {
 	public String findAllFreelisten(HttpServletRequest request) throws Exception{
 		HttpSession session=request.getSession();
 		Page page = new Page((int)session.getAttribute("limit"),(int)session.getAttribute("currentPage"),(int)session.getAttribute("qid"));
-		page.setTotalPage(freelistenService.findCount());
+		page.setTotalPage(freelistenService.findCount(page.getId()));
 		return FileTools.addHeader(freelistenService.findAllFreelisten(page),page.getTotalPage());
 	}
 	
@@ -44,7 +44,7 @@ public class FreelistenHandler {
 	public String findFreelistenByBid(HttpServletRequest request) throws Exception{
 		HttpSession session=request.getSession();
 		Page page = new Page((int)session.getAttribute("limit"),(int)session.getAttribute("currentPage"),(int)session.getAttribute("bid"));
-		page.setTotalPage(freelistenService.findCount());
+		page.setTotalPage(freelistenService.findCountByBid(page.getId()));
 		return FileTools.addHeader(freelistenService.findAllFreelisten(page),page.getTotalPage());
 	}
 	

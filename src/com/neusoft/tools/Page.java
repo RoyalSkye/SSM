@@ -21,6 +21,14 @@ public class Page {
 		
 	}
 	
+	public Page(int quantity, int currentPage) {
+		super();
+		this.quantity = quantity;
+		this.currentPage = currentPage;
+		maxNum = (currentPage)*quantity;
+		minNum = (currentPage-1)*quantity;
+		
+	}
 	
 
 	public Page(int quantity, int currentPage, int totalPage, int id) {

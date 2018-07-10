@@ -18,6 +18,7 @@ public interface FreelistenService {
 	public boolean deleteFreelistenById(int fid) throws Exception;
 	public boolean saveFreelisten(Freelisten freelisten) throws Exception;
 	public boolean updateFreelisten(Freelisten freelisten) throws Exception;
-	public int findCount() throws Exception;
+	public int findCount(int qid) throws Exception;
+	public int findCountByBid(int bid) throws Exception;
 
 }

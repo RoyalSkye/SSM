@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.neusoft.mapper.RefundMapper;
 import com.neusoft.po.Refund;
 import com.neusoft.service.RefundService;
+import com.neusoft.tools.Page;
 
 @Service
 public class RefundServiceBean  implements RefundService{
@@ -50,9 +51,13 @@ public class RefundServiceBean  implements RefundService{
 	}
 
 	@Override
-	public List<Refund> findAllRefund(int qid) throws Exception{
+	public List<Refund> findAllRefund(Page page) throws Exception{
 		
-		return mapper.findAllRefund(qid);
+		return mapper.findAllRefund(page);
 	}
-
+	
+	@Override
+	public int findCount() throws Exception{
+		return mapper.findCount();
+	}
 }

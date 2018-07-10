@@ -32,8 +32,12 @@
 	</insert>
 	
 	
-	<select id="findCount" resultType="int">
-	SELECT COUNT(*) FROM branch
+	<select id="findCount" parameterType="int" resultType="int">
+	SELECT COUNT(*) FROM branch where qid=#{qid}
+	</select>
+	
+	<select id="findCountByBid" parameterType="int" resultType="int">
+	SELECT COUNT(*) FROM branch where bid=#{bid}
 	</select>
 	
 </mapper>

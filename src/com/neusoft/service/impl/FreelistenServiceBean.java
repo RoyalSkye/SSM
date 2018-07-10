@@ -69,9 +69,15 @@ public class FreelistenServiceBean implements FreelistenService {
 	}
 
 	@Override
-	public int findCount() throws Exception {
+	public int findCount(int qid) throws Exception {
 		
-		return mapper.findCount();
+		return mapper.findCount(qid);
+	}
+	
+	@Override
+	public int findCountByBid(int bid) throws Exception {
+		
+		return mapper.findCountByBid(bid);
 	}
 
 }
