@@ -13,26 +13,32 @@
        var r = window.location.search.substr(1).match(reg);
        if(r!=null)return  unescape(r[2]); return null;
   }
-  	var bid=GetQueryString("fid");
-	//console.log(bid);
+  	var fid=GetQueryString("fid");
 	$(function(){
 		$.ajax({
 			url:"test/FreelistenHandler_findFreelistenById?fid="+fid,				
 			success:function(data)
 			{
-				
-
-				
 				console.log(data);
 				var fid=data.fid;
+				$("#fid").append(fid);
 				var title=data.title;
-				var imgurl=data.imgurl;
+				$("#title").append(title);
+				var imgurl='<img src="'+data.imgurl+'"  width="100" height="100">';
+				$("#imgurl").append(imgurl);
 				var fdesc=data.fdesc;
+				$("#fdesc").append(fdesc);
 				var status=data.status;
-				var qid=data.qid;
+				$("#status").append(status);
 				var bid=data.bid;
-				var pubtime=data.pubtime;
-
+				$.ajax({
+					url:"test/BranchHandler_findBranchById?bid="+bid,
+					success:function(res){
+						console.log(res);
+						var name=res.name;
+						$("#name").append(name);
+					}
+				});
 			}
 		})
 		
@@ -128,10 +134,10 @@
   </div>
   <div class="layui-colla-item">
     <h2 class="layui-colla-title">预约课程图片</h2><br>
-    <div class="layui-colla-content layui-show"><img src="{{imgurl}}"  width="100" height="100"></div>
+    <div class="layui-colla-content layui-show" id="imgurl"></div>
   <div class="layui-colla-item">
     <h2 class="layui-colla-title">预约课程详情</h2>
-    <div class="layui-colla-content layui-show"><img src="{{fdesc}}"></div>
+    <div class="layui-colla-content layui-show" id="fdesc"></div>
   </div>
   <div class="layui-colla-item">
     <h2 class="layui-colla-title">预约课程状态</h2>
@@ -139,7 +145,7 @@
   </div>
   <div class="layui-colla-item">
     <h2 class="layui-colla-title">分部名字</h2>
-    <div class="layui-colla-content layui-show" id="bid"></div>
+    <div class="layui-colla-content layui-show" id="name"></div>
   </div>
 </div>
 </div>

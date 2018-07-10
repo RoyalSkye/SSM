@@ -19,6 +19,60 @@
       margin: 20px 0;
     }
   </style>
+   <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.0.js"></script>
+<script>
+	var titie="";
+	var imgurl="";
+	var fdesc="";
+	var status="";
+	var bid="";
+	$(function(){
+		$.ajax({
+			url:"test/BranchHandler_findAllBranch",			
+			success:function(data)
+			{
+				console.log(data);
+				var branchname='';
+				for(var i=0;i<data.data.length;i++){
+					branchname+='<input type="radio" lay-filter="single" name="name" value="'+data.data[i].bid+'" title="'+data.data[i].name+'">';
+				}
+				$("#branchname").append(branchname);
+			}
+		});
+		
+		$("#btn_submit").click(function(){
+			title=$("#title").val();
+			var ue = UE.getEditor('container');
+		    var fdesc=ue.getContent();
+		    if(title==""||fdesc==""||status==""||bid==""||imgurl==""){
+		    	console.log("title="+title);
+		    	console.log("fdesc="+fdesc);
+		    	console.log("status="+status);
+		    	console.log("bid="+bid);
+		    	console.log("imgurl="+imgurl);
+		    	alert("必填项不能为空!");
+		    }else{
+				$.ajax({
+					url:"/SSM/test/FreelistenHandler_saveFreelisten",
+					type:"post",
+					data:{title:title,imgurl:imgurl,fdesc:fdesc,status:status,bid:bid},
+			    	dataType:"json", 
+					success:function(data)
+					{
+						if(data.result){
+							console.log(data);
+							alert("save successfully");
+							location.href='freelisteninfo.html';
+						}else{
+							console.log(data);
+							alert("save failed");
+						}
+					}
+				});
+		    }
+		});
+	})
+</script>
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
@@ -106,12 +160,14 @@ title" style="margin-top: 20px;">
     <h2 class="layui-colla-title">预约课程名称</h2>
     <div class="layui-colla-content layui-show">
     	<div class="layui-input-inline">
-      <input type="text" name="name" id="name" required  lay-verify="required" autocomplete="off" placeholder="请输入课程名称" class="layui-input">
+      <input type="text" name="title" id="title" required  lay-verify="required" autocomplete="off" placeholder="请输入课程名称" class="layui-input">
     </div>
    </div>
   </div>
   <div class="layui-colla-item">
     <h2 class="layui-colla-title">预约课程图片</h2><br>
+    <div id="img">
+	</div>
     <div class="layui-upload-drag" id="test10">
 	  <i class="layui-icon"></i>
 	  <p>点击上传，或将文件拖拽到此处--1MB limited</p>
@@ -120,11 +176,9 @@ title" style="margin-top: 20px;">
 	<div class="layui-colla-item">
     <h2 class="layui-colla-title">预约课程详情</h2>
     <div class="layui-colla-content layui-show">
-
       <!-- 加载编辑器的容器 -->
       <script id="container" name="content" type="text/plain">
       </script>
-
     </div>
   	</div>
   	<div class="layui-colla-item">
@@ -133,8 +187,8 @@ title" style="margin-top: 20px;">
     	<div class="layui-inline">
       <label class="layui-form-label">课程状态</label>
       <div class="layui-input-inline">
-        <select name="modules" lay-verify="required" lay-search="">
-          <option value="">请选择</option>
+        <select name="modules" lay-verify="required" lay-search="" lay-filter="test">
+          <option value=""></option>
           <option value="进行中">进行中</option>
         </select>
      	</div>
@@ -146,16 +200,14 @@ title" style="margin-top: 20px;">
     <div class="layui-colla-content layui-show">
     	<div class="layui-form-item" pane="">
     <label class="layui-form-label">分部名字</label>
-    <div class="layui-input-block">
-      <input type="checkbox" name="like1[art]" lay-skin="primary" title="艺术中心" checked="">
-      <input type="checkbox" name="like1[exercise]" lay-skin="primary" title="实训中心" checked="">
+       <div class="layui-input-block" id="branchname">
     </div>
   </div>
     </div>
   </div>
   
 </div>
-	<button class="per-button layui-btn layui-btn-lg" lay-submit lay-filter="updatelesson">提交</button>
+	<button class="per-button layui-btn layui-btn-lg" lay-submit lay-filter="updatelesson" id="btn_submit" type="button">提交</button>
 </form>
 </div>
 
@@ -185,22 +237,30 @@ layui.use('upload', function(){
     ,url: '/SSM/test/FreelistenHandler_saveimg'
     ,size: 1024 //限制文件大小，单位 KB
     ,done: function(res){
-      console.log(res)
+      console.log(res);
+      if(res.result){
+    	  var img='<img src="/upload/'+res.imgurl+'" id="imgurl" width="200" height="200">';
+    	  $("#img").html(img);
+    	  imgurl=$("#imgurl").attr("src");
+    	  console.log(imgurl);
+      }else{
+    	  alert("upload failed");
+      }
     }
   });
 });  
  
  layui.use('form', function(){
   var form = layui.form;
-  
- //监听提交，最后需要去掉！
-  form.on('submit(updatelesson)', function(data){
-    layer.alert(JSON.stringify(data.field), {
-      title: '最终的提交信息'
-    })
-    return false;
-  }); 
-  
+  form.on('select(test)',function(data){
+		console.log(data);
+		console.log(data.value);
+		status=data.value;
+	});
+  form.on('radio(single)',function(data){
+	  console.log(data);
+	  bid=data.value;
+	});
 });
 
 UE.getEditor('container', {

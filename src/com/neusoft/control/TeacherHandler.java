@@ -62,7 +62,10 @@ public class TeacherHandler {
 	
 	@RequestMapping(value="/test/TeacherHandler_saveTeacher")
 	@ResponseBody
-	public String saveTeacher(Teacher t) throws Exception{
+	public String saveTeacher(Teacher t,HttpServletRequest request) throws Exception{
+		HttpSession session=request.getSession();
+		int qid=(int)session.getAttribute("qid");
+		t.setQid(qid);
 		if(teacherService.saveTeacher(t)){
 			return "{\"result\":true}";
 		}else{

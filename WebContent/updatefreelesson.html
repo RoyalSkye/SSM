@@ -19,6 +19,85 @@
       margin: 20px 0;
     }
   </style>
+ <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.0.js"></script>
+   <script>
+  var status="";
+  var fid="";
+  var imgurl="";
+  var title="";
+  var fdesc="";
+  function GetQueryString(name)
+  {
+       var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+       var r = window.location.search.substr(1).match(reg);
+       if(r!=null)return  unescape(r[2]); return null;
+  }
+  	var fid=GetQueryString("fid");
+	$(function(){
+		$.ajax({
+			url:"test/FreelistenHandler_findFreelistenById?fid="+fid,				
+			success:function(data)
+			{
+				console.log(data);	
+				fid=data.fid;
+				imgurl=data.imgurl;	
+				$("#fid").append(fid);
+				var updatetitle='<input type="text" name="title" id="title" required  lay-verify="required" value="'+data.title+'">';
+				$("#updatetitle").append(updatetitle);
+				var img='<img src="'+data.imgurl+'" id="lessonphoto" width="200" height="200">';
+				$("#img").before(img);
+				var fdesc=data.fdesc;
+				UE.getEditor('container', {
+				    toolbars: [
+				    ['fullscreen', 'source', 'undo', 'redo', 'bold', 'italic', 'underline', 'strikethrough', 'forecolor', 'backcolor', 'insertimage']
+				    ],
+				    autoHeightEnabled: true,
+				    autoFloatEnabled: true
+			    });
+				setTimeout( () => {
+				var ue = UE.getEditor('container');
+				ue.setContent(fdesc);
+				}, 1000);
+				var bid=data.bid;
+				$.ajax({
+					url:"test/BranchHandler_findBranchById?bid="+bid,
+					success:function(res){
+						console.log(res);
+						var name='<input type="checkbox" name="branch" lay-skin="primary" title="'+res.name+'" checked="" disabled="">';
+						$("#name").append(name);
+					}
+				});
+			}
+		})
+		$("#btn_submit").click(function(){
+			console.log(imgurl);
+			title=$("#title").val();
+		    var ue = UE.getEditor('container');
+		    fdesc=ue.getContent();
+		    if(title==""||fdesc==""||status==""||imgurl==""){
+		    	alert("必填项不能为空!");
+		    }else{
+		    	$.ajax({
+					url:"/SSM/test/FreelistenHandler_updateFreelisten",
+					type:"post",
+					data:{title:title,fdesc:fdesc,status:status,fid:fid,imgurl:imgurl},
+			    	dataType:"json", 
+					success:function(data)
+					{
+						if(data.result){
+							console.log(data);
+							alert("update successfully");
+							location.href='freelisteninfo.html';
+						}else{
+							console.log(data);
+							alert("update failed");
+						}
+					}
+				});
+		    }
+		});
+	});
+</script>
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
@@ -100,61 +179,58 @@ title" style="margin-top: 20px;">
   <legend>修改预约课程信息</legend>
 </fieldset>
 
-<form class="layui-form" action="">
+<form class="layui-form" action="FreelistenHandler_updateFreelisten">
 <div class="layui-collapse">
 	<div class="layui-colla-item">
     <h2 class="layui-colla-title">预约课程编号</h2>
-    <div class="layui-colla-content layui-show"><td id="id" required  lay-verify="required" >6</div>
+    <div class="layui-colla-content layui-show" id="fid"></div>
   </div>
   <div class="layui-colla-item">
     <h2 class="layui-colla-title">预约课程名称</h2>
-    <div class="layui-colla-content layui-show"><input type="text" name="lname" id="lname" required  lay-verify="required" value="大数据免费试听课大咖讲师"></div>
+    <div class="layui-colla-content layui-show" id="updatetitle"></div>
   </div>
   <div class="layui-colla-item">
     <h2 class="layui-colla-title">预约课程图片</h2><br>
-    <div class="layui-colla-content layui-show"><img src="../SSM/img/mainBg0.jpg"  width="100" height="100">
+    <div class="layui-colla-content layui-show" id="img">
     	<button type="button" class="layui-btn layui-btn-radius" id="test7"><i class="layui-icon"></i>上传图片</button>
     </div>
   </div>
 	<div class="layui-colla-item">
     <h2 class="layui-colla-title">预约课程详细</h2>
     <div class="layui-colla-content layui-show">
-
-      <!-- 加载编辑器的容器 -->
-      <script id="container" name="content" type="text/plain">
-      	<div class="layui-colla-content layui-show"><img src="../SSM/img/halloween1.jpg"></div>
-      </script>
-
+		<div id="ueditor"></div>
+		<script id="container" name="content" type="text/plain">
+        </script>
     </div>
   	</div>
   	<div class="layui-colla-item">
     <h2 class="layui-colla-title">课程状态</h2>
-    <div class="layui-colla-content layui-show">
+    <div class="layui-colla-content layui-show" >
     	<div class="layui-inline">
       <label class="layui-form-label">课程状态</label>
       <div class="layui-input-inline">
-        <select name="modules" lay-verify="required" lay-search="">
-          <option value="1">进行中</option>
-          <option value="2">已过期</option>
+        <select name="modules" lay-verify="required" lay-search="" lay-filter="test">
+         <option value=""></option>
+          <option value="进行中">进行中</option>
+          <option value="已过期">已过期</option>
         </select>
      	</div>
    	 </div>
   	</div>	
   </div>
   <div class="layui-colla-item">
-    <h2 class="layui-colla-title">分部名字</h2>
+    <h2 class="layui-colla-title" id="bid">分部名字</h2>
     <div class="layui-colla-content layui-show">
     	<div class="layui-form-item" pane="">
-    <label class="layui-form-label">原始复选框</label>
-    <div class="layui-input-block">
-      <input type="checkbox" name="like1[art]" lay-skin="primary" title="艺术中心" checked="">
+    <label class="layui-form-label">分部名字</label>
+    <div class="layui-input-block" id="name">
     </div>
   </div>
     </div>
   </div>
   
 </div>
-	<button class="layui-btn layui-btn-lg per-button" lay-submit lay-filter="updatelesson">保存信息</button>
+	<button class="layui-btn layui-btn-lg per-button" lay-submit lay-filter="updatelesson" id="btn_submit" type="button">保存信息</button>
 </form>
 </div>
 
@@ -184,31 +260,26 @@ layui.use('upload', function(){
     ,url: '/SSM/test/FreelistenHandler_saveimg'
     ,size: 1024 //限制文件大小，单位 KB
     ,done: function(res){
-      console.log(res)
+      console.log(res);
+      if(res.result){
+    	  $("#lessonphoto").attr('src', "/upload/"+res.imgurl);
+    	  imgurl=$("#lessonphoto").attr("src");
+    	  console.log(imgurl);
+      }else{
+    	  alert("upload failed");
+      }
     }
   });
  });
  
  layui.use('form', function(){
   var form = layui.form;
-  
- //监听提交，最后需要去掉！
-  form.on('submit(updateindex)', function(data){
-    layer.alert(JSON.stringify(data.field), {
-      title: '最终的提交信息'
-    })
-    return false;
-  }); 
-  
+  form.on('select(test)',function(data){
+		console.log(data);
+		console.log(data.value);
+		status=data.value;
+	});
 });
-
-UE.getEditor('container', {
-    toolbars: [
-    ['fullscreen', 'source', 'undo', 'redo', 'bold', 'italic', 'underline', 'strikethrough', 'forecolor', 'backcolor', 'insertimage']
-    ],
-    autoHeightEnabled: true,
-    autoFloatEnabled: true
-    });
 
 </script>
 </body>

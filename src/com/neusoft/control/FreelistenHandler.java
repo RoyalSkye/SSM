@@ -1,5 +1,6 @@
 package com.neusoft.control;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -55,7 +56,13 @@ public class FreelistenHandler {
 	
 	@RequestMapping(value="/test/FreelistenHandler_saveFreelisten")
 	@ResponseBody
-	public String saveFreelisten(Freelisten freelisten) throws Exception{
+	public String saveFreelisten(Freelisten freelisten,HttpServletRequest request) throws Exception{
+		HttpSession session=request.getSession();
+		int qid=(int)session.getAttribute("qid");
+		freelisten.setQid(qid);
+		Date date=new Date();
+		SimpleDateFormat ft =new SimpleDateFormat ("yyyy-MM-dd hh:mm:ss");
+		freelisten.setPubtime(ft.format(date));
 		if(freelistenService.saveFreelisten(freelisten)){
 			return "{\"result\":true}";
 		}else{
@@ -77,16 +84,13 @@ public class FreelistenHandler {
 	@ResponseBody
 	public String saveimg(MultipartFile file,HttpServletRequest request) throws Exception{
 		if(file==null){
-			System.out.println("ï¿½Ä¼ï¿½Îªï¿½ï¿½");
+			System.out.println("ÎÄ¼þÎª¿Õ!");
 			return "{\"result\":false}";
 		}
-		String url=FileTools.saveimg(file,request);
-		//System.out.println("---------------------url:"+url);
+		String url=FileTools.saveimg(file,request).substring(10);
 		if(url==null||url==""){
 			return "{\"result\":false}";
 		}else{
-			//result="../upload/15307951697841.jpg";
-			//System.out.println("{\"result\":true,\"imgurl\":\""+url+"\"}");
 			return "{\"result\":true,\"imgurl\":\""+url+"\"}";
 		}
 	}

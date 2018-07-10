@@ -20,15 +20,22 @@
 		delete from freelisten where fid=#{fid}
 	</delete>
 	
-
 	<update id="updateFreelisten"  parameterType="com.neusoft.po.Freelisten">
-		update freelisten set fid=#{fid},title=#{title},imgurl=#{imgurl},fdesc=#{fdesc},status=#{status},qid=#{qid},bid=#{bid},pubtime=#{pubtime} where fid=#{fid}
+		update freelisten 
+		<trim prefix="set" suffixOverrides=",">
+  			<if test="title!=null">title=#{title},</if>
+  			<if test="imgurl!=null">imgurl=#{imgurl},</if>
+  			<if test="fdesc!=null">fdesc=#{fdesc},</if>
+  			<if test="status!=null">status=#{status},</if>
+  			<if test="qid!=null">qid=#{qid},</if>
+  			<if test="bid!=null">bid=#{bid},</if>
+  			<if test="pubtime!=null">pubtime=#{pubtime},</if>
+  		</trim>
+		where fid=#{fid}
 	</update>
 	
-	
-	
 	<insert id="saveFreelisten"  parameterType="com.neusoft.po.Freelisten">
-		insert into freelisten(fid,title,imgurl,fdesc,status,qid,bid,pubtime) values(#{fid},#{title},#{imgurl},#{fdesc},#{status},#{qid},#{bid},#{pubtime})
+		insert into freelisten(title,imgurl,fdesc,status,qid,bid,pubtime) values(#{title},#{imgurl},#{fdesc},#{status},#{qid},#{bid},#{pubtime})
 	</insert>
 	
 </mapper>

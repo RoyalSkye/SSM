@@ -9,9 +9,9 @@ public class Freelisten {
 	private String imgurl;
 	private String fdesc;
 	private String status;
-	private String qid;
-	private String bid;
-	private Date pubtime;
+	private int qid;
+	private int bid;
+	private String pubtime;
 	
 	public int getFid() {
 		return fid;
@@ -29,7 +29,7 @@ public class Freelisten {
 		return imgurl;
 	}
 	public void setImgurl(String imgurl) {
-		this.imgurl = "/upload/"+imgurl;
+		this.imgurl = imgurl;
 	}
 	public String getFdesc() {
 		return fdesc;
@@ -43,22 +43,22 @@ public class Freelisten {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	public String getQid() {
+	public int getQid() {
 		return qid;
 	}
-	public void setQid(String qid) {
+	public void setQid(int qid) {
 		this.qid = qid;
 	}
-	public String getBid() {
+	public int getBid() {
 		return bid;
 	}
-	public void setBid(String bid) {
+	public void setBid(int bid) {
 		this.bid = bid;
 	}
-	public Date getPubtime() {
+	public String getPubtime() {
 		return pubtime;
 	}
-	public void setPubtime(Date pubtime) {
+	public void setPubtime(String pubtime) {
 		this.pubtime = pubtime;
 	}
 	

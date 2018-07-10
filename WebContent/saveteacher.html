@@ -5,6 +5,41 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <title>NeuSoft introduction</title>
   <link rel="stylesheet" href="../SSM/layui/css/layui.css">
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.0.js"></script>
+  <script>
+	$(function(){
+		//注册按钮的点击事件
+		$("#btn_submit").click(
+			function(){
+				//获取该表单中的值[name,img,introduction]
+				var name = $("#name").val();
+				//var img = $("#img").val();
+				var introduction = $("#introduction").val();
+				//用ajax
+				$.ajax(
+					{
+						url:"test/TeacherHandler_saveTeacher",//发送到的位置
+						type:"post",
+						data:{tname:name,introduction:introduction},
+						dataType:"json",
+						success:function(data){
+						   //console.log(data);
+						   if(data.result)
+						   {
+							   alert("保存成功");
+						   }
+						   else
+						   {
+							   alert("保存失败");
+						   }
+						}
+					}
+				);
+			}
+		);
+	});
+</script>
+  
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
@@ -92,6 +127,7 @@
   </div>
   <div class="layui-colla-item">
     <h2 class="layui-colla-title">讲师照片</h2><br>
+    
     <div class="layui-upload-drag" id="test10">
 	  <i class="layui-icon"></i>
 	  <p>点击上传，或将文件拖拽到此处--1MB limited</p>
@@ -102,7 +138,7 @@
     <div class="layui-colla-content layui-show"> <textarea rows="5" cols="100" style="resize: none;" required  lay-verify="required"></textarea>
   </div>
 </div>
-	<button class="layui-btn layui-btn-lg" lay-submit lay-filter="saveteacher">提交</button>
+	<button class="layui-btn layui-btn-lg" lay-submit lay-filter="saveteacher" id="btn_submit" type="button">提交</button>
 </form>
 </div>
   
@@ -122,14 +158,6 @@ layui.use('element', function(){
 layui.use('form', function(){
   var form = layui.form;
   
- //监听提交，最后需要去掉！
-  form.on('submit(saveteacher)', function(data){
-    layer.alert(JSON.stringify(data.field), {
-      title: '最终的提交信息'
-    })
-    return false;
-  }); 
-  
 });
 layui.use('upload', function(){
   var $ = layui.jquery
@@ -142,6 +170,9 @@ layui.use('upload', function(){
     ,size: 1024 //限制文件大小，单位 KB
     ,done: function(res){
       console.log(res)
+      if (res.imgurl){
+    	  $("#img").attr('src', res.imgurl);
+      }
     }
   });
 });  

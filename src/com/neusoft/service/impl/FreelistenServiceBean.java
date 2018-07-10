@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.neusoft.mapper.BranchMapper;
 import com.neusoft.mapper.FreelistenMapper;
 import com.neusoft.po.Freelisten;
 import com.neusoft.service.FreelistenService;
