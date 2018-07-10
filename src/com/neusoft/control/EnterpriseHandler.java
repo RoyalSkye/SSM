@@ -1,6 +1,7 @@
 package com.neusoft.control;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -48,6 +49,14 @@ public class EnterpriseHandler {
 		}
 	}
 	
+	@RequestMapping(value="/test/EnterpriseHandler_findSwiperByQid")
+	@ResponseBody
+	public List<Swiper> findSwiperByQid(HttpServletRequest request) throws Exception{
+		HttpSession session=request.getSession();
+		int qid=(int)session.getAttribute("qid");
+		return swiperService.findSwiperByQid(qid);
+	}
+	
 	@RequestMapping(value="/test/EnterpriseHandler_savevideo")
 	@ResponseBody
 	public String savevideo(MultipartFile file,HttpServletRequest request) throws Exception{
@@ -83,8 +92,6 @@ public class EnterpriseHandler {
 		if(url==null||url==""){
 			return "{\"result\":false}";
 		}else{
-			//result="../upload/15307951697841.jpg";
-			//System.out.println("{\"result\":true,\"imgurl\":\""+url+"\"}");
 			HttpSession session=request.getSession();
 			int qid=(int)session.getAttribute("qid");
 			Swiper swiper=new Swiper();
@@ -92,7 +99,7 @@ public class EnterpriseHandler {
 			String imgurl=url.substring(10);  //  ../upload/....jpg
 			swiper.setImgurl(imgurl);
 			swiper.setCategory("A");
-			if(swiperService.saveSwiper(swiper)){
+			if(swiperService.updateSwiper(swiper)){
 				return "{\"result\":true,\"imgurl\":\""+url+"\"}";
 			}else{
 				return "{\"result\":false}";

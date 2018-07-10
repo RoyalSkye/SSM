@@ -1,5 +1,7 @@
 package com.neusoft.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,6 +37,11 @@ public class SwiperServiceBean implements SwiperService {
 			isok=false;
 		}
 		return isok;
+	}
+
+	@Override
+	public List<Swiper> findSwiperByQid(int qid) throws Exception {
+		return mapper.findSwiperByQid(qid);
 	}
 
 }
