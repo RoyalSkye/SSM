@@ -168,11 +168,13 @@ layui.use(['element','form','jquery','layer','table'], function(){
     			url:"test/FreelistenHandler_deleteFreelistenById?fid="+obj.data.fid,
     			success:function(data)
     			{
-    				console.log(data);
-    				if(data){
+    				//console.log(data);
+    				var result = JSON.parse(data); 
+    				//console.log(result);
+    				if(result.result){
     					obj.del();
     				}else{
-    					alert("delete failed");
+    					alert("delete failed,此课程可能已经被删除,请刷新");
     				}
     			}
     		});

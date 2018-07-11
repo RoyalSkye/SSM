@@ -13,4 +13,5 @@ public interface FreelistenbookService {
 	public boolean saveFreelistenbook(Freelistenbook freelistenbook) throws Exception;
 	public List<Freelistenbook> findAllFreelistenbook(Page page) throws Exception;
 	public int findCount() throws Exception;
+	public int findCountByCondition(Map map) throws Exception;
 }

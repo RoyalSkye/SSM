@@ -5,6 +5,38 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <title>NeuSoft introduction</title>
   <link rel="stylesheet" href="../SSM/layui/css/layui.css">
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.0.js"></script>
+<script>
+var cname="";
+var fid="";
+var starttime="";
+var endtime="";
+var url="";
+	$(function(){
+		$("#btn_submit").click(function(){
+			cname=$("#cname").val();
+			fid=$("#fid").val();
+			starttime=$("#test1-1").val();
+			endtime=$("#test1-2").val();
+			console.log("cname="+cname);
+			console.log("fid="+fid);
+			console.log("starttime="+starttime);
+			console.log("endtime="+endtime);
+			url='/SSM/test/FreelistenbookHandler_findFreelistenbook?cname='+encodeURI(encodeURI(cname))+'&fid='+fid+'&starttime='+starttime+'&endtime='+endtime;
+			showtable(url);
+			/*$.ajax({
+				url:"",
+				type:"post",
+				data:{cname:cname,fid:fid,starttime:starttime,endtime:endtime},
+		    	dataType:"json", 
+				success:function(data)
+				{
+					console.log(data);
+				}
+			});*/
+		});
+	});
+</script>
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
@@ -86,12 +118,12 @@
     <div class="demoTable">	
 	  关键字：
 	  <div class="layui-inline" float="left">
-	    <input class="layui-input" name="id" id="demoReload" placeholder="请输入预约课程编号" autocomplete="off">
+	    <input class="layui-input" name="fid" id="fid" placeholder="请输入预约课程编号" autocomplete="off">
 	  </div>
-	  <!--用户昵称:
+	  用户昵称:
 	  <div class="layui-inline">
-	    <input class="layui-input" name="id" id="demoReload" placeholder="请输入用户昵称	" autocomplete="off">
-	  </div>-->
+	    <input class="layui-input" name="cname" id="cname" placeholder="请输入用户昵称	" autocomplete="off">
+	  </div>
 	  <div class="layui-inline" float="right">
 	    <form class="layui-form" action="">
 	      <label class="layui-form-label">预约状态:</label>
@@ -112,9 +144,9 @@
 		    </div>
 	   	</form>
 	  </div>
-	  <button class="layui-btn" data-type="reload">查询</button>
+	  <button class="layui-btn" data-type="reload" id="btn_submit" type="button">查询</button>
 	</div>
-<table class="layui-hide" id="LAY_table_user" lay-filter="user">
+<table class="layui-hide" id="demo" lay-filter="demo">
 <th lay-data="{fixed: 'right', width:178, align:'center', toolbar: '#barDemo'}"></th></table>	
   </div>
  
@@ -125,7 +157,7 @@
 </div>
 
 <script type="text/html" id="barDemo">
-  <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="refund">订单核销</a>
+  <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="confirm">订单核销</a>
 </script>
 
 <script src="../SSM/layui/layui.js"></script>
@@ -135,39 +167,69 @@ layui.use('element', function(){
   var element = layui.element;
   
 });
-layui.use('table', function(){
-  var table = layui.table;
-  
-  //方法级渲染
-  table.render({
-    elem: '#LAY_table_user'
-     ,url:'/SSM/test/FreelistenbookHandler_findAllFreelistenbookByPage'
-    ,cols: [[
-      {checkbox: true, fixed: true,width:'5%'}
-      ,{field:'id', title: '课程编号', width:'8%', sort: true, fixed: true}
-      ,{field:'fid', title: '订单编号', sort: true,width:'8%'}
-      ,{field:'cname', title: '用户昵称', width:'8%'}
-      ,{field:'tel', title: '用户电话', width:'10%'}
-      ,{field:'status', title: '订单状态', width:'10%'}
-      ,{field:'comment', title: '用户留言', sort: true,width:'20%'}
-      ,{field:'booktime', title: '下单时间', sort: true,width:'20%'}
-      ,{field: 'operation', title: '操作',width:'15%', align:'center', toolbar: '#barDemo'}
-    ]]
-    ,even: true
-    ,limits: [5, 7, 10]
-    ,limit: 10 //每页默认显示的数量
-    ,id: 'testReload'
-    ,page: true
-    ,done: function(res){
-        console.log(res)
-    }
-  });
+url='/SSM/test/FreelistenbookHandler_findAllFreelistenbookByPage'
+showtable(url);
+function showtable(url){
+	layui.use('table', function(){
+		  var table = layui.table;
+			
+		  table.on('tool(demo)', function(obj){
+			    var data = obj.data;
+			    console.log(obj)
+			    if(obj.event === 'confirm'){
+			    	var id=obj.data.id;
+			    	$.ajax({
+						url:"/SSM/test/FreelistenbookHandler_updateFreelistenbook",
+						type:"post",
+						data:{id:id},
+				    	dataType:"json", 
+						success:function(data)
+						{
+							if(data.result){
+								console.log(data);
+								obj.del();
+								/*url='/SSM/test/FreelistenbookHandler_findAllFreelistenbookByPage';
+								showtable(url);*/
+							}else{
+								console.log(data);
+								alert("confirm failed");
+							}
+						}
+					});
+			    } 
+			   });
+		  	
+			  table.render({
+			    elem: '#demo'
+			     ,url:url
+			    ,cols: [[
+			      {checkbox: true, fixed: true,width:'5%'}
+			      ,{field:'id', title: '订单编号', width:'10%', sort: true, fixed: true}
+			      ,{field:'fid', title: '课程编号', sort: true,width:'10%'}
+			      ,{field:'cname', title: '用户昵称', width:'10%'}
+			      ,{field:'tel', title: '用户电话', width:'10%'}
+			      ,{field:'status', title: '订单状态', width:'10%'}
+			      ,{field:'comment', title: '用户留言', sort: true,width:'15%'}
+			      ,{field:'booktime', title: '下单时间', sort: true,width:'15%'}
+			      ,{field: 'operation', title: '操作',width:'15%', align:'center', toolbar: '#barDemo'}
+			    ]]
+			    ,even: true
+			    ,limits: [5, 7, 10]
+			    ,limit: 10 //每页默认显示的数量
+			    ,id: 'testReload'
+			    ,page: true
+			    ,done: function(res){
+			        console.log(res)
+			    }
+			  });
 
- var $ = layui.$, active = {
-	 reload: function(){
-	var demoReload = $('#demoReload');
-	}
-};
+		 var $ = layui.$, active = {
+			 reload: function(){
+			var demoReload = $('#demoReload');
+			}
+		};
+		});
+}
   
   layui.use('form', function(){
   var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
@@ -187,7 +249,7 @@ layui.use('table', function(){
 	    ,lang: 'en'
 	  });
   });
-});
+
 </script>
 </body>
 </html>

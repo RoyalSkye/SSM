@@ -13,5 +13,5 @@ public interface FreelistenbookMapper {
 	public int updateFreelistenbook(Freelistenbook freelistenbook) throws Exception;
 	public int saveFreelistenbook(Freelistenbook freelistenbook) throws Exception;
 	public int findCount() throws Exception;
-	
+	public int findCountByCondition(Map map) throws Exception;
 }

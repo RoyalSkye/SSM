@@ -55,4 +55,9 @@ public class FreelistenbookServiceBean implements FreelistenbookService {
 		return isok;
 	}
 
+	@Override
+	public int findCountByCondition(Map map) throws Exception {
+		return mapper.findCountByCondition(map);
+	}
+
 }

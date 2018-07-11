@@ -45,18 +45,19 @@ public class FreelistenbookHandler {
 		Map<String,Object> map=new HashMap<String,Object>();
 		String fid=request.getParameter("fid");
 		String cname=request.getParameter("cname");
+		cname=java.net.URLDecoder.decode(cname,"UTF-8");  //后台根据url传参 中文 否则乱码
 		String starttime=request.getParameter("starttime");
 		String endtime=request.getParameter("endtime");
-		String qid=request.getParameter("qid");
-		HttpSession session=request.getSession();
-		Page page = new Page((int)session.getAttribute("limit"),(int)session.getAttribute("currentPage"));
+		int limit = Integer.parseInt(request.getParameter("limit"));
+		int pages = Integer.parseInt(request.getParameter("page"));
+		Page page = new Page(limit,pages);
 		map.put("fid", fid);
 		map.put("cname", cname);
 		map.put("starttime", starttime);
 		map.put("endtime", endtime);
-		map.put("qid",qid);
 		map.put("minNum", page.getMinNum());
-		map.put("maxNum", page.getMaxNum());
+		map.put("quantity", page.getQuantity());
+		page.setTotalPage(freelistenbookService.findCountByCondition(map));
 		return FileTools.addHeader(freelistenbookService.findFreelistenbook(map),page.getTotalPage());
 	}
 	

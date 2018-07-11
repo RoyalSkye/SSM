@@ -28,7 +28,7 @@ public class TeacherHandler {
 	@Autowired
 	private SwiperService swiperService;
 	
-	@RequestMapping(value="/test/TeacherHandler_findAllTeacher")
+	@RequestMapping(value="/test/TeacherHandler_findAllTeacher",produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public String findAllTeacher(HttpServletRequest request) throws Exception{
 		HttpSession session=request.getSession();
