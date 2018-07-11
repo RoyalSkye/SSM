@@ -9,7 +9,8 @@ import com.neusoft.tools.Page;
 
 public interface LessonService {
 	
-	public List<Lesson> findAllLesson(Page page) throws Exception;
+	public List<Lesson> findAllLesson(int qid) throws Exception;
+	public List<Lesson> findAllLessonByPage(Page page) throws Exception;
 	public Lesson findLessonById(int lid) throws Exception;
 	public boolean deleteLessonById(int lid) throws Exception;
 	public boolean saveLesson(Lesson lesson) throws Exception;

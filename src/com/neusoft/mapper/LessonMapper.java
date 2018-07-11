@@ -10,7 +10,8 @@ import com.neusoft.tools.Page;
 
 public interface LessonMapper {
 
-	public List<Lesson> findAllLesson(Page page) throws Exception;
+	public List<Lesson> findAllLesson(int qid) throws Exception;
+	public List<Lesson> findAllLessonByPage(Page page) throws Exception;
 	public Lesson findLessonById(int lid)throws Exception;
 	public int deleteLessonById(int lid)throws Exception;
 	public int updateLesson(Lesson lesson)throws Exception;

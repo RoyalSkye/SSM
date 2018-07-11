@@ -18,8 +18,8 @@ public class TeacherServiceBean implements TeacherService {
 	private TeacherMapper mapper;
 	
 	@Override
-	public List<Teacher> findAllTeacher(Page page) throws Exception{
-		return mapper.findAllTeacher(page);
+	public List<Teacher> findAllTeacher(int qid) throws Exception{
+		return mapper.findAllTeacher(qid);
 	}
 	
 	@Override
@@ -72,6 +72,11 @@ public class TeacherServiceBean implements TeacherService {
 	@Override
 	public Swiper findimgurl(int qid) throws Exception {
 		return mapper.findimgurl(qid);
+	}
+
+	@Override
+	public List<Teacher> findAllTeacherByPage(Page page) throws Exception {
+		return mapper.findAllTeacherByPage(page);
 	}
 
 }

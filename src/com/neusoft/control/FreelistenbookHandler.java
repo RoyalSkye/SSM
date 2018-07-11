@@ -27,11 +27,14 @@ public class FreelistenbookHandler {
 	@Autowired
 	private FreelistenbookService freelistenbookService;
 	
-	@RequestMapping(value="/test/FreelistenbookHandler_findAllFreelistenbook")
+	@RequestMapping(value="/test/FreelistenbookHandler_findAllFreelistenbookByPage")
 	@ResponseBody
-	public String findAllFreelistenbook(HttpServletRequest request) throws Exception{
+	public String findAllFreelistenbookByPage(HttpServletRequest request) throws Exception{
+		int limit = Integer.parseInt(request.getParameter("limit"));
+		int pages = Integer.parseInt(request.getParameter("page"));
 		HttpSession session=request.getSession();
-		Page page = new Page((int)session.getAttribute("limit"),(int)session.getAttribute("page"),(int)session.getAttribute("bid"));
+		int qid=(int)session.getAttribute("qid");
+		Page page = new Page(limit,pages,qid);
 		page.setTotalPage(freelistenbookService.findCount(page.getId()));
 		return FileTools.addHeader(freelistenbookService.findAllFreelistenbook(page), page.getTotalPage());
 	}

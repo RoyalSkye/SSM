@@ -31,11 +31,13 @@ public class OrderHandler {
 	@ResponseBody
 	public String findAllOrder(HttpServletRequest request) throws Exception{
 		HttpSession session=request.getSession();
-		Page page = new Page((int)session.getAttribute("limit"),(int)session.getAttribute("page"),(int)session.getAttribute("qid"));
+		int limit = Integer.parseInt(request.getParameter("limit"));
+		int pages = Integer.parseInt(request.getParameter("page"));
+		int qid=(int)session.getAttribute("qid");
+		Page page = new Page(limit,pages,qid);
 		page.setTotalPage(orderService.findCount(page.getId()));
 		return FileTools.addHeader(orderService.findAllOrder(page),page.getTotalPage());
 	}
-	
 	
 	
 	@RequestMapping(value="/test/OrderHandler_findOrder")

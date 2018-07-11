@@ -22,8 +22,8 @@ public class LessonServiceBean implements LessonService {
 	private LessonMapper mapper;
 	
 	@Override
-	public List<Lesson> findAllLesson(Page page) throws Exception {
-		return mapper.findAllLesson(page);
+	public List<Lesson> findAllLesson(int qid) throws Exception {
+		return mapper.findAllLesson(qid);
 	}
 
 	@Override
@@ -83,6 +83,11 @@ public class LessonServiceBean implements LessonService {
 	@Override
 	public int findCount(int qid) throws Exception {
 		return mapper.findCount(qid);
+	}
+
+	@Override
+	public List<Lesson> findAllLessonByPage(Page page) throws Exception {
+		return mapper.findAllLessonByPage(page);
 	}
 
 }

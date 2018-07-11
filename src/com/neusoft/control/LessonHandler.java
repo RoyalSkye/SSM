@@ -57,14 +57,22 @@ public class LessonHandler {
 	
 	@RequestMapping(value="/test/LessonHandler_findAllLesson")
 	@ResponseBody
-	public String findAllLesson(HttpServletRequest request) throws Exception{
+	public List<Lesson> findAllLesson(HttpServletRequest request) throws Exception{
+		HttpSession session = request.getSession();
+		int qid=(int)session.getAttribute("qid");
+		return	lessonService.findAllLesson(qid);
+	}
+	
+	@RequestMapping(value="/test/LessonHandler_findAllLessonByPage")
+	@ResponseBody
+	public String findAllLessonByPage(HttpServletRequest request) throws Exception{
 		HttpSession session = request.getSession();
 		int limit = Integer.parseInt(request.getParameter("limit"));
 		int pages = Integer.parseInt(request.getParameter("page"));
 		int qid=(int)session.getAttribute("qid");
 		Page page = new Page(limit,pages,qid);
 		page.setTotalPage(lessonService.findCount(page.getId()));
-		return	FileTools.addHeader(lessonService.findAllLesson(page), page.getTotalPage());
+		return	FileTools.addHeader(lessonService.findAllLessonByPage(page), page.getTotalPage());
 	}
 	
 	@RequestMapping(value="/test/LessonHandler_findLessonById")

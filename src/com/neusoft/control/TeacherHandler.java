@@ -32,9 +32,23 @@ public class TeacherHandler {
 	@ResponseBody
 	public String findAllTeacher(HttpServletRequest request) throws Exception{
 		HttpSession session=request.getSession();
-		Page page = new Page((int)session.getAttribute("limit"),(int)session.getAttribute("page"),(int)session.getAttribute("qid"));
+		int qid=(int)session.getAttribute("qid");
+		Page page=new Page();
+		page.setId(qid);
 		page.setTotalPage(teacherService.findCount(page.getId()));
-		return FileTools.addHeader(teacherService.findAllTeacher(page),page.getTotalPage());
+		return FileTools.addHeader(teacherService.findAllTeacher(qid),page.getTotalPage());
+		}
+	
+	@RequestMapping(value="/test/TeacherHandler_findAllTeacherByPage")
+	@ResponseBody
+	public String findAllTeacherByPage(HttpServletRequest request) throws Exception{
+		HttpSession session=request.getSession();
+		int limit = Integer.parseInt(request.getParameter("limit"));
+		int pages = Integer.parseInt(request.getParameter("page"));
+		int qid=(int)session.getAttribute("qid");
+		Page page = new Page(limit,pages,qid);
+		page.setTotalPage(teacherService.findCount(page.getId()));
+		return FileTools.addHeader(teacherService.findAllTeacherByPage(page),page.getTotalPage());
 		}
 	
 	@RequestMapping(value="/test/TeacherHandler_findTeacherById")
