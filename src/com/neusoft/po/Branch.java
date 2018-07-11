@@ -1,5 +1,7 @@
 package com.neusoft.po;
 
+import com.neusoft.tools.Page;
+
 public class Branch {
 
 	private int bid;
@@ -9,7 +11,6 @@ public class Branch {
 	private String tel;
 	private double longitude;
 	private double latitude;
-	
 	
 	public int getBid() {
 		return bid;

@@ -152,25 +152,7 @@ layui.use('table', function(){
       ,{field:'ordertime', title: '下单时间', sort: true,width:'20%'}
       ,{field: 'operation', title: '操作',width:'15%', align:'center', toolbar: '#barDemo'}
     ]]
-    ,data: [{
-      "lid": "1"
-      ,"oid":"74"
-      ,"nickname": "skye"
-      ,"tel":"10086"
-      ,"total":"0.1"
-      ,"actual":"0.1"
-      ,"status":"退款中"
-      ,"ordertime":"2018-06-28 13:02:03"
-    },{
-      "lid": "2"
-      ,"oid":"73"
-      ,"nickname": "marvel"
-      ,"tel":"10087"
-      ,"total":"0.2"
-      ,"actual":"0.2"
-      ,"status":"退款中"
-      ,"ordertime":"2018-06-21 18:55:55"
-    }]
+    
     ,even: true
     ,limits: [5, 7, 10]
     ,limit: 5 //每页默认显示的数量
@@ -191,6 +173,7 @@ layui.use('table', function(){
           key: {
             id: demoReload.val()
           }
+          ,qid='1'
         }
       });
     }

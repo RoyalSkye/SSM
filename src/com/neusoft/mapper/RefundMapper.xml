@@ -11,9 +11,13 @@
     oid, refundreason, refundtime, status
   </sql>
   
-   <select id="findAllRefund" parameterType="int" resultType="com.neusoft.po.Refund">
+   <select id="findAllRefund" parameterType="com.neusoft.tools.Page" resultType="com.neusoft.po.Refund">
     select *
-    from refund
+    from refund where qid=#{id} limit #{minNum},#{quantity}
+  </select>
+  
+  <select id="findCount" parameterType="int" resultType="int">
+  SELECT COUNT(*) from refund where qid=#{qid}
   </select>
   
   <select id="selectById" parameterType="int" resultMap="BaseResultMap">

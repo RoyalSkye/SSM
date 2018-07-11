@@ -4,8 +4,8 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.neusoft.mapper.LessonMapper">                                                                                                                               
 
-	<select id="findAllLesson" parameterType="int" resultType="com.neusoft.po.Lesson">
-		select * from lesson where qid=#{qid}
+	<select id="findAllLesson" parameterType="com.neusoft.tools.Page" resultType="com.neusoft.po.Lesson">
+		select * from lesson where qid=#{id} limit #{minNum},#{maxNum}
 	</select>
 	
 	<select id="findLessonById"  parameterType="int" resultType="com.neusoft.po.Lesson">
@@ -46,6 +46,10 @@
 	
 	<select id="findimgurl"  parameterType="int" resultType="com.neusoft.po.Swiper">
 		select * from swiper where qid=#{qid} and category="C"
+	</select>
+	
+	<select id="findCount"  parameterType="int" resultType="int">
+	SELECT COUNT(*) from lesson where qid=#{qid}
 	</select>
 	
 </mapper>

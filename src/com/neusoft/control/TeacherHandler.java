@@ -18,6 +18,7 @@ import com.neusoft.po.Teacher;
 import com.neusoft.service.SwiperService;
 import com.neusoft.service.TeacherService;
 import com.neusoft.tools.FileTools;
+import com.neusoft.tools.Page;
 
 @Controller
 public class TeacherHandler {
@@ -29,11 +30,12 @@ public class TeacherHandler {
 	
 	@RequestMapping(value="/test/TeacherHandler_findAllTeacher")
 	@ResponseBody
-	public List<Teacher> findAllTeacher(HttpServletRequest request) throws Exception{
+	public String findAllTeacher(HttpServletRequest request) throws Exception{
 		HttpSession session=request.getSession();
-		int qid=(int)session.getAttribute("qid");
-		return teacherService.findAllTeacher(qid);
-	}
+		Page page = new Page((int)session.getAttribute("limit"),(int)session.getAttribute("page"),(int)session.getAttribute("qid"));
+		page.setTotalPage(teacherService.findCount(page.getId()));
+		return FileTools.addHeader(teacherService.findAllTeacher(page),page.getTotalPage());
+		}
 	
 	@RequestMapping(value="/test/TeacherHandler_findTeacherById")
 	@ResponseBody

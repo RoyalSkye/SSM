@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.neusoft.mapper.BranchMapper;
 import com.neusoft.po.Branch;
 import com.neusoft.service.BranchService;
+import com.neusoft.tools.Page;
 
 @Service
 public class BranchServiceBean implements BranchService{
@@ -59,5 +60,14 @@ public class BranchServiceBean implements BranchService{
 			isok=false;
 		}
 		return isok;
+	}
+	
+	@Override
+	public int findCount(int qid) throws Exception{
+		return mapper.findCount(qid);
+	}
+	@Override
+	public List<Branch> findAllBranchByPage(Page page) throws Exception {
+		return mapper.findAllBranchByPage(page);
 	}
 }

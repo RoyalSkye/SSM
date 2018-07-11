@@ -153,7 +153,6 @@ layui.use(['element','form','jquery','layer','table'], function(){
 			showtable(url);
 		}else{
 			var bid=data.value;
-			console.log(data);
 			var url='/SSM/test/FreelistenHandler_findFreelistenByBid?bid='+bid;
 			showtable(url);
 		}
@@ -202,6 +201,15 @@ layui.use(['element','form','jquery','layer','table'], function(){
         console.log(res)
     }
    });
+  table.reload({
+	  where: { //设定异步数据接口的额外参数，任意设
+	   qid:'1'
+
+	  }
+	  ,page: {
+	    curr: 1 //重新从第 1 页开始
+	  }
+	});
   }
 });
 

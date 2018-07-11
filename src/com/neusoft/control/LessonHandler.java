@@ -19,6 +19,7 @@ import com.neusoft.po.Swiper;
 import com.neusoft.service.LessonService;
 import com.neusoft.service.SwiperService;
 import com.neusoft.tools.FileTools;
+import com.neusoft.tools.Page;
 
 @Controller
 public class LessonHandler {
@@ -27,15 +28,7 @@ public class LessonHandler {
 	private LessonService lessonService;
 	@Autowired
 	private SwiperService swiperService;
-	
-	@RequestMapping(value="/test/LessonHandler_findAllLesson")
-	@ResponseBody
-	public List<Lesson> findAllLesson(HttpServletRequest request) throws Exception{
-		HttpSession session=request.getSession();
-		int qid=(int)session.getAttribute("qid");
-		return lessonService.findAllLesson(qid);
-	}
-	
+
 	@RequestMapping(value="/test/LessonHandler_findLessonByCondition")
 	@ResponseBody
 	public List<Lesson> findLessonByCondition(HttpServletRequest request) throws Exception{
@@ -60,6 +53,18 @@ public class LessonHandler {
 		m.put("page", request.getParameter("page"));
 		m.put("qid", qid);
 		return null;
+	}
+	
+	@RequestMapping(value="/test/LessonHandler_findAllLesson")
+	@ResponseBody
+	public String findAllLesson(HttpServletRequest request) throws Exception{
+		HttpSession session = request.getSession();
+		int limit = Integer.parseInt(request.getParameter("limit"));
+		int pages = Integer.parseInt(request.getParameter("page"));
+		int qid=(int)session.getAttribute("qid");
+		Page page = new Page(limit,pages,qid);
+		page.setTotalPage(lessonService.findCount(page.getId()));
+		return	FileTools.addHeader(lessonService.findAllLesson(page), page.getTotalPage());
 	}
 	
 	@RequestMapping(value="/test/LessonHandler_findLessonById")

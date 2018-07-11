@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.neusoft.po.Freelisten;
 import com.neusoft.service.FreelistenService;
 import com.neusoft.tools.FileTools;
+import com.neusoft.tools.Page;
 
 @Controller
 public class FreelistenHandler {
@@ -28,8 +29,12 @@ public class FreelistenHandler {
 	@ResponseBody
 	public String findAllFreelisten(HttpServletRequest request) throws Exception{
 		HttpSession session=request.getSession();
+		int limit = Integer.parseInt(request.getParameter("limit"));
+		int pages = Integer.parseInt(request.getParameter("page"));
 		int qid=(int)session.getAttribute("qid");
-		return FileTools.addHeader(freelistenService.findAllFreelisten(qid));
+		Page page = new Page(limit,pages,qid);
+		page.setTotalPage(freelistenService.findCount(page.getId()));
+		return FileTools.addHeader(freelistenService.findAllFreelisten(page),page.getTotalPage());
 	}
 	
 	@RequestMapping(value="/test/FreelistenHandler_findOnlineFreelisten")
@@ -48,8 +53,12 @@ public class FreelistenHandler {
 	
 	@RequestMapping(value="/test/FreelistenHandler_findFreelistenByBid",produces = "application/json; charset=utf-8")
 	@ResponseBody
-	public String findFreelistenByBid(int bid) throws Exception{
-		return FileTools.addHeader(freelistenService.findFreelistenByBid(bid));
+	public String findFreelistenByBid(int bid,HttpServletRequest request) throws Exception{
+		int limit = Integer.parseInt(request.getParameter("limit"));
+		int pages = Integer.parseInt(request.getParameter("page"));
+		Page page = new Page(limit,pages,bid);
+		page.setTotalPage(freelistenService.findCountByBid(page.getId()));
+		return FileTools.addHeader(freelistenService.findFreelistenByBid(page),page.getTotalPage());
 	}
 	
 	@RequestMapping(value="/test/FreelistenHandler_deleteFreelistenById")

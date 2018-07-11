@@ -89,5 +89,4 @@ public class Page {
 		this.minNum = minNum;
 	}
 
-	
 }

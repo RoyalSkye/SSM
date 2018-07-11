@@ -3,19 +3,22 @@ package com.neusoft.service;
 import java.util.List;
 
 import com.neusoft.po.Refund;
+import com.neusoft.tools.Page;
 
 public interface RefundService {
-    int deleteById(Integer oid) throws Exception;
+  public  int deleteById(Integer oid) throws Exception;
 
-    int insert(Refund record)throws Exception;
+  public int insert(Refund record)throws Exception;
 
-    int insertSelective(Refund record)throws Exception;
+  public int insertSelective(Refund record)throws Exception;
 
-    Refund selectById(Integer oid)throws Exception;
+  public Refund selectById(Integer oid)throws Exception;
 
-    int updateByIdSelective(Refund record)throws Exception;
+  public int updateByIdSelective(Refund record)throws Exception;
 
-    int updateById(Refund record)throws Exception;
+  public int updateById(Refund record)throws Exception;
     
-    List<Refund> findAllRefund(int qid)throws Exception;
+  public List<Refund> findAllRefund(Page page)throws Exception;
+    
+  public int findCount(int qid) throws Exception;
 }

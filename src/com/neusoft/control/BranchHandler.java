@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.neusoft.po.Branch;
 import com.neusoft.service.BranchService;
 import com.neusoft.tools.FileTools;
+import com.neusoft.tools.Page;
 
 @Controller
 public class BranchHandler {
@@ -25,7 +26,21 @@ public class BranchHandler {
 	public String findAllBranch(HttpServletRequest request) throws Exception{
 		HttpSession session=request.getSession();
 		int qid=(int)session.getAttribute("qid");
-		return FileTools.addHeader(branchService.findAllBranch(qid));
+		Page page=new Page();
+		page.setTotalPage(branchService.findCount(qid));
+		return FileTools.addHeader(branchService.findAllBranch(qid),page.getTotalPage());
+	}
+	
+	@RequestMapping(value="/test/BranchHandler_findAllBranchByPage",produces = "application/json; charset=utf-8")
+	@ResponseBody
+	public String findAllBranchByPage(HttpServletRequest request) throws Exception{
+		int limit = Integer.parseInt(request.getParameter("limit"));
+		int pages = Integer.parseInt(request.getParameter("page"));
+		HttpSession session=request.getSession();
+		int qid=(int)session.getAttribute("qid");
+		Page page = new Page(limit,pages,qid);
+		page.setTotalPage(branchService.findCount(page.getId()));
+		return FileTools.addHeader(branchService.findAllBranchByPage(page),page.getTotalPage());
 	}
 	
 	@RequestMapping(value="/test/BranchHandler_findBranchById")

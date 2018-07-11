@@ -13,6 +13,7 @@ import com.neusoft.po.Lesson;
 import com.neusoft.po.LessonBranch;
 import com.neusoft.po.Swiper;
 import com.neusoft.service.LessonService;
+import com.neusoft.tools.Page;
 
 @Service
 public class LessonServiceBean implements LessonService {
@@ -21,8 +22,8 @@ public class LessonServiceBean implements LessonService {
 	private LessonMapper mapper;
 	
 	@Override
-	public List<Lesson> findAllLesson(int qid) throws Exception {
-		return mapper.findAllLesson(qid);
+	public List<Lesson> findAllLesson(Page page) throws Exception {
+		return mapper.findAllLesson(page);
 	}
 
 	@Override
@@ -77,6 +78,11 @@ public class LessonServiceBean implements LessonService {
 	@Override
 	public List<String> selectCategory() throws Exception {
 		return mapper.selectCategory();
+	}
+	
+	@Override
+	public int findCount(int qid) throws Exception {
+		return mapper.findCount(qid);
 	}
 
 }

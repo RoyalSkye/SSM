@@ -3,22 +3,24 @@ package com.neusoft.mapper;
 import java.util.List;
 
 import com.neusoft.po.Refund;
+import com.neusoft.tools.Page;
 
 public interface RefundMapper {
-    int deleteById(Integer oid);
+   public int deleteById(Integer oid) throws Exception;
 
-    int insert(Refund record);
+   public int insert(Refund record)throws Exception;;
 
-    int insertSelective(Refund record);
+   public int insertSelective(Refund record)throws Exception;;
 
-    Refund selectById(Integer oid);
+   public Refund selectById(Integer oid)throws Exception;;
 
-    int updateByIdSelective(Refund record);
+   public int updateByIdSelective(Refund record)throws Exception;;
 
-    int updateById(Refund record);
+   public int updateById(Refund record)throws Exception;;
     
-    
-    Refund findById(Integer oid);
+   public Refund findById(Integer oid)throws Exception;;
 
-	List<Refund> findAllRefund(int qid);
+   public List<Refund> findAllRefund(Page page)throws Exception;
+   
+   public int findCount(int qid) throws Exception;
 }

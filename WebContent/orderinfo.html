@@ -139,6 +139,7 @@ layui.use('table', function(){
   //方法级渲染
   table.render({
     elem: '#LAY_table_user'
+   	,url:'/SSM/test/OrderHandler_findAllOrder?qid=1'
     ,cols: [[
       {checkbox: true, fixed: true,width:'5%'}
       ,{field:'lid', title: '课程编号', width:'8%', sort: true, fixed: true}
@@ -151,27 +152,7 @@ layui.use('table', function(){
       ,{field:'ordertime', title: '下单时间', sort: true,width:'15%'}
       ,{field:'transactionid', title: '交易流水号', width:'20%'}
     ]]
-    ,data: [{
-      "lid": "1"
-      ,"oid":"74"
-      ,"nickname": "skye"
-      ,"tel":"10086"
-      ,"total":"0.1"
-      ,"actual":"0.1"
-      ,"status":"已退款"
-      ,"ordertime":"2018-06-28 13:02:03"
-      ,"transactionid":"4200000109201806283534325472"
-    },{
-      "lid": "2"
-      ,"oid":"73"
-      ,"nickname": "marvel"
-      ,"tel":"10087"
-      ,"total":"0.2"
-      ,"actual":"0.2"
-      ,"status":"退款中"
-      ,"ordertime":"2018-06-21 18:55:55"
-      ,"transactionid":"4200000133201806213004102392"
-    }]
+   
     ,even: true
     ,limits: [5, 7, 10]
     ,limit: 5 //每页默认显示的数量

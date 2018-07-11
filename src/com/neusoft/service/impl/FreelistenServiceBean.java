@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.neusoft.mapper.FreelistenMapper;
 import com.neusoft.po.Freelisten;
 import com.neusoft.service.FreelistenService;
+import com.neusoft.tools.Page;
 
 @Service
 public class FreelistenServiceBean implements FreelistenService {
@@ -16,8 +17,8 @@ public class FreelistenServiceBean implements FreelistenService {
 	private FreelistenMapper mapper;
 	
 	@Override
-	public List<Freelisten> findAllFreelisten(int qid) throws Exception {
-		return mapper.findAllFreelisten(qid);
+	public List<Freelisten> findAllFreelisten(Page page) throws Exception {
+		return mapper.findAllFreelisten(page);
 	}
 
 	@Override
@@ -62,8 +63,20 @@ public class FreelistenServiceBean implements FreelistenService {
 	}
 
 	@Override
-	public List<Freelisten> findFreelistenByBid(int bid) throws Exception {
-		return mapper.findFreelistenByBid(bid);
+	public List<Freelisten> findFreelistenByBid(Page page) throws Exception {
+		return mapper.findFreelistenByBid(page);
+	}
+
+	@Override
+	public int findCount(int qid) throws Exception {
+		
+		return mapper.findCount(qid);
+	}
+	
+	@Override
+	public int findCountByBid(int bid) throws Exception {
+		
+		return mapper.findCountByBid(bid);
 	}
 
 	@Override

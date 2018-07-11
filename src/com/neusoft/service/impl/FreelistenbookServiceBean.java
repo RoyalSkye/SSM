@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.neusoft.mapper.FreelistenbookMapper;
 import com.neusoft.po.Freelistenbook;
 import com.neusoft.service.FreelistenbookService;
+import com.neusoft.tools.Page;
 
 @Service
 public class FreelistenbookServiceBean implements FreelistenbookService {
@@ -22,8 +23,12 @@ public class FreelistenbookServiceBean implements FreelistenbookService {
 	}
 
 	@Override
-	public List<Freelistenbook> findAllFreelistenbook(int qid) throws Exception {
-		return mapper.findAllFreelistenbook(qid);
+	public List<Freelistenbook> findAllFreelistenbook(Page page) throws Exception {
+		return mapper.findAllFreelistenbook(page);
+	}
+	@Override
+	public int findCount(int qid) throws Exception{
+		return mapper.findCount(qid);
 	}
 
 	@Override

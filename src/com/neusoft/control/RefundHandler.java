@@ -2,6 +2,9 @@ package com.neusoft.control;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.neusoft.po.Refund;
 import com.neusoft.service.RefundService;
 import com.neusoft.tools.FileTools;
+import com.neusoft.tools.Page;
 
 @Controller
 public class RefundHandler {
@@ -18,8 +22,11 @@ public class RefundHandler {
 	
 	@RequestMapping(value="/test/RefundHandler_findAllRefund")
 	@ResponseBody
-	 public String findAllRefund(int qid)throws Exception{
-		return FileTools.addHeader(refundservice.findAllRefund(qid));
+	 public String findAllRefund(HttpServletRequest request)throws Exception{
+		HttpSession session=request.getSession();
+		Page page = new Page((int)session.getAttribute("limit"),(int)session.getAttribute("page"),(int)session.getAttribute("qid"));
+		page.setTotalPage(refundservice.findCount(page.getId()));
+		return FileTools.addHeader(refundservice.findAllRefund(page),page.getTotalPage());
 	}
 	
 	@RequestMapping(value="/test/RefundHandler_deleteRefundById")
