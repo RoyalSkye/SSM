@@ -13,8 +13,8 @@
        var r = window.location.search.substr(1).match(reg);
        if(r!=null)return  unescape(r[2]); return null;
   }
-  	var bid=GetQueryString("fid");
-	//console.log(bid);
+  	var fid=GetQueryString("fid");
+	//console.log(fid);
 	$(function(){
 		$.ajax({
 			url:"test/FreelistenHandler_findFreelistenById?fid="+fid,				
@@ -24,14 +24,23 @@
 
 				
 				console.log(data);
+				
 				var fid=data.fid;
+				$("#fid").append(fid);
 				var title=data.title;
+				$("#title").append(title);
 				var imgurl=data.imgurl;
+				$("#imgurl").append(imgurl);
 				var fdesc=data.fdesc;
+				$("#fdesc").append(fdesc);
 				var status=data.status;
+				$("#status").append(status);
 				var qid=data.qid;
+				$("#qid").append(qid);
 				var bid=data.bid;
-				var pubtime=data.pubtime;
+				$("#bid").append(bid);
+				var pubtime=data.pubtime;                                         
+				$("#pubtime").append(pubtime);
 
 			}
 		})

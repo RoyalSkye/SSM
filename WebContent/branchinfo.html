@@ -102,6 +102,9 @@
 <script src="../SSM/layui/layui.js"></script>
 <script>
 //JavaScript代码区域
+var curentPage = 1;
+
+
 layui.use('element', function(){
   var element = layui.element;
   
@@ -123,7 +126,7 @@ layui.use('table', function(){
     }
    });
  
-  table.render({
+  var table1 = table.render({
     elem: '#demo'
     ,url:'/SSM/test/BranchHandler_findAllBranch'
     ,cols: [[ //标题栏
@@ -142,6 +145,16 @@ layui.use('table', function(){
         console.log(res)
     }
   });
+  
+  table1.reload({
+	  where: { //设定异步数据接口的额外参数，任意设
+	   qid:'1'
+
+	  }
+	  ,page: {
+	    curr: 1 //重新从第 1 页开始
+	  }
+	});
   
 });
 </script>

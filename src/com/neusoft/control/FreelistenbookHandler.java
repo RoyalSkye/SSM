@@ -30,7 +30,7 @@ public class FreelistenbookHandler {
 	@ResponseBody
 	public String findAllFreelistenbook(HttpServletRequest request) throws Exception{
 		HttpSession session=request.getSession();
-		Page page = new Page((int)session.getAttribute("limit"),(int)session.getAttribute("currentPage"),(int)session.getAttribute("bid"));
+		Page page = new Page((int)session.getAttribute("limit"),(int)session.getAttribute("page"),(int)session.getAttribute("bid"));
 		page.setTotalPage(freelistenbookService.findCount(page.getId()));
 		return FileTools.addHeader(freelistenbookService.findAllFreelistenbook(page), page.getTotalPage());
 	}

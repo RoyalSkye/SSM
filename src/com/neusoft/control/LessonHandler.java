@@ -31,7 +31,7 @@ public class LessonHandler {
 	@ResponseBody
 	public String findAllLesson(HttpServletRequest request) throws Exception{
 		HttpSession session = request.getSession();
-		Page page = new Page((int)session.getAttribute("limit"),(int)session.getAttribute("currentPage"),(int)session.getAttribute("qid"));
+		Page page = new Page((int)session.getAttribute("limit"),(int)session.getAttribute("page"),(int)session.getAttribute("qid"));
 		page.setTotalPage(lessonService.findCount(page.getId()));
 		return	FileTools.addHeader(lessonService.findAllLesson(page), page.getTotalPage());
 	}

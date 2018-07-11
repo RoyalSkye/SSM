@@ -29,7 +29,7 @@ public class OrderHandler {
 	@ResponseBody
 	public String findAllOrder(HttpServletRequest request) throws Exception{
 		HttpSession session=request.getSession();
-		Page page = new Page((int)session.getAttribute("limit"),(int)session.getAttribute("currentPage"),(int)session.getAttribute("qid"));
+		Page page = new Page((int)session.getAttribute("limit"),(int)session.getAttribute("page"),(int)session.getAttribute("qid"));
 		page.setTotalPage(orderService.findCount(page.getId()));
 		return FileTools.addHeader(orderService.findAllOrder(page),page.getTotalPage());
 	}

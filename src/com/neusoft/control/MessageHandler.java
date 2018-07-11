@@ -64,7 +64,7 @@ public class MessageHandler {
 	@ResponseBody
 	public String findMessagereplyById(HttpServletRequest request) throws Exception{
 		HttpSession session = request.getSession();
-		Page page = new Page((int)session.getAttribute("limit"),(int)session.getAttribute("currentPage"),(int)session.getAttribute("qid"));
+		Page page = new Page((int)session.getAttribute("limit"),(int)session.getAttribute("page"),(int)session.getAttribute("qid"));
 		page.setTotalPage(messageService.findCount(page.getId()));
 		return FileTools.addHeader(messageService.findMessagereplyById(page), page.getTotalPage()) ;
 	}

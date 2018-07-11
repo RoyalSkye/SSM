@@ -22,12 +22,17 @@
 	<script type="text/javascript" src="./js/ueditor.all.js"></script>
 	<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.0.js"></script>
 <script>
+function GetQueryString(name)
+{
+     var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+     var r = window.location.search.substr(1).match(reg);
+     if(r!=null)return  unescape(r[2]); return null;
+}
+	var fid=GetQueryString("fid");
+	//console.log(fid);
 	$(function(){
 		$.ajax({
-			url:"test/EnterpriseHandler_findEnterpriseById?qid=1",
-			success:function(data)
-			{
-				console.log(data);
+			url:"test/FreelistenHandler_findFreelistenById?fid="+fid,
 				var updatename=data.name;
 				updatename+='<br><input type="text" name="name" id="name" required  lay-verify="required" value="'+data.name+'">'
 				$("#updatename").append(updatename);

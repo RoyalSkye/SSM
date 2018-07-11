@@ -24,8 +24,10 @@ public class BranchHandler {
 	@RequestMapping(value="/test/BranchHandler_findAllBranch",produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public String findAllBranch(HttpServletRequest request) throws Exception{
-		HttpSession session=request.getSession();
-		Page page = new Page((int)session.getAttribute("limit"),(int)session.getAttribute("currentPage"),(int)session.getAttribute("qid"));
+		int limit = Integer.parseInt(request.getParameter("limit"));
+		int pages = Integer.parseInt(request.getParameter("page"));
+		int qid = Integer.parseInt(request.getParameter("qid"));
+		Page page = new Page(limit,pages,qid);
 		page.setTotalPage(branchService.findCount(page.getId()));
 		return FileTools.addHeader(branchService.findAllBranch(page),page.getTotalPage());
 	}

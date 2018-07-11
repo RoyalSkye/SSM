@@ -161,10 +161,12 @@ layui.use('table', function(){
     ,id: 'testReload'
     ,page: true
   });
+
   
   var $ = layui.$, active = {
     reload: function(){
       var demoReload = $('#demoReload');
+      
       
       //执行重载
       table.reload('testReload', {
@@ -174,7 +176,8 @@ layui.use('table', function(){
         ,where: {
           key: {
             id: demoReload.val()
-          }
+          },
+          qid:'1'
         }
       });
     }

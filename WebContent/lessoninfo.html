@@ -142,6 +142,7 @@ layui.use('table', function(){
   
   table.render({
     elem: '#demo'
+   	,url:'/SSM/test/LessonHandler_findAllLesson?qid=1'
     ,cols: [[ //表头
       {field: 'lid', title: '课程编号', width:'10%' ,style:'height:110px;',sort: true, fixed: 'left'}
       ,{field: 'name', title: '课程名称', width:'10%',style:'height:100px;'}
@@ -150,19 +151,7 @@ layui.use('table', function(){
       ,{field: 'category', title: '课程类别', width:'10%',style:'height:100px;'}
        ,{field: 'operation', title: '操作',width:'30%',align:'center',style:'height:100px;', toolbar: '#barDemo'}
     ]]
-    ,data: [{
-      "lid": "1"
-      ,"name":"体验课:万圣节抽符6"
-      ,"photo":'../SSM/img/mainBg0.jpg'
-      ,"price":0.1
-      ,"category":"A"
-    },{
-       "lid": "2"
-      ,"name":"大数据课程"
-      ,"photo":'../SSM/img/mainBg1.jpg'
-      ,"price":0.2
-      ,"category":"A"
-    }]
+   
     ,even: true
     ,page: true //是否显示分页
     ,limits: [5, 7, 10]
@@ -171,6 +160,16 @@ layui.use('table', function(){
   layui.use('form', function(){
   var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
   form.render();
+  
+  table1.reload({
+	  where: { //设定异步数据接口的额外参数，任意设
+	   qid:'1'
+
+	  }
+	  ,page: {
+	    curr: 1 //重新从第 1 页开始
+	  }
+	});
 });  
 });
 </script>
