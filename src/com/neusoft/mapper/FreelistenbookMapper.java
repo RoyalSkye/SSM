@@ -10,10 +10,8 @@ public interface FreelistenbookMapper {
 	
 	public List<Freelistenbook> findAllFreelistenbook(Page page) throws Exception;
 	public List<Freelistenbook> findFreelistenbook(Map map) throws Exception;
-
 	public int updateFreelistenbook(Freelistenbook freelistenbook) throws Exception;
 	public int saveFreelistenbook(Freelistenbook freelistenbook) throws Exception;
-	public int findCount(int qid) throws Exception;
+	public int findCount() throws Exception;
 	
-
 }

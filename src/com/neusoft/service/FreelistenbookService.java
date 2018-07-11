@@ -12,5 +12,5 @@ public interface FreelistenbookService {
 	public boolean updateFreelistenbook(Freelistenbook freelistenbook) throws Exception;
 	public boolean saveFreelistenbook(Freelistenbook freelistenbook) throws Exception;
 	public List<Freelistenbook> findAllFreelistenbook(Page page) throws Exception;
-	public int findCount(int qid) throws Exception;
+	public int findCount() throws Exception;
 }

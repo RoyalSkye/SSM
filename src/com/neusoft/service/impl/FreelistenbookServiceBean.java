@@ -27,8 +27,8 @@ public class FreelistenbookServiceBean implements FreelistenbookService {
 		return mapper.findAllFreelistenbook(page);
 	}
 	@Override
-	public int findCount(int qid) throws Exception{
-		return mapper.findCount(qid);
+	public int findCount() throws Exception{
+		return mapper.findCount();
 	}
 
 	@Override

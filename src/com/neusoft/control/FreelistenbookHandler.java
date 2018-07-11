@@ -27,7 +27,7 @@ public class FreelistenbookHandler {
 	@Autowired
 	private FreelistenbookService freelistenbookService;
 	
-	@RequestMapping(value="/test/FreelistenbookHandler_findAllFreelistenbookByPage")
+	@RequestMapping(value="/test/FreelistenbookHandler_findAllFreelistenbookByPage",produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public String findAllFreelistenbookByPage(HttpServletRequest request) throws Exception{
 		int limit = Integer.parseInt(request.getParameter("limit"));
@@ -35,11 +35,11 @@ public class FreelistenbookHandler {
 		HttpSession session=request.getSession();
 		int qid=(int)session.getAttribute("qid");
 		Page page = new Page(limit,pages,qid);
-		page.setTotalPage(freelistenbookService.findCount(page.getId()));
+		page.setTotalPage(freelistenbookService.findCount());
 		return FileTools.addHeader(freelistenbookService.findAllFreelistenbook(page), page.getTotalPage());
 	}
 	
-	@RequestMapping(value="/test/FreelistenbookHandler_findFreelistenbook")
+	@RequestMapping(value="/test/FreelistenbookHandler_findFreelistenbook",produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public String findFreelistenbook(HttpServletRequest request) throws Exception{
 		Map<String,Object> map=new HashMap<String,Object>();

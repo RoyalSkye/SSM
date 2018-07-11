@@ -141,52 +141,33 @@ layui.use('table', function(){
   //方法级渲染
   table.render({
     elem: '#LAY_table_user'
-    	  ,url:'/SSM/test/FreelistenBookHandler_findAllFreelistenbook?qid=1'
+     ,url:'/SSM/test/FreelistenbookHandler_findAllFreelistenbookByPage'
     ,cols: [[
       {checkbox: true, fixed: true,width:'5%'}
-      ,{field:'lid', title: '课程编号', width:'8%', sort: true, fixed: true}
-      ,{field:'oid', title: '订单编号', sort: true,width:'8%'}
-      ,{field:'nickname', title: '用户昵称', width:'8%'}
+      ,{field:'id', title: '课程编号', width:'8%', sort: true, fixed: true}
+      ,{field:'fid', title: '订单编号', sort: true,width:'8%'}
+      ,{field:'cname', title: '用户昵称', width:'8%'}
       ,{field:'tel', title: '用户电话', width:'10%'}
-      ,{field:'total', title: '订单金额',sort: true,width:'8%'}
-      ,{field:'actual', title: '实付金额', sort: true, width:'8%'}
       ,{field:'status', title: '订单状态', width:'10%'}
-      ,{field:'ordertime', title: '下单时间', sort: true,width:'20%'}
+      ,{field:'comment', title: '用户留言', sort: true,width:'20%'}
+      ,{field:'booktime', title: '下单时间', sort: true,width:'20%'}
       ,{field: 'operation', title: '操作',width:'15%', align:'center', toolbar: '#barDemo'}
     ]]
-   
     ,even: true
     ,limits: [5, 7, 10]
-    ,limit: 5 //每页默认显示的数量
+    ,limit: 10 //每页默认显示的数量
     ,id: 'testReload'
     ,page: true
+    ,done: function(res){
+        console.log(res)
+    }
   });
 
-  
-  var $ = layui.$, active = {
-    reload: function(){
-      var demoReload = $('#demoReload');
-      
-      
-      //执行重载
-      table.reload('testReload', {
-        page: {
-          curr: 1 //重新从第 1 页开始
-        }
-        ,where: {
-          key: {
-            id: demoReload.val()
-          },
-          qid:'1'
-        }
-      });
-    }
-  };
-  
-  $('.demoTable .layui-btn').on('click', function(){
-    var type = $(this).data('type');
-    active[type] ? active[type].call(this) : '';
-  });
+ var $ = layui.$, active = {
+	 reload: function(){
+	var demoReload = $('#demoReload');
+	}
+};
   
   layui.use('form', function(){
   var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功

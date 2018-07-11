@@ -5,11 +5,11 @@
 <mapper namespace="com.neusoft.mapper.FreelistenbookMapper">                                                                                                                               
 
 	<select id="findAllFreelistenbook" parameterType="com.neusoft.tools.Page" resultType="com.neusoft.po.Freelistenbook">
-		select * from freelistenbook where qid=#{id} limit #{minNum},#{quantity}
+		select * from freelistenbook limit #{minNum},#{quantity}
 	</select>
 	
 	<select id="findFreelistenbook"  parameterType="Map" resultType="com.neusoft.po.Freelistenbook">
-		select * from freelistenbook where qid=#{qid} limit #{minNum},#{maxNum}
+		select * from freelistenbook
 		<if test="cname != null">
 			and cname like '%${cname}%'
 		</if>
@@ -21,7 +21,8 @@
 		</if>
 		<if test="endtime != null">
 			and booktime &lt;= '%${endDate}%'
-		</if>		
+		</if>	
+		limit #{minNum},#{maxNum}	
 	</select>
 
 	<update id="updateFreelistenbook" parameterType="com.neusoft.po.Freelistenbook">
@@ -33,7 +34,7 @@
 	</insert>
 	
 	<select id="findCount" parameterType="int" resultType="int">
-		SELECT COUNT(*) FROM freelistenbook where qid=#{qid}
+		SELECT COUNT(*) FROM freelistenbook
 	</select>
 	
 </mapper>
