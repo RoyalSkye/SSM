@@ -5,7 +5,7 @@
 <mapper namespace="com.neusoft.mapper.FreelistenMapper">                                                                                                                               
 
 	<select id="findAllFreelisten" parameterType="com.neusoft.tools.Page" resultType="com.neusoft.po.Freelisten">
-		select * from freelisten where qid=#{id} limit#{minNum},#{maxNum} 
+		select * from freelisten where qid=#{id} limit#{minNum},#{quantity} 
 	</select>
 	
 	<select id="findFreelistenById"  parameterType="int" resultType="com.neusoft.po.Freelisten">

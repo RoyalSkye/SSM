@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.neusoft.mapper.OrderMapper;
 import com.neusoft.po.Order;
 import com.neusoft.service.OrderService;
+import com.neusoft.tools.Page;
 
 @Service
 public class OrderServiceBean implements OrderService {
@@ -17,8 +18,8 @@ public class OrderServiceBean implements OrderService {
 	private OrderMapper mapper;
 	
 	@Override
-	public List<Order> findAllOrder(int qid) throws Exception {
-		return mapper.findAllOrder(qid);
+	public List<Order> findAllOrder(Page page) throws Exception {
+		return mapper.findAllOrder(page);
 	}
 
 	@Override
@@ -36,5 +37,11 @@ public class OrderServiceBean implements OrderService {
 			isok=false;
 		}
 		return isok;
+	}
+
+	@Override
+	public int findCount(int qid) throws Exception {
+		
+		return mapper.findCount(qid);
 	}
 }

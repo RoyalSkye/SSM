@@ -9,6 +9,7 @@ import com.neusoft.mapper.TeacherMapper;
 import com.neusoft.po.Swiper;
 import com.neusoft.po.Teacher;
 import com.neusoft.service.TeacherService;
+import com.neusoft.tools.Page;
 
 @Service
 public class TeacherServiceBean implements TeacherService {
@@ -17,8 +18,13 @@ public class TeacherServiceBean implements TeacherService {
 	private TeacherMapper mapper;
 	
 	@Override
-	public List<Teacher> findAllTeacher(int qid) throws Exception{
-		return mapper.findAllTeacher(qid);
+	public List<Teacher> findAllTeacher(Page page) throws Exception{
+		return mapper.findAllTeacher(page);
+	}
+	
+	@Override
+	public int findCount(int qid)throws Exception {
+		return mapper.findCount(qid);
 	}
 
 	@Override

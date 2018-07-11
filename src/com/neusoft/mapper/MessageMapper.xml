@@ -46,8 +46,8 @@
 		update message,messageimg set message.mtitle=#{mtitle},message.mtime=#{mtime} where message.mid=#{mid}
 	</update>
 
-	<select id="findMessagereplyById"  parameterType="int" resultMap="message_messagereply_map">
-		select * from message left join messagereply on message.mid=messagereply.mid where message.mid=#{mid}
+	<select id="findMessagereplyById"  parameterType="com.neusoft.tools.Page" resultMap="message_messagereply_map">
+		select * from message left join messagereply on message.mid=messagereply.mid where message.mid=#{id} limit#{minNum},#{quantity}
 	</select>
 	
 	<delete id="deleteMessagereply"  parameterType="int">
@@ -56,6 +56,10 @@
 	
 	<select id="findimgurl" parameterType="int" resultType="com.neusoft.po.Swiper">
 		select * from swiper where qid=#{qid} and category="D"
+	</select>
+	
+	<select id="findCount" parameterType="int" resultType="int">
+	SELECT COUNT(*) from messagereply  where qid=#{qid}
 	</select>
 	
 </mapper>

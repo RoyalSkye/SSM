@@ -17,6 +17,7 @@ import com.neusoft.po.Swiper;
 import com.neusoft.service.LessonService;
 import com.neusoft.service.SwiperService;
 import com.neusoft.tools.FileTools;
+import com.neusoft.tools.Page;
 
 @Controller
 public class LessonHandler {
@@ -28,8 +29,11 @@ public class LessonHandler {
 	
 	@RequestMapping(value="/test/LessonHandler_findAllLesson")
 	@ResponseBody
-	public List<Lesson> findAllLesson(int qid) throws Exception{
-		return lessonService.findAllLesson(qid);
+	public String findAllLesson(HttpServletRequest request) throws Exception{
+		HttpSession session = request.getSession();
+		Page page = new Page((int)session.getAttribute("limit"),(int)session.getAttribute("currentPage"),(int)session.getAttribute("qid"));
+		page.setTotalPage(lessonService.findCount(page.getId()));
+		return	FileTools.addHeader(lessonService.findAllLesson(page), page.getTotalPage());
 	}
 	
 	@RequestMapping(value="/test/LessonHandler_findLessonById")
@@ -70,9 +74,9 @@ public class LessonHandler {
 	@ResponseBody
 	public String updateLesson(Lesson lesson) throws Exception{
 		if(lessonService.updateLesson(lesson)){
-			return "redirect:/freelisteninfo.html";
+			return "{\"result\":true}";
 		}else{
-			return "redirect:/freelisteninfo.html";
+			return "{\"result\":false}";
 		}
 	}
 	

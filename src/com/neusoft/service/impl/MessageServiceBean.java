@@ -10,6 +10,7 @@ import com.neusoft.po.Message;
 import com.neusoft.po.Messagereply;
 import com.neusoft.po.Swiper;
 import com.neusoft.service.MessageService;
+import com.neusoft.tools.Page;
 
 @Service
 public class MessageServiceBean implements MessageService {
@@ -52,8 +53,8 @@ public class MessageServiceBean implements MessageService {
 	}
 
 	@Override
-	public List<Messagereply> findMessagereplyById(int mid) throws Exception {
-		return mapper.findMessagereplyById(mid);
+	public List<Messagereply> findMessagereplyById(Page page) throws Exception {
+		return mapper.findMessagereplyById(page);
 	}
 
 	@Override
@@ -73,6 +74,11 @@ public class MessageServiceBean implements MessageService {
 		return mapper.findimgurl(qid);
 	}
 	
+	
+	@Override
+	public int findCount(int mid)throws Exception{
+		return mapper.findCount(mid);
+	}
 	
 
 }

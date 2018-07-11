@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -35,11 +36,12 @@ public class FileTools {
 		return url;
 	}
 	
-	public static String addHeader(Object obj) {
+	public static String addHeader(Object obj,int count) {
 		Gson gson = new Gson();
-		String str = " {\"code\":0,\"msg\":\"\",\"count\":1000,\"data\":"+(gson.toJson(obj))+"}";
+		String str = " {\"code\":0,\"msg\":\"\",\"count\":"+count+",\"data\":"+(gson.toJson(obj))+"}";
 		System.out.println("str:"+str);
 		return str;
 	}
+	
 	
 }

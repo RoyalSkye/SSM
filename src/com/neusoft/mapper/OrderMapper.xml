@@ -4,12 +4,12 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.neusoft.mapper.OrderMapper">                                                                                                                               
 
-	<select id="findAllOrder"  parameterType="int" resultType="com.neusoft.po.Order">
-		select * from order where qid=#{qid}
+	<select id="findAllOrder"  parameterType="com.neusoft.tools.Page" resultType="com.neusoft.po.Order">
+		select * from order where qid=#{id} limit#{minNum},#{quantity}
 	</select>
 	
 	<select id="findOrder"  parameterType="Map" resultType="com.neusoft.po.Order">
-		select * from order where qid=#{qid}
+		select * from order where qid=#{qid} limit#{minNum},#{maxNum}
 		<if test="oid != null">
 			and oid=#{oid}
 		</if>
@@ -28,6 +28,8 @@
 			update order set status=#{status} where oid=#{oid}
 	</update>
 	
-	
+	<select id="findCount" parameterType="int" resultType="int">
+	SELECT COUNT(*) from order where qid=#{qid}
+	</select>
 	
 </mapper>

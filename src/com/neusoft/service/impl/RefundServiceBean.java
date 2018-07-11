@@ -57,7 +57,7 @@ public class RefundServiceBean  implements RefundService{
 	}
 	
 	@Override
-	public int findCount() throws Exception{
-		return mapper.findCount();
+	public int findCount(int qid) throws Exception{
+		return mapper.findCount(qid);
 	}
 }
