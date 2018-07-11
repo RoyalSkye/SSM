@@ -16,7 +16,7 @@ public interface LessonMapper {
 	public Swiper findimgurl(int qid) throws Exception;
 	public int saveLesson(Lesson lesson)throws Exception;
 	public int saveLessonbranch(LessonBranch lessonbranch) throws Exception;
-	//public int saveLesson(Map map)throws Exception;
+	public List<String> selectCategory() throws Exception;
 }
 	
 

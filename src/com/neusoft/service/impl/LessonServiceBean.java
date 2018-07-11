@@ -74,4 +74,9 @@ public class LessonServiceBean implements LessonService {
 		return mapper.findimgurl(qid);
 	}
 
+	@Override
+	public List<String> selectCategory() throws Exception {
+		return mapper.selectCategory();
+	}
+
 }

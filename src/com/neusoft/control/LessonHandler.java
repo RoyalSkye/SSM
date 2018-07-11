@@ -1,7 +1,9 @@
 package com.neusoft.control;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -34,6 +36,32 @@ public class LessonHandler {
 		return lessonService.findAllLesson(qid);
 	}
 	
+	@RequestMapping(value="/test/LessonHandler_findLessonByCondition")
+	@ResponseBody
+	public List<Lesson> findLessonByCondition(HttpServletRequest request) throws Exception{
+		Map<String,Object> m=new HashMap<>();
+		HttpSession session=request.getSession();
+		int qid=(int)session.getAttribute("qid");
+		if(request.getParameter("bid")==null || request.getParameter("bid")==""){
+			m.put("bid", null);
+		}else{
+			m.put("bid", request.getParameter("bid"));
+		}
+		if(request.getParameter("category")==null || request.getParameter("category")==""){
+			m.put("category", null);
+		}else{
+			m.put("category", request.getParameter("category"));
+		}
+		if(request.getParameter("type")==null || request.getParameter("type")==""){
+			m.put("type", null);
+		}else{
+			m.put("type", request.getParameter("type"));
+		}
+		m.put("page", request.getParameter("page"));
+		m.put("qid", qid);
+		return null;
+	}
+	
 	@RequestMapping(value="/test/LessonHandler_findLessonById")
 	@ResponseBody
 	public Lesson findLessonById(int lid) throws Exception{
@@ -48,6 +76,12 @@ public class LessonHandler {
 		}else{
 			return "{\"result\":false}";
 		}
+	}
+	
+	@RequestMapping(value="/test/LessonHandler_selectCategory")
+	@ResponseBody
+	public List<String> selectCategory() throws Exception{
+		return lessonService.selectCategory();
 	}
 	
 	@RequestMapping(value="/test/LessonHandler_saveLesson")

@@ -11,4 +11,5 @@ public interface OrderService {
 	public List<Order> findOrder(Map map) throws Exception;
 	public boolean updateOrder(Order order) throws Exception;
 	public List<Order> findAllOrderByPhone(String phone) throws Exception;
+	public boolean saveOrder(Order order) throws Exception;
 }

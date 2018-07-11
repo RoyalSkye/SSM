@@ -12,6 +12,10 @@
 		select * from lesson where lid=#{lid}
 	</select>
 	
+	<select id="selectCategory" resultType="String">
+		select DISTINCT category from lesson
+	</select>
+	
 	<delete id="deleteLessonById"  parameterType="int">
 		delete from lesson where lid=#{lid}
 	</delete>

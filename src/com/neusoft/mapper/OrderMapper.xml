@@ -5,7 +5,7 @@
 <mapper namespace="com.neusoft.mapper.OrderMapper">                                                                                                                               
 
 	<select id="findAllOrder"  parameterType="int" resultType="com.neusoft.po.Order">
-		select * from order where qid=#{qid}
+		select * from `order` where qid=#{qid}
 	</select>
 	
 	<select id="findAllOrderByPhone"  parameterType="string" resultType="com.neusoft.po.Order">
@@ -13,7 +13,7 @@
 	</select>
 	
 	<select id="findOrder"  parameterType="Map" resultType="com.neusoft.po.Order">
-		select * from order where qid=#{qid}
+		select * from `order` where qid=#{qid}
 		<if test="oid != null">
 			and oid=#{oid}
 		</if>
@@ -29,9 +29,11 @@
 	</select>
 	
 	<update id="updateOrder" parameterType="com.neusoft.po.Order">
-			update order set status=#{status} where oid=#{oid}
+			update `order` set status=#{status} where oid=#{oid}
 	</update>
 	
-	
+	<insert id="saveOrder"  parameterType="com.neusoft.po.Order">
+		insert into `order`(lid,openid,total,actual,status,ordertime,qid,transactionid,nickname,tel) values(#{lid},#{openid},#{total},#{actual},#{status},#{ordertime},#{qid},#{transactionid},#{nickname},#{tel})
+	</insert>
 	
 </mapper>

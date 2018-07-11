@@ -14,4 +14,5 @@ public interface LessonService {
 	public boolean saveLesson(Lesson lesson) throws Exception;
 	public boolean updateLesson(Lesson lesson) throws Exception;
 	public Swiper findimgurl(int qid) throws Exception;
+	public List<String> selectCategory() throws Exception;
 }

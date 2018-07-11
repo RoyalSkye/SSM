@@ -42,4 +42,16 @@ public class OrderServiceBean implements OrderService {
 	public List<Order> findAllOrderByPhone(String phone) throws Exception {
 		return mapper.findAllOrderByPhone(phone);
 	}
+
+	@Override
+	public boolean saveOrder(Order order) throws Exception {
+		boolean isok=false;
+		int result=mapper.saveOrder(order);
+		if(result>0){
+			isok=true;
+		}else{
+			isok=false;
+		}
+		return isok;
+	}
 }
