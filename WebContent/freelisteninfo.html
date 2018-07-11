@@ -6,7 +6,7 @@
    <link rel="stylesheet" href="../SSM/layui/css/layui.css">
    <script type="text/javascript" src="../SSM/layui/layui.js"></script> 
   <title>NeuSoft introduction</title>
-<style type="text/css">.laytable-cell-1-photo{  /*最后的pic为字段的field*/
+<style type="text/css">.laytable-cell-1-imgurl{
        height: 100%;
        max-width: 100%;
    } </style>
@@ -190,7 +190,7 @@ layui.use(['element','form','jquery','layer','table'], function(){
    	,url: url
     ,cols: [[ //表头
       {field: 'title', title: '预约课程标题', width:'20%',style:'height:100px;'}
-      ,{field: 'imgurl', title: '课程图片', width:'20%',style:'height:100px;',templet:'<div><img src="{{d.imgurl}}"></div>'}
+      ,{field : 'imgurl',title : '课程图片',width :'20%',style:'height:100px;',templet: '<div><img src="{{ d.imgurl}}"></div>'}
       ,{field: 'status', title: '预约课程状态', width:'20%',style:'height:100px;'}
       ,{field: 'pubtime', title: '预约课程发布时间', width:'20%',style:'height:100px;'}
        ,{field: 'operation', title: '操作',width:'20%',align:'center',style:'height:100px;', toolbar: '#barDemo'}

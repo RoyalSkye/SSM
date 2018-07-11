@@ -25,7 +25,7 @@
 	</delete>
 
 	<update id="updateTeacher"  parameterType="com.neusoft.po.Teacher">
-		update teacher set tname=#{tname},tphoto_url=#{tphoto_url},introduction=#{introduction}, where tid=#{tid}
+		update teacher set tname=#{tname},tphoto_url=#{tphoto_url},introduction=#{introduction} where tid=#{tid}
 	</update>
 
 	<insert id="saveTeacher" parameterType="com.neusoft.po.Teacher">

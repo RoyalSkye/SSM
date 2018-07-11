@@ -39,7 +39,7 @@ public class TeacherHandler {
 		return FileTools.addHeader(teacherService.findAllTeacher(qid),page.getTotalPage());
 		}
 	
-	@RequestMapping(value="/test/TeacherHandler_findAllTeacherByPage")
+	@RequestMapping(value="/test/TeacherHandler_findAllTeacherByPage",produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public String findAllTeacherByPage(HttpServletRequest request) throws Exception{
 		HttpSession session=request.getSession();
@@ -107,7 +107,7 @@ public class TeacherHandler {
 			System.out.println("ÎÄ¼þÎª¿Õ");
 			return "{\"result\":false}";
 		}
-		String url=FileTools.saveimg(file,request);
+		String url=FileTools.saveimg(file,request).substring(2);
 		if(url==null||url==""){
 			return "{\"result\":false}";
 		}else{

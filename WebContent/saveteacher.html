@@ -6,40 +6,43 @@
   <title>NeuSoft introduction</title>
   <link rel="stylesheet" href="../SSM/layui/css/layui.css">
   <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.0.js"></script>
-  <script>
-	$(function(){
-		//注册按钮的点击事件
-		$("#btn_submit").click(
-			function(){
-				//获取该表单中的值[name,img,introduction]
-				var name = $("#name").val();
-				//var img = $("#img").val();
-				var introduction = $("#introduction").val();
-				//用ajax
-				$.ajax(
+<script type="text/javascript">
+	var tname = "";
+	var tphoto_url = "";
+	var introduction = "";
+$(function(){
+	$("#btn_submit").click(
+		function(){
+			tname = $("#name").val();
+			introduction = $("#introduction").val();
+			if(tname=="" || tphoto_url=="" || introduction==""){
+				console.log("tname="+tname);
+				console.log("tphoto_url="+tphoto_url);
+				console.log("introduction="+introduction);
+				alert("必填项不能为空!");
+			}else{
+				$.ajax({
+					url:"/SSM/test/TeacherHandler_saveTeacher",
+					type:"post",
+					data:{tname:tname,tphoto_url:tphoto_url,introduction:introduction},
+			    	dataType:"json", 
+					success:function(data)
 					{
-						url:"test/TeacherHandler_saveTeacher",//发送到的位置
-						type:"post",
-						data:{tname:name,introduction:introduction},
-						dataType:"json",
-						success:function(data){
-						   //console.log(data);
-						   if(data.result)
-						   {
-							   alert("保存成功");
-						   }
-						   else
-						   {
-							   alert("保存失败");
-						   }
+						console.log(data);
+						if(data.result){
+							alert("save successfully");
+							location.href='teacherinfo.html';
+						}else{
+							alert("save failed");
 						}
 					}
-				);
+				});
 			}
-		);
-	});
+		}
+	);
+});
 </script>
-  
+
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
@@ -127,7 +130,7 @@
   </div>
   <div class="layui-colla-item">
     <h2 class="layui-colla-title">讲师照片</h2><br>
-    
+    <div id="img"></div>
     <div class="layui-upload-drag" id="test10">
 	  <i class="layui-icon"></i>
 	  <p>点击上传，或将文件拖拽到此处--1MB limited</p>
@@ -135,7 +138,7 @@
   </div>
   <div class="layui-colla-item">
     <h2 class="layui-colla-title">讲师简介</h2>
-    <div class="layui-colla-content layui-show"> <textarea rows="5" cols="100" style="resize: none;" required  lay-verify="required"></textarea>
+    <div class="layui-colla-content layui-show"> <textarea id="introduction" rows="5" cols="100" style="resize: none;" required  lay-verify="required"></textarea>
   </div>
 </div>
 	<button class="layui-btn layui-btn-lg" lay-submit lay-filter="saveteacher" id="btn_submit" type="button">提交</button>
@@ -162,17 +165,21 @@ layui.use('form', function(){
 layui.use('upload', function(){
   var $ = layui.jquery
   ,upload = layui.upload;
-	
 //拖拽上传
   upload.render({
     elem: '#test10'
     ,url: '/SSM/test/TeacherHandler_saveimg'
     ,size: 1024 //限制文件大小，单位 KB
     ,done: function(res){
-      console.log(res)
-      if (res.imgurl){
-    	  $("#img").attr('src', res.imgurl);
-      }
+      console.log(res);
+      if(res.result){
+    	  var img='<img src="'+res.imgurl+'" id="imgurl" width="200" height="200">';
+    	  $("#img").html(img);
+    	  tphoto_url=$("#imgurl").attr("src");
+    	  console.log(tphoto_url);
+      }else {
+    	  alert("upload failed");
+	  }
     }
   });
 });  

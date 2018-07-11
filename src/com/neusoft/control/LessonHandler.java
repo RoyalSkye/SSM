@@ -63,7 +63,7 @@ public class LessonHandler {
 		return	lessonService.findAllLesson(qid);
 	}
 	
-	@RequestMapping(value="/test/LessonHandler_findAllLessonByPage")
+	@RequestMapping(value="/test/LessonHandler_findAllLessonByPage",produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public String findAllLessonByPage(HttpServletRequest request) throws Exception{
 		HttpSession session = request.getSession();
