@@ -26,6 +26,7 @@
   var imgurl="";
   var title="";
   var fdesc="";
+  var bid;
   function GetQueryString(name)
   {
        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
@@ -34,41 +35,6 @@
   }
   	var fid=GetQueryString("fid");
 	$(function(){
-		$.ajax({
-			url:"test/FreelistenHandler_findFreelistenById?fid="+fid,				
-			success:function(data)
-			{
-				console.log(data);	
-				fid=data.fid;
-				imgurl=data.imgurl;	
-				$("#fid").append(fid);
-				var updatetitle='<input type="text" name="title" id="title" required  lay-verify="required" value="'+data.title+'">';
-				$("#updatetitle").append(updatetitle);
-				var img='<img src="'+data.imgurl+'" id="lessonphoto" width="200" height="200">';
-				$("#img").before(img);
-				var fdesc=data.fdesc;
-				UE.getEditor('container', {
-				    toolbars: [
-				    ['fullscreen', 'source', 'undo', 'redo', 'bold', 'italic', 'underline', 'strikethrough', 'forecolor', 'backcolor', 'insertimage']
-				    ],
-				    autoHeightEnabled: true,
-				    autoFloatEnabled: true
-			    });
-				setTimeout( () => {
-				var ue = UE.getEditor('container');
-				ue.setContent(fdesc);
-				}, 1000);
-				var bid=data.bid;
-				$.ajax({
-					url:"test/BranchHandler_findBranchById?bid="+bid,
-					success:function(res){
-						console.log(res);
-						var name='<input type="checkbox" name="branch" lay-skin="primary" title="'+res.name+'" checked="" disabled="">';
-						$("#name").append(name);
-					}
-				});
-			}
-		})
 		$("#btn_submit").click(function(){
 			console.log(imgurl);
 			title=$("#title").val();
@@ -272,8 +238,47 @@ layui.use('upload', function(){
   });
  });
  
- layui.use('form', function(){
+ layui.use(['form','jquery'], function(){
   var form = layui.form;
+  var $=layui.jquery;
+  $.ajax({
+		url:"test/FreelistenHandler_findFreelistenById?fid="+fid,
+		success:function(data)
+		{
+			console.log(data);	
+			fid=data.fid;
+			imgurl=data.imgurl;	
+			$("#fid").append(fid);
+			var updatetitle='<input type="text" name="title" id="title" required  lay-verify="required" value="'+data.title+'">';
+			$("#updatetitle").append(updatetitle);
+			var img='<img src="'+data.imgurl+'" id="lessonphoto" width="200" height="200">';
+			$("#img").before(img);
+			var fdesc=data.fdesc;
+			UE.getEditor('container', {
+			    toolbars: [
+			    ['fullscreen', 'source', 'undo', 'redo', 'bold', 'italic', 'underline', 'strikethrough', 'forecolor', 'backcolor', 'insertimage']
+			    ],
+			    autoHeightEnabled: true,
+			    autoFloatEnabled: true
+		    });
+			setTimeout( () => {
+			var ue = UE.getEditor('container');
+			ue.setContent(fdesc);
+			}, 1000);
+			bid=data.bid;
+		},
+		complete:function(XMLHttpRequest,textStatus){
+			$.ajax({
+				url:"test/BranchHandler_findBranchById?bid="+bid,
+				success:function(res){
+					console.log(res);
+					var name='<input type="checkbox" name="branch" lay-skin="primary" title="'+res.name+'" checked="" disabled="">';
+					$("#name").html(name);
+					form.render("");
+				}
+			});
+		}
+	});
   form.on('select(test)',function(data){
 		console.log(data);
 		console.log(data.value);

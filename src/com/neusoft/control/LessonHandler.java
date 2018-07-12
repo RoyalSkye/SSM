@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.neusoft.po.Branch;
 import com.neusoft.po.Lesson;
 import com.neusoft.po.Swiper;
 import com.neusoft.service.LessonService;
@@ -82,6 +83,13 @@ public class LessonHandler {
 	public Lesson findLessonById(int lid) throws Exception{
 		return lessonService.findLessonById(lid);
 	}
+	
+	@RequestMapping(value="/test/LessonHandler_findBranchByLesson")
+	@ResponseBody
+	public List<Branch> findBranchByLesson(int lid) throws Exception{
+		return lessonService.findBranchByLesson(lid);
+	}
+	
 	
 	@RequestMapping(value="/test/LessonHandler_findLessonByBid",produces = "application/json; charset=utf-8")
 	@ResponseBody

@@ -11,27 +11,6 @@
        max-width: 100%;
    } </style>
    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.0.js"></script>
-<script>
-	$(function(){
-		$.ajax({
-			url:"test/BranchHandler_findAllBranch",
-			success:function(data)
-			{
-				console.log(data);
-				//console.log(data.length);
-				//console.log(data.data.length);
-				var name='<select name="modules" lay-verify="required" lay-search="" lay-filter="test">';
-				name+=' <option value="0">请选择</option>';
-				for(var i=0;i<data.data.length;i++){
-					name+=' <option value="'+data.data[i].bid+'">'+data.data[i].name+'</option>';
-				}
-				name+='</select>';
-				console.log(name);
-				$("#selectbox").append(name);
-			}
-		})
-	})
-</script>
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
@@ -140,7 +119,32 @@ layui.use(['element','form','jquery','layer','table'], function(){
   var element = layui.element;
   var $=layui.jquery;
   var form = layui.form;
-  form.render('select');
+  $(function(){
+		var name;
+		$.ajax({
+			url:"test/BranchHandler_findAllBranch",
+			success:function(data)
+			{
+				console.log(data);
+				//console.log(data.length);
+				//console.log(data.data.length);
+				name='<select name="modules" lay-verify="required" lay-search="" lay-filter="test">';
+				name+=' <option value="0">请选择</option>';
+				for(var i=0;i<data.data.length;i++){
+					name+=' <option value="'+data.data[i].bid+'">'+data.data[i].name+'</option>';
+				}
+				name+='</select>';
+				console.log(name);
+				//$("#selectbox").append(name);
+			},
+			complete:function(XMLHttpRequest,textStatus){
+				console.log("XMLHttpRequest:"+XMLHttpRequest);
+				console.log("textStatus:"+textStatus);
+				$("#selectbox").html(name);
+				form.render('select');
+			}
+		})
+	})
   var table = layui.table;
   var layer=parent.layer===undefined?layui.layer:parent.layer;
   var url='/SSM/test/FreelistenHandler_findAllFreelisten';
@@ -203,15 +207,6 @@ layui.use(['element','form','jquery','layer','table'], function(){
         console.log(res)
     }
    });
-  table.reload({
-	  where: { //设定异步数据接口的额外参数，任意设
-	   qid:'1'
-
-	  }
-	  ,page: {
-	    curr: 1 //重新从第 1 页开始
-	  }
-	});
   }
 });
 

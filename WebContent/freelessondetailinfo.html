@@ -31,18 +31,17 @@
 				var status=data.status;
 				$("#status").append(status);
 				var bid=data.bid;
-				$.ajax({
-					url:"test/BranchHandler_findBranchById?bid="+bid,
-					success:function(res){
-						console.log(res);
-						var name=res.name;
-						$("#name").append(name);
-					}
-				});
 			}
-		})
-		
-	})
+		});
+		$.ajax({
+			url:"test/BranchHandler_findBranchById?bid="+bid,
+			success:function(res){
+				console.log(res);
+				var name=res.name;
+				$("#name").append(name);
+			}
+		});
+	});
 </script>
 </head>
 <body class="layui-layout-body">

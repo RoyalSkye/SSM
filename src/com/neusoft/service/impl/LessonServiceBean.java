@@ -7,8 +7,10 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.neusoft.mapper.BranchMapper;
 import com.neusoft.mapper.FreelistenMapper;
 import com.neusoft.mapper.LessonMapper;
+import com.neusoft.po.Branch;
 import com.neusoft.po.Lesson;
 import com.neusoft.po.LessonBranch;
 import com.neusoft.po.Swiper;
@@ -50,9 +52,9 @@ public class LessonServiceBean implements LessonService {
 		int lid=mapper.selectLAST_INSERT_ID();
 		if(result>0){
 			isok=true;
-			int length=bid1.length();
-			for(int i=length;i>0;i=i-2){
-				int bid=Integer.parseInt(bid1.substring(i-1, i));
+			String[] splitbid=bid1.split(",");
+			for(int i=0;i<splitbid.length;i++){
+				int bid=Integer.parseInt(splitbid[i]);
 				//System.out.println(bid);
 				LessonBranch lessonbranch=new LessonBranch();
 				lessonbranch.setBid(bid);
@@ -107,6 +109,11 @@ public class LessonServiceBean implements LessonService {
 	@Override
 	public int findCountByBid(int bid) throws Exception {
 		return mapper.findCountByBid(bid);
+	}
+
+	@Override
+	public List<Branch> findBranchByLesson(int lid) throws Exception {
+		return mapper.findBranchByLesson(lid);
 	}
 
 }

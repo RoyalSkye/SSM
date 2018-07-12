@@ -3,6 +3,7 @@ package com.neusoft.service;
 import java.util.Date;
 import java.util.List;
 
+import com.neusoft.po.Branch;
 import com.neusoft.po.Lesson;
 import com.neusoft.po.Swiper;
 import com.neusoft.tools.Page;
@@ -20,4 +21,5 @@ public interface LessonService {
 	public List<String> selectCategory() throws Exception;
 	public int findCount(int qid) throws Exception;
 	public int findCountByBid(int bid) throws Exception;
+	public List<Branch> findBranchByLesson(int lid) throws Exception;
 }

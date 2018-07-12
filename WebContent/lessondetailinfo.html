@@ -17,6 +17,7 @@
 	}
 	var lid=GetQueryString("lid");
 	$(function(){
+		var name="";
 		$.ajax({
 			url:"test/LessonHandler_findLessonById?lid="+lid,
 			success:function(data){
@@ -30,21 +31,24 @@
 				var ldesc=data.ldesc;
 				$("#ldesc").append(ldesc);
 				var lprice = data.lprice;
-				$("#lprice").append(ldesc);
+				$("#lprice").append(lprice);
 				var category = data.category;
 				$("#category").append(category);
-				var bid=data.bid;
-				$.ajax({//分部名字
-					url:"test/BranchHandler_findBranchById?bid="+bid,
-					success:function(res){
-						console.log(res);
-						var name=res.name;
-						$("#name").append(name);
-					}
-				});
 			}
 		});
-	})
+		$.ajax({ //分部名字
+			url:"test/LessonHandler_findBranchByLesson?lid="+lid,
+			success:function(res){
+				console.log(res);
+				for(var i=0;i<res.length;i++){
+					name+='<input type="checkbox" name="branch" lay-skin="primary" title="'+res[i].name+'" checked="" disabled="">';
+				}
+			},
+			complete:function(XMLHttpRequest,textStatus){
+				$("#name").append(name);
+			}
+		});
+	});
 </script>
 
 </head>
@@ -126,7 +130,7 @@
     <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
   <legend>课程详细信息</legend>
 </fieldset>
-
+<form class="layui-form" action="">
 <div class="layui-collapse">
   <div class="layui-colla-item">
     <h2 class="layui-colla-title">课程编号</h2>
@@ -152,11 +156,18 @@
     <div class="layui-colla-content layui-show" id="category"></div>
   </div>
   <div class="layui-colla-item">
-    <h2 class="layui-colla-title">分部名字</h2>
-    <div class="layui-colla-content layui-show" id="name"></div>
+    <h2 class="layui-colla-title" >分部名字</h2>
+    <div class="layui-colla-content layui-show">
+    	<div class="layui-form-item" pane="">
+    <label class="layui-form-label">分部名字</label>
+    <div class="layui-input-block" id="name">
+    </div>
+  </div>
+    </div>
   </div>
 </div>
 </div>
+</form>
   
   <div class="layui-footer">
     <!-- 底部固定区域 -->
@@ -169,6 +180,10 @@
 layui.use('element', function(){
   var element = layui.element;
   
+});
+layui.use('form', function(){
+	  var form = layui.form;
+	  form.render();
 });
 </script>
 </body>
