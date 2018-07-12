@@ -150,7 +150,7 @@ layui.use(['element','form','jquery','layer','table'], function(){
 			showtable(url);
 		}else{
 			var bid=data.value;
-			var url='/SSM/test/FreelistenHandler_findFreelistenByBid?bid='+bid;  //根据bid查找课程 branch 和 lesson 多对多的关系
+			var url='/SSM/test/LessonHandler_findLessonByBid?bid='+bid;  //根据bid查找课程 branch 和 lesson 多对多的关系
 			showtable(url);
 		}
 	});

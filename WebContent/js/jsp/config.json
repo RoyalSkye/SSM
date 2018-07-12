@@ -7,21 +7,21 @@
     "imageCompressEnable": true, 
     "imageCompressBorder": 1600, 
     "imageInsertAlign": "none", 
-    "imageUrlPrefix": "http://localhost:8080/SSM", 
-    "imagePathFormat": "/js/jsp/upload/image/{yyyy}{mm}{dd}/{time}{rand:6}", 
+    "imageUrlPrefix": "", 
+    "imagePathFormat": "/../upload/{yyyy}{mm}{dd}/{time}{rand:6}", 
                                 
 
     
     "scrawlActionName": "uploadscrawl", 
     "scrawlFieldName": "upfile", 
-    "scrawlPathFormat": "/js/jsp/upload/image/{yyyy}{mm}{dd}/{time}{rand:6}", 
+    "scrawlPathFormat": "/../upload/{yyyy}{mm}{dd}/{time}{rand:6}", 
     "scrawlMaxSize": 2048000, 
     "scrawlUrlPrefix": "", 
     "scrawlInsertAlign": "none",
 
     
     "snapscreenActionName": "uploadimage", 
-    "snapscreenPathFormat": "/js/jsp/upload/image/{yyyy}{mm}{dd}/{time}{rand:6}", 
+    "snapscreenPathFormat": "/../upload/{yyyy}{mm}{dd}/{time}{rand:6}", 
     "snapscreenUrlPrefix": "", 
     "snapscreenInsertAlign": "none", 
 
@@ -29,7 +29,7 @@
     "catcherLocalDomain": ["127.0.0.1", "localhost", "img.baidu.com"],
     "catcherActionName": "catchimage", 
     "catcherFieldName": "source", 
-    "catcherPathFormat": "/js/jsp/upload/image/{yyyy}{mm}{dd}/{time}{rand:6}", 
+    "catcherPathFormat": "/../upload/{yyyy}{mm}{dd}/{time}{rand:6}", 
     "catcherUrlPrefix": "", 
     "catcherMaxSize": 2048000, 
     "catcherAllowFiles": [".png", ".jpg", ".jpeg", ".gif", ".bmp"], 
@@ -37,8 +37,8 @@
     
     "videoActionName": "uploadvideo", 
     "videoFieldName": "upfile", 
-    "videoPathFormat": "/js/jsp/upload/image/{yyyy}{mm}{dd}/{time}{rand:6}", 
-    "videoUrlPrefix": "http://localhost:8080/SSH", 
+    "videoPathFormat": "/../upload/{yyyy}{mm}{dd}/{time}{rand:6}", 
+    "videoUrlPrefix": "", 
     "videoMaxSize": 102400000, 
     "videoAllowFiles": [
         ".flv", ".swf", ".mkv", ".avi", ".rm", ".rmvb", ".mpeg", ".mpg",
@@ -47,8 +47,8 @@
     
     "fileActionName": "uploadfile",
     "fileFieldName": "upfile", 
-    "filePathFormat": "/js/jsp/upload/image/{yyyy}{mm}{dd}/{time}{rand:6}", 
-    "fileUrlPrefix": "http://localhost:8080/SSH", 
+    "filePathFormat": "/../upload/{yyyy}{mm}{dd}/{time}{rand:6}", 
+    "fileUrlPrefix": "", 
     "fileMaxSize": 51200000, 
     "fileAllowFiles": [
         ".png", ".jpg", ".jpeg", ".gif", ".bmp",
@@ -60,7 +60,7 @@
 
     
     "imageManagerActionName": "listimage", 
-    "imageManagerListPath": "/js/jsp/upload/image/", 
+    "imageManagerListPath": "/../upload/{yyyy}{mm}{dd}", 
     "imageManagerListSize": 20, 
     "imageManagerUrlPrefix": "", 
     "imageManagerInsertAlign": "none", 
@@ -68,7 +68,7 @@
 
     
     "fileManagerActionName": "listfile", 
-    "fileManagerListPath": "/js/jsp/upload/image/", 
+    "fileManagerListPath": "/../upload/{yyyy}{mm}{dd}", 
     "fileManagerUrlPrefix": "", 
     "fileManagerListSize": 20, 
     "fileManagerAllowFiles": [

@@ -1,5 +1,6 @@
 package com.neusoft.control;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -81,6 +82,16 @@ public class LessonHandler {
 		return lessonService.findLessonById(lid);
 	}
 	
+	@RequestMapping(value="/test/LessonHandler_findLessonByBid",produces = "application/json; charset=utf-8")
+	@ResponseBody
+	public String findLessonByBid(int bid,HttpServletRequest request) throws Exception{
+		int limit = Integer.parseInt(request.getParameter("limit"));
+		int pages = Integer.parseInt(request.getParameter("page"));
+		Page page = new Page(limit,pages,bid);
+		page.setTotalPage(lessonService.findCountByBid(page.getId()));
+		return FileTools.addHeader(lessonService.findLessonByBid(page),page.getTotalPage());
+	}
+	
 	@RequestMapping(value="/test/LessonHandler_deleteLessonById")
 	@ResponseBody
 	public String deleteLessonById(int lid) throws Exception{
@@ -99,15 +110,19 @@ public class LessonHandler {
 	
 	@RequestMapping(value="/test/LessonHandler_saveLesson")
 	@ResponseBody
-	public String saveLesson() throws Exception{  //Lesson lesson
-		Lesson lesson=new Lesson();
-		lesson.setCategory("test");
-		lesson.setImgurl("test");
-		lesson.setLdesc("test");
-		//lesson.setPubtime("test");
-		lesson.setLname("test");
-		lesson.setLprice(0.01);
-		lesson.setQid(1);
+	public String saveLesson(Lesson lesson,HttpServletRequest request) throws Exception{  //Lesson lesson
+		System.out.println(arg0);
+		
+		
+		
+		
+		
+		HttpSession session=request.getSession();
+		int qid=(int)session.getAttribute("qid");
+		lesson.setQid(qid);
+		Date date=new Date();
+		SimpleDateFormat ft =new SimpleDateFormat ("yyyy-MM-dd hh:mm:ss");
+		lesson.setPubtime(ft.format(date));
 		if(lessonService.saveLesson(lesson)){
 			return "{\"result\":true}";
 		}else{
@@ -141,13 +156,10 @@ public class LessonHandler {
 			System.out.println("ÎÄ¼þÎª¿Õ");
 			return "{\"result\":false}";
 		}
-		String url=FileTools.saveimg(file,request);
-		//System.out.println("---------------------url:"+url);
+		String url=FileTools.saveimg(file,request).substring(10);
 		if(url==null||url==""){
 			return "{\"result\":false}";
 		}else{
-			//result="../upload/15307951697841.jpg";
-			//System.out.println("{\"result\":true,\"imgurl\":\""+url+"\"}");
 			return "{\"result\":true,\"imgurl\":\""+url+"\"}";
 		}
 	}

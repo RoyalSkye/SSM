@@ -13,6 +13,7 @@ public interface LessonMapper {
 	public List<Lesson> findAllLesson(int qid) throws Exception;
 	public List<Lesson> findAllLessonByPage(Page page) throws Exception;
 	public Lesson findLessonById(int lid)throws Exception;
+	public List<Lesson> findLessonByBid(Page page) throws Exception;
 	public int deleteLessonById(int lid)throws Exception;
 	public int updateLesson(Lesson lesson)throws Exception;
 	public Swiper findimgurl(int qid) throws Exception;
@@ -20,6 +21,7 @@ public interface LessonMapper {
 	public int saveLessonbranch(LessonBranch lessonbranch) throws Exception;
 	public List<String> selectCategory() throws Exception;
 	public int findCount(int qid) throws Exception;
+	public int findCountByBid(int bid) throws Exception;
 }
 	
 

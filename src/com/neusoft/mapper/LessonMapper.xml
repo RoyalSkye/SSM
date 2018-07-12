@@ -16,6 +16,10 @@
 		select * from lesson where lid=#{lid}
 	</select>
 	
+	<select id="findLessonByBid"  parameterType="com.neusoft.tools.Page" resultType="com.neusoft.po.Lesson">
+		select lesson.lid,lesson.lname,lesson.imgurl,lesson.lprice,lesson.category from lesson join lessonbranch on lesson.lid=lessonbranch.lid where bid=#{id} limit #{minNum},#{quantity}
+	</select>
+	
 	<select id="selectCategory" resultType="String">
 		select DISTINCT category from lesson
 	</select>
@@ -54,6 +58,10 @@
 	
 	<select id="findCount"  parameterType="int" resultType="int">
 	SELECT COUNT(*) from lesson where qid=#{qid}
+	</select>
+	
+	<select id="findCountByBid" parameterType="int" resultType="int">
+		SELECT COUNT(*) FROM lesson join lessonbranch  on lesson.lid=lessonbranch.lid where bid=#{bid}
 	</select>
 	
 </mapper>

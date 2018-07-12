@@ -49,6 +49,7 @@ public class LessonServiceBean implements LessonService {
 		int result=mapper.saveLesson(lesson);
 		if(result>0){
 			isok=true;
+			
 			LessonBranch lessonbranch=new LessonBranch();
 			lessonbranch.setBid(5);
 			mapper.saveLessonbranch(lessonbranch);
@@ -88,6 +89,16 @@ public class LessonServiceBean implements LessonService {
 	@Override
 	public List<Lesson> findAllLessonByPage(Page page) throws Exception {
 		return mapper.findAllLessonByPage(page);
+	}
+
+	@Override
+	public List<Lesson> findLessonByBid(Page page) throws Exception {
+		return mapper.findLessonByBid(page);
+	}
+
+	@Override
+	public int findCountByBid(int bid) throws Exception {
+		return mapper.findCountByBid(bid);
 	}
 
 }
