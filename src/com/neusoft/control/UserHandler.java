@@ -28,7 +28,7 @@ public class UserHandler {
 			session.setAttribute("qid", u.getQid());
 			session.setAttribute("user", u);
 			session.setAttribute("isLoginOK", true);
-			session.setAttribute("phone", 138);
+			session.setAttribute("phone", "138");
 			session.setMaxInactiveInterval(60*10);
 			//return "{\"result\":true}";
 			return "redirect:/index.html";

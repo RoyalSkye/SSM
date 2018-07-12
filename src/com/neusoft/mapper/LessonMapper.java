@@ -22,6 +22,7 @@ public interface LessonMapper {
 	public List<String> selectCategory() throws Exception;
 	public int findCount(int qid) throws Exception;
 	public int findCountByBid(int bid) throws Exception;
+	public int selectLAST_INSERT_ID() throws Exception;
 }
 	
 

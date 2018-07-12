@@ -37,12 +37,16 @@
 	</insert>
 	
 	<insert id="saveLessonbranch" parameterType="com.neusoft.po.LessonBranch">
-		insert into lessonbranch(lid,bid) values(LAST_INSERT_ID(),#{bid})
+		insert into lessonbranch(lid,bid) values(#{lid},#{bid})
 		<!--insert into lessonbranch(lid,bid) values(null,#{bid})
 	    <selectKey keyProperty="lid" order="AFTER" resultType="java.lang.Integer">
 	            SELECT LAST_INSERT_ID()
 	     </selectKey>-->
 	</insert>
+	
+	<select id="selectLAST_INSERT_ID" resultType="int">
+		SELECT LAST_INSERT_ID()
+	</select>
 	
 	<!--  <insert id="saveLesson" parameterType="Map">
 	    insert into lesson(lname,imgurl,lprice,ldesc,category,qid,pubtime) values(#{lesson.lname}, #{lesson.imgurl}, #{lesson.lprice},#{lesson.ldesc},#{lesson.category},#{lesson.qid},#{lesson.pubtime});

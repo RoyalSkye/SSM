@@ -35,7 +35,8 @@ public class LoginInterceptor implements HandlerInterceptor {
 		}else{
 			System.out.println("Äú»¹Î´µÇÂ¼£¬ÇëÏÈµÇÂ¼");
 			//request.getRequestDispatcher("/login.html").forward(request, response);
-			response.sendRedirect(request.getContextPath() +"/login.html");
+			//response.sendRedirect(request.getContextPath() +"/login.html");
+			response.sendRedirect(response.encodeURL("/SSM/login.html"));
 			return false;
 		}
 	}

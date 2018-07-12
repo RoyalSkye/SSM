@@ -1,6 +1,7 @@
 package com.neusoft.control;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -110,20 +111,16 @@ public class LessonHandler {
 	
 	@RequestMapping(value="/test/LessonHandler_saveLesson")
 	@ResponseBody
-	public String saveLesson(Lesson lesson,HttpServletRequest request) throws Exception{  //Lesson lesson
-		System.out.println(arg0);
-		
-		
-		
-		
-		
+	public String saveLesson(Lesson lesson,HttpServletRequest request) throws Exception{
+		String bid = request.getParameter("bid");  //¿Î³ÌËùÊôµÄbranchid  eg:1,2,3,5
+		//System.out.println("bid.length="+bid.length());
 		HttpSession session=request.getSession();
 		int qid=(int)session.getAttribute("qid");
 		lesson.setQid(qid);
 		Date date=new Date();
 		SimpleDateFormat ft =new SimpleDateFormat ("yyyy-MM-dd hh:mm:ss");
 		lesson.setPubtime(ft.format(date));
-		if(lessonService.saveLesson(lesson)){
+		if(lessonService.saveLesson(lesson,bid)){
 			return "{\"result\":true}";
 		}else{
 			return "{\"result\":false}";

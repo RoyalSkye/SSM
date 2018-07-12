@@ -75,8 +75,10 @@ public class FreelistenbookHandler {
 	@RequestMapping(value="/test/FreelistenbookHandler_saveFreelistenbook")
 	@ResponseBody
 	public String saveFreelistenbook(Freelistenbook freelistenbook,HttpServletRequest request) throws Exception{
+		//wait for testing 
+		System.out.println("tel="+freelistenbook.getTel());
 		HttpSession session=request.getSession();
-		String phone=(String)session.getAttribute("phone");
+		String phone=session.getAttribute("phone").toString();
 		freelistenbook.setStatus("´ý´¦Àí");
 		freelistenbook.setOpenid(phone);
 		Date date=new Date();

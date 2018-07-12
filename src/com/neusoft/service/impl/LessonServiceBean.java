@@ -44,15 +44,23 @@ public class LessonServiceBean implements LessonService {
 	}
 
 	@Override
-	public boolean saveLesson(Lesson lesson) throws Exception {
+	public boolean saveLesson(Lesson lesson,String bid1) throws Exception {  //同时向lessonbranch表中插入数据
 		boolean isok=false;
 		int result=mapper.saveLesson(lesson);
+		int lid=mapper.selectLAST_INSERT_ID();
 		if(result>0){
 			isok=true;
-			
-			LessonBranch lessonbranch=new LessonBranch();
-			lessonbranch.setBid(5);
-			mapper.saveLessonbranch(lessonbranch);
+			int length=bid1.length();
+			for(int i=length;i>0;i=i-2){
+				int bid=Integer.parseInt(bid1.substring(i-1, i));
+				//System.out.println(bid);
+				LessonBranch lessonbranch=new LessonBranch();
+				lessonbranch.setBid(bid);
+				lessonbranch.setLid(lid);
+				if(mapper.saveLessonbranch(lessonbranch)<=0){
+					isok=false;
+				}
+			}
 		}else{
 			isok=false;
 		}
