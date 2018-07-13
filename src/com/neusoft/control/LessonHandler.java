@@ -137,8 +137,16 @@ public class LessonHandler {
 	
 	@RequestMapping(value="/test/LessonHandler_updateLesson")
 	@ResponseBody
-	public String updateLesson(Lesson lesson) throws Exception{
-		if(lessonService.updateLesson(lesson)){
+	public String updateLesson(Lesson lesson,HttpServletRequest request) throws Exception{ 
+		String bid = request.getParameter("bid"); 
+		System.out.println("bid="+bid);
+		HttpSession session=request.getSession();
+		int qid=(int)session.getAttribute("qid");
+		lesson.setQid(qid);
+		Date date=new Date();
+		SimpleDateFormat ft =new SimpleDateFormat ("yyyy-MM-dd hh:mm:ss");
+		lesson.setPubtime(ft.format(date));
+		if(lessonService.updateLesson(lesson,bid)){
 			return "{\"result\":true}";
 		}else{
 			return "{\"result\":false}";

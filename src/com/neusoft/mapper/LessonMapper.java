@@ -19,7 +19,6 @@ public interface LessonMapper {
 	public int updateLesson(Lesson lesson)throws Exception;
 	public Swiper findimgurl(int qid) throws Exception;
 	public int saveLesson(Lesson lesson)throws Exception;
-	public int saveLessonbranch(LessonBranch lessonbranch) throws Exception;
 	public List<String> selectCategory() throws Exception;
 	public int findCount(int qid) throws Exception;
 	public int findCountByBid(int bid) throws Exception;

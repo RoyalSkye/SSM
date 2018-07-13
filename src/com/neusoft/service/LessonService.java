@@ -16,7 +16,7 @@ public interface LessonService {
 	public List<Lesson> findLessonByBid(Page page) throws Exception;
 	public boolean deleteLessonById(int lid) throws Exception;
 	public boolean saveLesson(Lesson lesson,String bid) throws Exception;
-	public boolean updateLesson(Lesson lesson) throws Exception;
+	public boolean updateLesson(Lesson lesson,String bid) throws Exception;
 	public Swiper findimgurl(int qid) throws Exception;
 	public List<String> selectCategory() throws Exception;
 	public int findCount(int qid) throws Exception;

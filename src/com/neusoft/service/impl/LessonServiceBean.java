@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.neusoft.mapper.BranchMapper;
 import com.neusoft.mapper.FreelistenMapper;
+import com.neusoft.mapper.LessonBranchMapper;
 import com.neusoft.mapper.LessonMapper;
 import com.neusoft.po.Branch;
 import com.neusoft.po.Lesson;
@@ -22,6 +23,8 @@ public class LessonServiceBean implements LessonService {
 
 	@Autowired
 	private LessonMapper mapper;
+	@Autowired
+	private LessonBranchMapper lessonbranchmapper;
 	
 	@Override
 	public List<Lesson> findAllLesson(int qid) throws Exception {
@@ -59,7 +62,7 @@ public class LessonServiceBean implements LessonService {
 				LessonBranch lessonbranch=new LessonBranch();
 				lessonbranch.setBid(bid);
 				lessonbranch.setLid(lid);
-				if(mapper.saveLessonbranch(lessonbranch)<=0){
+				if(lessonbranchmapper.saveLessonbranch(lessonbranch)<=0){
 					isok=false;
 				}
 			}
@@ -70,11 +73,24 @@ public class LessonServiceBean implements LessonService {
 	}
 
 	@Override
-	public boolean updateLesson(Lesson lesson) throws Exception {
+	public boolean updateLesson(Lesson lesson,String bid1) throws Exception {
+		int lid=lesson.getLid();
 		boolean isok=false;
 		int result=mapper.updateLesson(lesson);
 		if(result>0){
 			isok=true;
+			LessonBranch lessonbranch=new LessonBranch();
+			lessonbranch.setLid(lid);
+			if(lessonbranchmapper.deleteLessonBranchByLid(lessonbranch)<=0) isok=false;
+			String[] splitbid=bid1.split(",");
+			for(int i=0;i<splitbid.length;i++){
+				int bid=Integer.parseInt(splitbid[i]);
+				System.out.println("bid="+bid);
+				LessonBranch lb=new LessonBranch();
+				lb.setBid(bid);
+				lb.setLid(lid);
+				if(lessonbranchmapper.saveLessonbranch(lb)<=0) isok=false;
+			}
 		}else{
 			isok=false;
 		}

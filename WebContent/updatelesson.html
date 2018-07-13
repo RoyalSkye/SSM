@@ -110,6 +110,7 @@
 	    	$("input:checkbox[name='checkbox']:checked").each(function() {
 	    		bid[i++]=$(this).val();
 	    	});
+	    	console.log("lid="+lid);
 	    	console.log("lname="+lname);
 	    	console.log("imgurl="+imgurl);
 	    	console.log("lprice="+lprice);
@@ -120,23 +121,22 @@
 		    	bid = [];
 		    	alert("必填项不能为空!");
 		    }else{
-		    	/*$.ajax({
-					url:"/SSM/test/LessonHandler_updateLesson",
+		    	$.ajax({
+					url:"/SSM/test/LessonHandler_updateLesson?bid="+bid,
 					type:"post",
-					data:{title:title,fdesc:fdesc,status:status,fid:fid,imgurl:imgurl},
+					data:{lid:lid,lname:lname,imgurl:imgurl,lprice:lprice,ldesc:ldesc,category:category},
 			    	dataType:"json", 
 					success:function(data)
 					{
+						console.log(data);
 						if(data.result){
-							console.log(data);
 							alert("update successfully");
-							location.href='freelisteninfo.html';
+							location.href='lessoninfo.html';
 						}else{
-							console.log(data);
 							alert("update failed");
 						}
 					}
-				});*/
+				});
 		    }
 		});
 	});
