@@ -1,5 +1,7 @@
 package com.neusoft.control;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.neusoft.po.Refund;
+import com.neusoft.service.OrderService;
 import com.neusoft.service.RefundService;
 import com.neusoft.tools.FileTools;
 import com.neusoft.tools.Page;
@@ -18,53 +21,42 @@ import com.neusoft.tools.Page;
 @Controller
 public class RefundHandler {
 	@Autowired
-	 private RefundService refundservice ;
-	
-	@RequestMapping(value="/test/RefundHandler_findAllRefund")
+	private RefundService refundservice;
+
+	@RequestMapping(value="/test/RefundHandler_confirmRefund")
 	@ResponseBody
-	 public String findAllRefund(HttpServletRequest request)throws Exception{
-		HttpSession session=request.getSession();
-		Page page = new Page((int)session.getAttribute("limit"),(int)session.getAttribute("page"),(int)session.getAttribute("qid"));
-		page.setTotalPage(refundservice.findCount(page.getId()));
-		return FileTools.addHeader(refundservice.findAllRefund(page),page.getTotalPage());
-	}
-	
-	@RequestMapping(value="/test/RefundHandler_deleteRefundById")
-	@ResponseBody
-	public String deleteRefundById(Integer oid) throws Exception{
-		String str = refundservice.deleteById(oid)>0?"{\"result\":true}":"{\"result\":false}";
-		return str;
-	}
-	@RequestMapping(value="/test/RefundHandler_insertRefund")
-	@ResponseBody
-	public String insert(Refund record)throws Exception{
-		String str = refundservice.insert(record)>0?"{\"result\":true}":"{\"result\":false}";
-		return str;
-	}
-	@RequestMapping(value="/test/RefundHandler_ insertSelective")
-	@ResponseBody
-	public String insertSelective(Refund record)throws Exception{
-		String str = refundservice.insertSelective(record)>0?"{\"result\":true}":"{\"result\":false}";
-		return str;
-	}
-		@RequestMapping(value="/test/RefundHandler_ findRefundById")
-		@ResponseBody
-	   public Refund findRefundById(Integer oid)throws Exception{
-			return refundservice.selectById(oid);
+	public String confirmRefund(Refund refund) throws Exception{
+		refund.setStatus("已处理");
+		if(refundservice.updateconfirmRefund(refund)){
+			return "{\"result\":true}";
+		}else{
+			return "{\"result\":false}";
 		}
-		@RequestMapping(value="/test/RefundHandler_ updateByIdSelective")
-		@ResponseBody
-	    public String updateByIdSelective(Refund record) throws Exception{
-			String str = refundservice.updateByIdSelective(record)>0?"{\"result\":true}":"{\"result\":false}";
-			return str;
-	    }
-		@RequestMapping(value="/test/RefundHandler_ updateById")
-		@ResponseBody
-	    public String updateById(Refund record)throws Exception{
-			String str = refundservice.updateById(record)>0?"{\"result\":true}":"{\"result\":false}";
-			return str;
-			
+	}
+	
+	@RequestMapping(value="/test/RefundHandler_denyRefund")
+	@ResponseBody
+	public String denyRefund(Refund refund) throws Exception{
+		refund.setStatus("已处理");
+		if(refundservice.updatedenyRefund(refund)){
+			return "{\"result\":true}";
+		}else{
+			return "{\"result\":false}";
 		}
-	    
-	   
+	}
+	
+	@RequestMapping(value="/test/RefundHandler_saveRefund")
+	@ResponseBody
+	public String saveRefund(Refund refund) throws Exception{
+		refund.setStatus("待处理");
+		Date date=new Date();
+		SimpleDateFormat ft =new SimpleDateFormat ("yyyy-MM-dd HH:mm:ss");
+		refund.setRefundtime(ft.format(date));
+		if(refundservice.saveRefund(refund)){
+			return "{\"result\":true}";
+		}else{
+			return "{\"result\":false}";
+		}
+	}
+	
 }

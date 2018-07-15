@@ -32,7 +32,12 @@ public class EnterpriseHandler {
 	@ResponseBody
 	public Enterprise findEnterpriseById(HttpServletRequest request) throws Exception{
 		HttpSession session=request.getSession();
-		int qid=(int)session.getAttribute("qid");
+		int qid;
+		if(session.getAttribute("qid")==null){
+			qid=1;
+		}else{
+			qid=(int)session.getAttribute("qid");
+		}
 		return enterpriseService.findEnterpriseById(qid);
 	}
 	
@@ -40,7 +45,12 @@ public class EnterpriseHandler {
 	@ResponseBody
 	public String updateEnterprise(Enterprise e,HttpServletRequest request) throws Exception{
 		HttpSession session=request.getSession();
-		int qid=(int)session.getAttribute("qid");
+		int qid;
+		if(session.getAttribute("qid")==null){
+			qid=1;
+		}else{
+			qid=(int)session.getAttribute("qid");
+		}
 		e.setQid(qid);
 		if(enterpriseService.updateEnterprise(e)){
 			return "{\"result\":true}";
@@ -53,7 +63,12 @@ public class EnterpriseHandler {
 	@ResponseBody
 	public List<Swiper> findSwiperByQid(HttpServletRequest request) throws Exception{
 		HttpSession session=request.getSession();
-		int qid=(int)session.getAttribute("qid");
+		int qid;
+		if(session.getAttribute("qid")==null){
+			qid=1;
+		}else{
+			qid=(int)session.getAttribute("qid");
+		}
 		return swiperService.findSwiperByQid(qid);
 	}
 	
@@ -70,7 +85,12 @@ public class EnterpriseHandler {
 			return "{\"result\":false}";
 		}else{
 			HttpSession session=request.getSession();
-			int qid=(int)session.getAttribute("qid");
+			int qid;
+			if(session.getAttribute("qid")==null){
+				qid=1;
+			}else{
+				qid=(int)session.getAttribute("qid");
+			}
 			String videopath=url.substring(10);
 			Enterprise e=new Enterprise();
 			e.setQid(qid);
@@ -93,7 +113,12 @@ public class EnterpriseHandler {
 			return "{\"result\":false}";
 		}else{
 			HttpSession session=request.getSession();
-			int qid=(int)session.getAttribute("qid");
+			int qid;
+			if(session.getAttribute("qid")==null){
+				qid=1;
+			}else{
+				qid=(int)session.getAttribute("qid");
+			}
 			Swiper swiper=new Swiper();
 			swiper.setQid(qid);
 			String imgurl=url.substring(10);  //  ../upload/....jpg

@@ -4,17 +4,13 @@ import java.util.Date;
 
 public class Messagereply {
 
-	private int id;
+	private int mrid;
 	private int mid;
 	private String content;
-	private String nickname;
+	private String mrnickname;
+	private String mrtime;
 	
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
+
 	public int getMid() {
 		return mid;
 	}
@@ -27,22 +23,23 @@ public class Messagereply {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public String getNickname() {
-		return nickname;
+	public int getMrid() {
+		return mrid;
 	}
-	public void setNickname(String nickname) {
-		this.nickname = nickname;
+	public void setMrid(int mrid) {
+		this.mrid = mrid;
 	}
-	public Date getStime() {
-		return stime;
+	public String getMrnickname() {
+		return mrnickname;
 	}
-	public void setStime(Date stime) {
-		this.stime = stime;
+	public void setMrnickname(String mrnickname) {
+		this.mrnickname = mrnickname;
 	}
-	private Date stime;
-	@Override
-	public String toString() {
-		return "Messagereply [id=" + id + ", mid=" + mid + ", content=" + content + ", nickname=" + nickname
-				+ ", stime=" + stime + "]";
+	public String getMrtime() {
+		return mrtime;
 	}
+	public void setMrtime(String mrtime) {
+		this.mrtime = mrtime;
+	}
+
 }

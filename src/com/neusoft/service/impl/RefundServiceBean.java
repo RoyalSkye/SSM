@@ -1,63 +1,69 @@
 package com.neusoft.service.impl;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.neusoft.mapper.OrderMapper;
 import com.neusoft.mapper.RefundMapper;
+import com.neusoft.po.Order;
 import com.neusoft.po.Refund;
 import com.neusoft.service.RefundService;
-import com.neusoft.tools.Page;
 
 @Service
 public class RefundServiceBean  implements RefundService{
 	
 	@Autowired
-	RefundMapper mapper ;
+	RefundMapper mapper;
+	@Autowired
+	private OrderMapper ordermapper;
+
+	@Override
+	public boolean saveRefund(Refund refund) throws Exception {
+		boolean isok=false;
+		int result=mapper.saveRefund(refund);
+		if(result>0){
+			isok=true;
+		}else{
+			isok=false;
+		}
+		return isok;
+	}
+
+	@Override
+	public boolean updateconfirmRefund(Refund refund) throws Exception {
+		boolean isok=false;
+		int result=mapper.updateRefundByOid(refund);
+		if(result>0){
+			isok=true;
+			Order order=new Order();
+			order.setOid(refund.getOid());
+			order.setStatus("已退款");
+			if(ordermapper.updateOrder(order)<=0) isok=false;
+			//customer表中用户加钱 未写
+		}else{
+			isok=false;
+		}
+		return isok;
+	}
+
+	@Override
+	public boolean updatedenyRefund(Refund refund) throws Exception {
+		boolean isok=false;
+		int result=mapper.updateRefundByOid(refund);
+		if(result>0){
+			isok=true;
+			Order order=new Order();
+			order.setOid(refund.getOid());
+			order.setStatus("已付款");
+			if(ordermapper.updateOrder(order)<=0) isok=false;
+		}else{
+			isok=false;
+		}
+		return isok;
+	}
 	
-	@Override
-	public int deleteById(Integer oid)throws Exception {
-		
-		return mapper.deleteById(oid);
-	}
-
-	@Override
-	public int insert(Refund record) throws Exception{
-		return mapper.insert(record);
-	}
-
-	@Override
-	public int insertSelective(Refund record) throws Exception{
-		// TODO Auto-generated method stub
-		return mapper.insertSelective(record);
-	}
-
-	@Override
-	public Refund selectById(Integer oid) throws Exception{
-		
-		return mapper.selectById(oid);
-	}
-
-	@Override
-	public int updateByIdSelective(Refund record) throws Exception{
-		
-		return mapper.updateByIdSelective(record);
-	}
-
-	@Override
-	public int updateById(Refund record)throws Exception {
-		return mapper.updateById(record);
-	}
-
-	@Override
-	public List<Refund> findAllRefund(Page page) throws Exception{
-		
-		return mapper.findAllRefund(page);
-	}
-	
-	@Override
-	public int findCount(int qid) throws Exception{
-		return mapper.findCount(qid);
-	}
 }

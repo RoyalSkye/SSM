@@ -60,4 +60,9 @@ public class OrderServiceBean implements OrderService {
 	public int findCount(int qid) throws Exception {
 		return mapper.findCount(qid);
 	}
+
+	@Override
+	public int findCountByCondition(Map map) throws Exception {
+		return mapper.findCountByCondition(map);
+	}
 }

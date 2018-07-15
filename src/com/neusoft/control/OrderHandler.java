@@ -27,38 +27,55 @@ public class OrderHandler {
 	@Autowired
 	private OrderService orderService;
 	
-	@RequestMapping(value="/test/OrderHandler_findAllOrder")
+	@RequestMapping(value="/test/OrderHandler_findAllOrder",produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public String findAllOrder(HttpServletRequest request) throws Exception{
 		HttpSession session=request.getSession();
 		int limit = Integer.parseInt(request.getParameter("limit"));
 		int pages = Integer.parseInt(request.getParameter("page"));
-		int qid=(int)session.getAttribute("qid");
+		int qid;
+		if(session.getAttribute("qid")==null){
+			qid=1;
+		}else{
+			qid=(int)session.getAttribute("qid");
+		}
 		Page page = new Page(limit,pages,qid);
 		page.setTotalPage(orderService.findCount(page.getId()));
 		return FileTools.addHeader(orderService.findAllOrder(page),page.getTotalPage());
 	}
 	
 	
-	@RequestMapping(value="/test/OrderHandler_findOrder")
+	@RequestMapping(value="/test/OrderHandler_findOrder",produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public String findOrder(HttpServletRequest request) throws Exception{
 		Map<String,Object> map=new HashMap<String,Object>();
 		HttpSession session = request.getSession();
+		int qid;
+		if(session.getAttribute("qid")==null){
+			qid=1;
+		}else{
+			qid=(int)session.getAttribute("qid");
+		}
 		String oid=request.getParameter("oid");
 		String status=request.getParameter("status");
+		status=java.net.URLDecoder.decode(status,"UTF-8");
 		String starttime=request.getParameter("starttime");
 		String endtime=request.getParameter("endtime");
-		String qid = request.getParameter("qid");
-		Page page = new Page((int)session.getAttribute("limit"),(int)session.getAttribute("currentPage"));
-		page.setTotalPage(orderService.findCount(Integer.parseInt(qid)));
+		int limit = Integer.parseInt(request.getParameter("limit"));
+		int pages = Integer.parseInt(request.getParameter("page"));
+		Page page = new Page(limit,pages);
+		System.out.println("oid="+oid);
+		System.out.println("status="+status);
+		System.out.println("starttime="+starttime);
+		System.out.println("endtime="+endtime);
+		map.put("qid", qid);
 		map.put("oid", oid);
 		map.put("status", status);
 		map.put("starttime", starttime);
 		map.put("endtime", endtime);
-		map.put("qid", qid);
 		map.put("minNum", page.getMinNum());
 		map.put("quantity", page.getQuantity());
+		page.setTotalPage(orderService.findCountByCondition(map));
 		return FileTools.addHeader(orderService.findOrder(map),page.getTotalPage());
 	}
 	
@@ -87,9 +104,14 @@ public class OrderHandler {
 		String phone=(String)session.getAttribute("phone");
 		order.setOpenid(phone);
 		Date date=new Date();
-		SimpleDateFormat ft =new SimpleDateFormat ("yyyy-MM-dd hh:mm:ss");
+		SimpleDateFormat ft =new SimpleDateFormat ("yyyy-MM-dd HH:mm:ss");
 		order.setOrdertime(ft.format(date));
-		int qid=(int)session.getAttribute("qid");
+		int qid;
+		if(session.getAttribute("qid")==null){
+			qid=1;
+		}else{
+			qid=(int)session.getAttribute("qid");
+		}
 		order.setQid(qid);
 		String transactionid=System.currentTimeMillis()+"";
 		order.setTransactionid(transactionid);
@@ -102,5 +124,16 @@ public class OrderHandler {
 			return "{\"result\":false}";
 		}
 	}
-	
+	@RequestMapping(value="/test/OrderHandler_findCount")
+	@ResponseBody
+	public int findCount(HttpServletRequest request) throws Exception{
+		HttpSession session = request.getSession();
+		int qid;
+		if(session.getAttribute("qid")==null){
+			qid=1;
+		}else{
+			qid=(int)session.getAttribute("qid");
+		}
+		return	orderService.findCount(qid);
+	}
 }

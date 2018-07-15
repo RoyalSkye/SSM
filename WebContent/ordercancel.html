@@ -5,6 +5,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <title>NeuSoft introduction</title>
   <link rel="stylesheet" href="../SSM/layui/css/layui.css">
+   <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.0.js"></script>
+<script>
+  var oid="";
+  var starttime="";
+  var endtime="";
+  var url="";
+  	$(function(){
+  		$("#btn_submit").click(function(){
+  			oid=$("#oid").val();
+  			starttime=$("#test1-1").val();
+  			endtime=$("#test1-2").val();
+  			console.log("oid="+oid);
+  			console.log("starttime="+starttime);
+  			console.log("endtime="+endtime);
+  			url='/SSM/test/OrderHandler_findOrder?status='+encodeURI(encodeURI("退款中"))+'&oid='+oid+'&starttime='+starttime+'&endtime='+endtime;
+  			showtable(url);
+  		});
+  	});
+  
+  </script>
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
@@ -17,10 +37,6 @@
           <img src="../SSM/img/profile.jpg" class="layui-nav-img">
           RoyalSkye
         </a>
-        <dl class="layui-nav-child">
-          <dd><a href="">基本资料</a></dd>
-          <dd><a href="">安全设置</a></dd>
-        </dl>
       </li>
       <li class="layui-nav-item"><a href="login.html">Logout</a></li>
     </ul>
@@ -33,6 +49,7 @@
         <li class="layui-nav-item ">
           <a class="" href="javascript:;">企业管理</a>
           <dl class="layui-nav-child">
+          <dd><a href="index2.html">数据统计</a></dd>
             <dd><a href="index.html">企业基本信息</a></dd>
             <dd><a href="branchinfo.html">企业分部信息</a></dd>
           </dl>
@@ -70,7 +87,6 @@
           <a href="javascript:;">朋友圈管理</a>
           <dl class="layui-nav-child">
             <dd><a href="messageinfo.html">消息列表</a></dd>
-            <dd><a href="messagereply.html">评论列表</a></dd>
             <dd><a href="messageimg.html">朋友圈首页图片</a></dd>
           </dl>
         </li>
@@ -86,7 +102,7 @@
     <div class="demoTable">
 	  关键字：
 	  <div class="layui-inline" float="left">
-	    <input class="layui-input" name="id" id="demoReload" placeholder="请输入搜索订单编号" autocomplete="off">
+	    <input class="layui-input" name="oid" id="oid" placeholder="请输入搜索订单编号" autocomplete="off">
 	  </div>
 	  <div class="layui-inline" float="right">
 	    <form class="layui-form" action="">
@@ -108,9 +124,9 @@
 		    </div>
 	   	</form>
 	  </div>
-	  <button class="layui-btn" data-type="reload">查询</button>
+	  <button class="layui-btn" data-type="reload" id="btn_submit" type="button">查询</button>
 	</div>
-<table class="layui-hide" id="LAY_table_user" lay-filter="user">
+<table class="layui-hide" id="LAY_table_user" lay-filter="demo">
 <th lay-data="{fixed: 'right', width:178, align:'center', toolbar: '#barDemo'}"></th></table>	
   </div>
  
@@ -121,7 +137,7 @@
 </div>
 
 <script type="text/html" id="barDemo">
-  <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="refund">确认核销</a>
+  <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="confirm">确认核销</a>
 </script>
 
 <script src="../SSM/layui/layui.js"></script>
@@ -131,12 +147,45 @@ layui.use('element', function(){
   var element = layui.element;
   
 });
-layui.use('table', function(){
+url='/SSM/test/OrderHandler_findOrder?status='+encodeURI(encodeURI("已付款"))+'&oid=&starttime=&endtime=';
+showtable(url);
+function showtable(url){
+layui.use('table', function(){	
   var table = layui.table;
+  
+table.on('tool(demo)', function(obj){
+	var data = obj.data;
+    console.log(obj);
+    if(obj.event === 'confirm'){
+    	var oid=obj.data.oid;
+    	var status="已使用";
+    		$.ajax({
+				type:"post",
+				url:"/SSM/test/OrderHandler_updateOrder",
+				data:{oid:oid,status:status},
+				dataType:"json",
+				success:function(data){
+					if(data.result){
+						console.log(data);
+						if(data.result){
+							alert("confirm successfully");
+							//obj.del();
+							url='/SSM/test/OrderHandler_findOrder?status='+encodeURI(encodeURI("已付款"))+'&oid=&starttime=&endtime=';
+							showtable(url);
+						}else{
+							alert("confirm failed");
+						}
+					} 
+	 			 }
+			});
+		}
+});
+  
   
   //方法级渲染
   table.render({
     elem: '#LAY_table_user'
+    ,url:url
     ,cols: [[
       {checkbox: true, fixed: true,width:'5%'}
       ,{field:'lid', title: '课程编号', width:'8%', sort: true, fixed: true}
@@ -149,57 +198,27 @@ layui.use('table', function(){
       ,{field:'ordertime', title: '下单时间', sort: true,width:'20%'}
       ,{field: 'operation', title: '操作',width:'15%', align:'center', toolbar: '#barDemo'}
     ]]
-    ,data: [{
-      "lid": "1"
-      ,"oid":"74"
-      ,"nickname": "skye"
-      ,"tel":"10086"
-      ,"total":"0.1"
-      ,"actual":"0.1"
-      ,"status":"已付款"
-      ,"ordertime":"2018-06-28 13:02:03"
-    },{
-      "lid": "2"
-      ,"oid":"73"
-      ,"nickname": "marvel"
-      ,"tel":"10087"
-      ,"total":"0.2"
-      ,"actual":"0.2"
-      ,"status":"已付款"
-      ,"ordertime":"2018-06-21 18:55:55"
-    }]
     ,even: true
     ,limits: [5, 7, 10]
     ,limit: 5 //每页默认显示的数量
     ,id: 'testReload'
     ,page: true
+    ,done: function(res){
+        console.log(res);
+    }
   });
-  
+
   var $ = layui.$, active = {
     reload: function(){
       var demoReload = $('#demoReload');
-      
-      //执行重载
-      table.reload('testReload', {
-        page: {
-          curr: 1 //重新从第 1 页开始
-        }
-        ,where: {
-          key: {
-            id: demoReload.val()
-          },
-          qid='1'
-        
-        }
-      });
+     
     }
   };
+
   
-  $('.demoTable .layui-btn').on('click', function(){
-    var type = $(this).data('type');
-    active[type] ? active[type].call(this) : '';
   });
-  
+  }
+
   layui.use('form', function(){
   var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
   form.render();
@@ -218,7 +237,7 @@ layui.use('table', function(){
 	    ,lang: 'en'
 	  });
   });
-});
+
 </script>
 </body>
 </html>

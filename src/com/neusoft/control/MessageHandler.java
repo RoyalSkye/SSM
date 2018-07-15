@@ -1,6 +1,8 @@
 package com.neusoft.control;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.neusoft.po.Message;
+import com.neusoft.po.Messageimg;
 import com.neusoft.po.Messagereply;
 import com.neusoft.po.Swiper;
 import com.neusoft.service.MessageService;
@@ -30,9 +33,28 @@ public class MessageHandler {
 	
 	@RequestMapping(value="/test/MessageHandler_findAllMessage")
 	@ResponseBody
-	public List<Message> findAllMessage(int qid) throws Exception{
+	public List<Message> findAllMessage(HttpServletRequest request) throws Exception{
+		HttpSession session=request.getSession();
+		int qid;
+		if(session.getAttribute("qid")==null){
+			qid=1;
+		}else{
+			qid=(int)session.getAttribute("qid");
+		}
 		return messageService.findAllMessage(qid);
 	}
+	
+	/*@RequestMapping(value="/test/MessageHandler_findAllMessageByPage",produces = "application/json; charset=utf-8")
+	@ResponseBody
+	public String findAllMessageByPage(HttpServletRequest request) throws Exception{
+		int limit = Integer.parseInt(request.getParameter("limit"));
+		int pages = Integer.parseInt(request.getParameter("page"));
+		HttpSession session=request.getSession();
+		int qid=(int)session.getAttribute("qid");
+		Page page = new Page(limit,pages,qid);
+		page.setTotalPage(messageService.findMessageCount(page.getId()));
+		return FileTools.addHeader(messageService.findAllMessageByPage(page),page.getTotalPage());
+	}*/
 	
 	@RequestMapping(value="/test/MessageHandler_findMessageById")
 	@ResponseBody
@@ -42,8 +64,37 @@ public class MessageHandler {
 	
 	@RequestMapping(value="/test/MessageHandler_updateMessage")
 	@ResponseBody
-	public String updateMessage(Message message) throws Exception{
-		if(messageService.updateMessage(message)){
+	public String updateMessage(Message message,HttpServletRequest request) throws Exception{
+		//System.out.println(message.getMid());
+		//System.out.println(message.getMtitle());
+		String imgurl = request.getParameter("imgurl"); 
+		//System.out.println(imgurl);
+		Date date=new Date();
+		SimpleDateFormat ft =new SimpleDateFormat ("yyyy-MM-dd HH:mm:ss");
+		message.setMtime(ft.format(date));
+		if(messageService.updateMessage(message,imgurl)){
+			return "{\"result\":true}";
+		}else{
+			return "{\"result\":false}";
+		}
+	}
+	
+	@RequestMapping(value="/test/MessageHandler_saveMessage")
+	@ResponseBody
+	public String saveMessage(Message message,HttpServletRequest request) throws Exception{
+		HttpSession session=request.getSession();
+		int qid;
+		if(session.getAttribute("qid")==null){
+			qid=1;
+		}else{
+			qid=(int)session.getAttribute("qid");
+		}
+		message.setQid(qid);
+		String imgurl = request.getParameter("imgurl"); 
+		Date date=new Date();
+		SimpleDateFormat ft =new SimpleDateFormat ("yyyy-MM-dd HH:mm:ss");
+		message.setMtime(ft.format(date));
+		if(messageService.saveMessage(message,imgurl)){
 			return "{\"result\":true}";
 		}else{
 			return "{\"result\":false}";
@@ -64,15 +115,21 @@ public class MessageHandler {
 	@ResponseBody
 	public String findMessagereplyById(HttpServletRequest request) throws Exception{
 		HttpSession session = request.getSession();
-		Page page = new Page((int)session.getAttribute("limit"),(int)session.getAttribute("page"),(int)session.getAttribute("qid"));
-		page.setTotalPage(messageService.findCount(page.getId()));
+		int qid;
+		if(session.getAttribute("qid")==null){
+			qid=1;
+		}else{
+			qid=(int)session.getAttribute("qid");
+		}
+		Page page = new Page((int)session.getAttribute("limit"),(int)session.getAttribute("page"),qid);
+		page.setTotalPage(messageService.findMessageCount(page.getId()));
 		return FileTools.addHeader(messageService.findMessagereplyById(page), page.getTotalPage()) ;
 	}
 	
 	@RequestMapping(value="/test/MessageHandler_deleteMessagereply")
 	@ResponseBody
-	public String deleteMessagereply(int id) throws Exception{
-		if(messageService.deleteMessagereply(id)){
+	public String deleteMessagereply(int mrid) throws Exception{
+		if(messageService.deleteMessagereply(mrid)){
 			return "{\"result\":true}";
 		}else{
 			return "{\"result\":false}";
@@ -83,7 +140,12 @@ public class MessageHandler {
 	@ResponseBody
 	public String findimgurl(HttpServletRequest request) throws Exception{
 		HttpSession session=request.getSession();
-		int qid=(int)session.getAttribute("qid");
+		int qid;
+		if(session.getAttribute("qid")==null){
+			qid=1;
+		}else{
+			qid=(int)session.getAttribute("qid");
+		}
 		String imgurl="/upload/"+messageService.findimgurl(qid).getImgurl();
 		return imgurl;
 	}
@@ -95,13 +157,10 @@ public class MessageHandler {
 			System.out.println("ÎÄ¼þÎª¿Õ");
 			return "{\"result\":false}";
 		}
-		String url=FileTools.saveimg(file,request);
-		//System.out.println("---------------------url:"+url);
+		String url=FileTools.saveimg(file,request).substring(10);
 		if(url==null||url==""){
 			return "{\"result\":false}";
 		}else{
-			//result="../upload/15307951697841.jpg";
-			//System.out.println("{\"result\":true,\"imgurl\":\""+url+"\"}");
 			return "{\"result\":true,\"imgurl\":\""+url+"\"}";
 		}
 	}
@@ -118,7 +177,12 @@ public class MessageHandler {
 			return "{\"result\":false}";
 		}else{
 			HttpSession session=request.getSession();
-			int qid=(int)session.getAttribute("qid");
+			int qid;
+			if(session.getAttribute("qid")==null){
+				qid=1;
+			}else{
+				qid=(int)session.getAttribute("qid");
+			}
 			Swiper swiper=new Swiper();
 			swiper.setCategory("D");
 			swiper.setQid(qid);

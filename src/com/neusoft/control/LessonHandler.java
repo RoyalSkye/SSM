@@ -37,7 +37,12 @@ public class LessonHandler {
 	public List<Lesson> findLessonByCondition(HttpServletRequest request) throws Exception{
 		Map<String,Object> m=new HashMap<>();
 		HttpSession session=request.getSession();
-		int qid=(int)session.getAttribute("qid");
+		int qid;
+		if(session.getAttribute("qid")==null){
+			qid=1;
+		}else{
+			qid=(int)session.getAttribute("qid");
+		}
 		if(request.getParameter("bid")==null || request.getParameter("bid")==""){
 			m.put("bid", null);
 		}else{
@@ -62,7 +67,12 @@ public class LessonHandler {
 	@ResponseBody
 	public List<Lesson> findAllLesson(HttpServletRequest request) throws Exception{
 		HttpSession session = request.getSession();
-		int qid=(int)session.getAttribute("qid");
+		int qid;
+		if(session.getAttribute("qid")==null){
+			qid=1;
+		}else{
+			qid=(int)session.getAttribute("qid");
+		}
 		return	lessonService.findAllLesson(qid);
 	}
 	
@@ -72,7 +82,12 @@ public class LessonHandler {
 		HttpSession session = request.getSession();
 		int limit = Integer.parseInt(request.getParameter("limit"));
 		int pages = Integer.parseInt(request.getParameter("page"));
-		int qid=(int)session.getAttribute("qid");
+		int qid;
+		if(session.getAttribute("qid")==null){
+			qid=1;
+		}else{
+			qid=(int)session.getAttribute("qid");
+		}
 		Page page = new Page(limit,pages,qid);
 		page.setTotalPage(lessonService.findCount(page.getId()));
 		return	FileTools.addHeader(lessonService.findAllLessonByPage(page), page.getTotalPage());
@@ -90,6 +105,18 @@ public class LessonHandler {
 		return lessonService.findBranchByLesson(lid);
 	}
 	
+	@RequestMapping(value="/test/LessonHandler_findCount")
+	@ResponseBody
+	public int findCount(HttpServletRequest request) throws Exception{
+		HttpSession session = request.getSession();
+		int qid;
+		if(session.getAttribute("qid")==null){
+			qid=1;
+		}else{
+			qid=(int)session.getAttribute("qid");
+		}
+		return	lessonService.findCount(qid);
+	}
 	
 	@RequestMapping(value="/test/LessonHandler_findLessonByBid",produces = "application/json; charset=utf-8")
 	@ResponseBody
@@ -123,10 +150,15 @@ public class LessonHandler {
 		String bid = request.getParameter("bid");  //¿Î³ÌËùÊôµÄbranchid  eg:1,2,3,5
 		//System.out.println("bid.length="+bid.length());
 		HttpSession session=request.getSession();
-		int qid=(int)session.getAttribute("qid");
+		int qid;
+		if(session.getAttribute("qid")==null){
+			qid=1;
+		}else{
+			qid=(int)session.getAttribute("qid");
+		}
 		lesson.setQid(qid);
 		Date date=new Date();
-		SimpleDateFormat ft =new SimpleDateFormat ("yyyy-MM-dd hh:mm:ss");
+		SimpleDateFormat ft =new SimpleDateFormat ("yyyy-MM-dd HH:mm:ss");
 		lesson.setPubtime(ft.format(date));
 		if(lessonService.saveLesson(lesson,bid)){
 			return "{\"result\":true}";
@@ -141,10 +173,15 @@ public class LessonHandler {
 		String bid = request.getParameter("bid"); 
 		System.out.println("bid="+bid);
 		HttpSession session=request.getSession();
-		int qid=(int)session.getAttribute("qid");
+		int qid;
+		if(session.getAttribute("qid")==null){
+			qid=1;
+		}else{
+			qid=(int)session.getAttribute("qid");
+		}
 		lesson.setQid(qid);
 		Date date=new Date();
-		SimpleDateFormat ft =new SimpleDateFormat ("yyyy-MM-dd hh:mm:ss");
+		SimpleDateFormat ft =new SimpleDateFormat ("yyyy-MM-dd HH:mm:ss");
 		lesson.setPubtime(ft.format(date));
 		if(lessonService.updateLesson(lesson,bid)){
 			return "{\"result\":true}";
@@ -157,7 +194,12 @@ public class LessonHandler {
 	@ResponseBody
 	public String findimgurl(HttpServletRequest request) throws Exception{
 		HttpSession session=request.getSession();
-		int qid=(int)session.getAttribute("qid");
+		int qid;
+		if(session.getAttribute("qid")==null){
+			qid=1;
+		}else{
+			qid=(int)session.getAttribute("qid");
+		}
 		String imgurl="/upload/"+lessonService.findimgurl(qid).getImgurl();
 		return imgurl;
 	}
@@ -189,7 +231,12 @@ public class LessonHandler {
 			return "{\"result\":false}";
 		}else{
 			HttpSession session=request.getSession();
-			int qid=(int)session.getAttribute("qid");
+			int qid;
+			if(session.getAttribute("qid")==null){
+				qid=1;
+			}else{
+				qid=(int)session.getAttribute("qid");
+			}
 			Swiper swiper=new Swiper();
 			swiper.setCategory("C");
 			swiper.setQid(qid);

@@ -8,7 +8,7 @@ public class Message {
 
 	private int mid;
 	private String mtitle;
-	private Date mtime;
+	private String mtime;
 	private int qid;
 	
 	List<Messageimg> messageimgList=new ArrayList<Messageimg>();
@@ -45,10 +45,10 @@ public class Message {
 	public void setMtitle(String mtitle) {
 		this.mtitle = mtitle;
 	}
-	public Date getMtime() {
+	public String getMtime() {
 		return mtime;
 	}
-	public void setMtime(Date mtime) {
+	public void setMtime(String mtime) {
 		this.mtime = mtime;
 	}
 	public int getQid() {

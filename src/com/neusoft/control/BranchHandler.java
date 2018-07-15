@@ -25,7 +25,12 @@ public class BranchHandler {
 	@ResponseBody
 	public String findAllBranch(HttpServletRequest request) throws Exception{
 		HttpSession session=request.getSession();
-		int qid=(int)session.getAttribute("qid");
+		int qid;
+		if(session.getAttribute("qid")==null){
+			qid=1;
+		}else{
+			qid=(int)session.getAttribute("qid");
+		}
 		Page page=new Page();
 		page.setTotalPage(branchService.findCount(qid));
 		return FileTools.addHeader(branchService.findAllBranch(qid),page.getTotalPage());
@@ -37,7 +42,12 @@ public class BranchHandler {
 		int limit = Integer.parseInt(request.getParameter("limit"));
 		int pages = Integer.parseInt(request.getParameter("page"));
 		HttpSession session=request.getSession();
-		int qid=(int)session.getAttribute("qid");
+		int qid;
+		if(session.getAttribute("qid")==null){
+			qid=1;
+		}else{
+			qid=(int)session.getAttribute("qid");
+		}
 		Page page = new Page(limit,pages,qid);
 		page.setTotalPage(branchService.findCount(page.getId()));
 		return FileTools.addHeader(branchService.findAllBranchByPage(page),page.getTotalPage());
@@ -59,11 +69,29 @@ public class BranchHandler {
 		}
 	}
 	
+	@RequestMapping(value="/test/BranchHandler_findCount")
+	@ResponseBody
+	public int findCount(HttpServletRequest request) throws Exception{
+		HttpSession session = request.getSession();
+		int qid;
+		if(session.getAttribute("qid")==null){
+			qid=1;
+		}else{
+			qid=(int)session.getAttribute("qid");
+		}
+		return branchService.findCount(qid);
+	}
+	
 	@RequestMapping(value="/test/BranchHandler_updateBranch")
 	@ResponseBody
 	public String updateBranch(Branch b,HttpServletRequest request) throws Exception{
 		HttpSession session=request.getSession();
-		int qid=(int)session.getAttribute("qid");
+		int qid;
+		if(session.getAttribute("qid")==null){
+			qid=1;
+		}else{
+			qid=(int)session.getAttribute("qid");
+		}
 		b.setQid(qid);
 		if(branchService.updateBranch(b)){
 			return "{\"result\":true}";
@@ -77,7 +105,12 @@ public class BranchHandler {
 	@ResponseBody
 	public String saveBranch(Branch b,HttpServletRequest request) throws Exception{
 		HttpSession session=request.getSession();
-		int qid=(int)session.getAttribute("qid");
+		int qid;
+		if(session.getAttribute("qid")==null){
+			qid=1;
+		}else{
+			qid=(int)session.getAttribute("qid");
+		}
 		b.setQid(qid);
 		if(branchService.saveBranch(b)){
 			return "{\"result\":true}";

@@ -5,6 +5,75 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <title>NeuSoft introduction</title>
   <link rel="stylesheet" href="../SSM/layui/css/layui.css">
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.0.js"></script>
+   <script>
+  var mtitle="";
+  var uploadimg="";
+  var imgurl=new Array();
+  var tempimgurl=new Array();
+  var k=0;
+  var j=0;
+  function GetQueryString(name)
+  {
+       var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+       var r = window.location.search.substr(1).match(reg);
+       if(r!=null)return  unescape(r[2]); return null;
+  }
+  	var mid=GetQueryString("mid");
+  	//console.log("mid="+mid);
+	$(function(){
+		$.ajax({
+			url:"/SSM/test/MessageHandler_findMessageById?mid="+mid,				
+			success:function(data)
+			{
+				console.log(data);
+				var updatemtitle='<input type="text" name="mtitle" id="mtitle" required  lay-verify="required" value="'+data.mtitle+'">';
+				$("#updatemtitle").append(updatemtitle);
+				var updateimgurl="";
+				for(var i=0;i<data.messageimgList.length;i++){
+					if(data.messageimgList[i].imgurl===null) continue;
+					updateimgurl+='<img src="/upload/'+data.messageimgList[i].imgurl+'"  width="150" height="150">';
+					imgurl[k++]=data.messageimgList[i].imgurl;
+				}
+				updateimgurl+='<br><br>';
+				$("#updateimgurl").append(updateimgurl);
+			}
+		})
+		
+		$("#btn_submit").click(function(){
+			mtitle=$("#mtitle").val();
+			if(tempimgurl.length!=0){
+				imgurl=new Array();
+				//console.log(tempimgurl.length);
+				for(var i=0;i<tempimgurl.length;i++){
+					imgurl[i]=tempimgurl[i];
+				}
+			}
+			console.log("mtitle="+mtitle);
+			console.log("imgurl="+imgurl);
+			 if(mtitle==""||imgurl==""){
+			    	alert("必填项不能为空!");
+			 }else{
+				 $.ajax({
+						url:"/SSM/test/MessageHandler_updateMessage?imgurl="+imgurl,
+						type:"post",
+						data:{mid:mid,mtitle:mtitle},
+				    	dataType:"json", 
+						success:function(data)
+						{
+							console.log(data);
+							if(data.result){
+								alert("update successfully");
+								location.href='messageinfo.html';
+							}else{
+								alert("update failed");
+							}
+						}
+				});
+			 }
+		});
+	});
+</script>
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
@@ -17,10 +86,6 @@
           <img src="../SSM/img/profile.jpg" class="layui-nav-img">
           RoyalSkye
         </a>
-        <dl class="layui-nav-child">
-          <dd><a href="">基本资料</a></dd>
-          <dd><a href="">安全设置</a></dd>
-        </dl>
       </li>
       <li class="layui-nav-item"><a href="login.html">Logout</a></li>
     </ul>
@@ -33,6 +98,7 @@
         <li class="layui-nav-item ">
           <a class="" href="javascript:;">企业管理</a>
           <dl class="layui-nav-child">
+          <dd><a href="index2.html">数据统计</a></dd>
             <dd><a href="index.html">企业基本信息</a></dd>
             <dd><a href="branchinfo.html">企业分部信息</a></dd>
           </dl>
@@ -70,7 +136,6 @@
           <a href="javascript:;">朋友圈管理</a>
           <dl class="layui-nav-child">
             <dd><a href="messageinfo.html">消息列表</a></dd>
-            <dd><a href="messagereply.html">评论列表</a></dd>
             <dd><a href="messageimg.html">朋友圈首页图片</a></dd>
           </dl>
         </li>
@@ -88,11 +153,11 @@
 <div class="layui-collapse">
   <div class="layui-colla-item">
     <h2 class="layui-colla-title">消息标题</h2>
-    <div class="layui-colla-content layui-show"><input type="text" name="name" id="name" required  lay-verify="required" value="无阅读不生活"></div>
+    <div class="layui-colla-content layui-show" id="updatemtitle"></div>
   </div>
   <div class="layui-colla-item">
     <h2 class="layui-colla-title">消息图片</h2><br>
-    <div class="layui-colla-content layui-show"><img src="../SSM/img/mainBg0.jpg"  width="100" height="100"><img src="../SSM/img/mainBg1.jpg"  width="100" height="100"><br><br>
+    <div class="layui-colla-content layui-show"><div id="updateimgurl"></div>
   <div class="layui-upload">
   <button type="button" class="layui-btn layui-btn-normal" id="testList">选择多文件</button> 
   <div class="layui-upload-list">
@@ -111,7 +176,7 @@
     </div>
   </div>
 </div>
-	<br><br><button class="layui-btn layui-btn-lg" lay-submit lay-filter="updatemessage">保存信息</button>
+	<br><br><button class="layui-btn layui-btn-lg" lay-submit lay-filter="updatemessage" id="btn_submit" type="button">保存信息</button>
 </form>
 
   <div class="layui-footer">
@@ -129,14 +194,6 @@ layui.use('element', function(){
 
 layui.use('form', function(){
   var form = layui.form;
-  
- //监听提交，最后需要去掉！
-  form.on('submit(updatemessage)', function(data){
-    layer.alert(JSON.stringify(data.field), {
-      title: '最终的提交信息'
-    })
-    return false;
-  }); 
   
 });
 layui.use('upload', function(){
@@ -182,8 +239,12 @@ layui.use('upload', function(){
       });
     }
     ,done: function(res, index, upload){
-    	console.log(res)
+    	console.log(res);
       if(res.result){ //上传成功
+        uploadimg+='<img src="/upload/'+res.imgurl+'" id="imgurl" width="150" height="150">';
+        console.log("uploadimg="+uploadimg);
+    	tempimgurl[j++]=res.imgurl;
+    	$("#updateimgurl").html(uploadimg);
         var tr = demoListView.find('tr#upload-'+ index)
         ,tds = tr.children();
         tds.eq(2).html('<span style="color: #5FB878;">上传成功</span>');

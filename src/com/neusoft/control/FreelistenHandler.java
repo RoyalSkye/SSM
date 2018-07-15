@@ -31,7 +31,12 @@ public class FreelistenHandler {
 		HttpSession session=request.getSession();
 		int limit = Integer.parseInt(request.getParameter("limit"));
 		int pages = Integer.parseInt(request.getParameter("page"));
-		int qid=(int)session.getAttribute("qid");
+		int qid;
+		if(session.getAttribute("qid")==null){
+			qid=1;
+		}else{
+			qid=(int)session.getAttribute("qid");
+		}
 		Page page = new Page(limit,pages,qid);
 		page.setTotalPage(freelistenService.findCount(page.getId()));
 		return FileTools.addHeader(freelistenService.findAllFreelisten(page),page.getTotalPage());
@@ -41,7 +46,12 @@ public class FreelistenHandler {
 	@ResponseBody
 	public List<Freelisten> findOnlineFreelisten(HttpServletRequest request) throws Exception{
 		HttpSession session=request.getSession();
-		int qid=(int)session.getAttribute("qid");
+		int qid;
+		if(session.getAttribute("qid")==null){
+			qid=1;
+		}else{
+			qid=(int)session.getAttribute("qid");
+		}
 		return freelistenService.findOnlineFreelisten(qid);
 	}
 	
@@ -75,10 +85,15 @@ public class FreelistenHandler {
 	@ResponseBody
 	public String saveFreelisten(Freelisten freelisten,HttpServletRequest request) throws Exception{
 		HttpSession session=request.getSession();
-		int qid=(int)session.getAttribute("qid");
+		int qid;
+		if(session.getAttribute("qid")==null){
+			qid=1;
+		}else{
+			qid=(int)session.getAttribute("qid");
+		}
 		freelisten.setQid(qid);
 		Date date=new Date();
-		SimpleDateFormat ft =new SimpleDateFormat ("yyyy-MM-dd hh:mm:ss");
+		SimpleDateFormat ft =new SimpleDateFormat ("yyyy-MM-dd HH:mm:ss");
 		freelisten.setPubtime(ft.format(date));
 		if(freelistenService.saveFreelisten(freelisten)){
 			return "{\"result\":true}";
@@ -111,7 +126,18 @@ public class FreelistenHandler {
 			return "{\"result\":true,\"imgurl\":\""+url+"\"}";
 		}
 	}
-	
+	@RequestMapping(value="/test/FreelistenHandler_findCount")
+	@ResponseBody
+	public int findCount(HttpServletRequest request) throws Exception{
+		HttpSession session = request.getSession();
+		int qid;
+		if(session.getAttribute("qid")==null){
+			qid=1;
+		}else{
+			qid=(int)session.getAttribute("qid");
+		}
+		return	freelistenService.findCount(qid);
+	}
 }
 
 

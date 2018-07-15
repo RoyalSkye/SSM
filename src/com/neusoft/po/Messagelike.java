@@ -5,37 +5,35 @@ import java.util.Date;
 public class Messagelike {
 
 	
-	private int id;
+	private int mlid;
 	private int mid;
-	private String nickname;
-	private Date stime;
+	private String mlnickname;
+	private String mltime;
 	
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
+
 	public int getMid() {
 		return mid;
 	}
 	public void setMid(int mid) {
 		this.mid = mid;
 	}
-	public String getNickname() {
-		return nickname;
+
+	public int getMlid() {
+		return mlid;
 	}
-	public void setNickname(String nickname) {
-		this.nickname = nickname;
+	public void setMlid(int mlid) {
+		this.mlid = mlid;
 	}
-	public Date getStime() {
-		return stime;
+	public String getMlnickname() {
+		return mlnickname;
 	}
-	public void setStime(Date stime) {
-		this.stime = stime;
+	public void setMlnickname(String mlnickname) {
+		this.mlnickname = mlnickname;
 	}
-	@Override
-	public String toString() {
-		return "Messagelike [id=" + id + ", mid=" + mid + ", nickname=" + nickname + ", stime=" + stime + "]";
+	public String getMltime() {
+		return mltime;
+	}
+	public void setMltime(String mltime) {
+		this.mltime = mltime;
 	}
 }

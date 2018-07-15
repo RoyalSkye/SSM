@@ -3,6 +3,7 @@ package com.neusoft.mapper;
 import java.util.List;
 
 import com.neusoft.po.Message;
+import com.neusoft.po.Messageimg;
 import com.neusoft.po.Messagereply;
 import com.neusoft.po.Swiper;
 import com.neusoft.tools.Page;
@@ -13,14 +14,14 @@ public interface MessageMapper {
 	public Message findMessageById(int mid) throws Exception;
 	public int updateMessage(Message message) throws Exception;
 	public int deleteMessage(int mid) throws Exception;
+	public int saveMessage(Message message) throws Exception;
 	public List<Messagereply> findMessagereplyById(Page page) throws Exception;
-	public int deleteMessagereply(int id) throws Exception;
+	public int deleteMessageimg(int miid) throws Exception;
+	public int saveMessageimg(Messageimg messageimg) throws Exception;
+	public int deleteMessagereply(int mrid) throws Exception;
 	public Swiper findimgurl(int qid) throws Exception;
-	public int findCount(int qid) throws Exception;
+	public int selectLAST_INSERT_ID() throws Exception;
+	public int findMessageCount(int qid) throws Exception;
 	
-	//public boolean updateIndexphoto():是否要把首页照片存到某个地址？
-	/*public List<Messagelike> findAllMessagelike() throws Exception; 与前端关联，需多表连接
-	  public boolean saveMessagelike(Message) 前端想要
-	  public boolean saveMessagereply(Messagereply) 前端需要 
-	*/
+
 }

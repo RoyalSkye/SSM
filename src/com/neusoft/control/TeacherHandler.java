@@ -32,7 +32,12 @@ public class TeacherHandler {
 	@ResponseBody
 	public String findAllTeacher(HttpServletRequest request) throws Exception{
 		HttpSession session=request.getSession();
-		int qid=(int)session.getAttribute("qid");
+		int qid;
+		if(session.getAttribute("qid")==null){
+			qid=1;
+		}else{
+			qid=(int)session.getAttribute("qid");
+		}
 		Page page=new Page();
 		page.setId(qid);
 		page.setTotalPage(teacherService.findCount(page.getId()));
@@ -45,7 +50,12 @@ public class TeacherHandler {
 		HttpSession session=request.getSession();
 		int limit = Integer.parseInt(request.getParameter("limit"));
 		int pages = Integer.parseInt(request.getParameter("page"));
-		int qid=(int)session.getAttribute("qid");
+		int qid;
+		if(session.getAttribute("qid")==null){
+			qid=1;
+		}else{
+			qid=(int)session.getAttribute("qid");
+		}
 		Page page = new Page(limit,pages,qid);
 		page.setTotalPage(teacherService.findCount(page.getId()));
 		return FileTools.addHeader(teacherService.findAllTeacherByPage(page),page.getTotalPage());
@@ -82,7 +92,12 @@ public class TeacherHandler {
 	@ResponseBody
 	public String saveTeacher(Teacher t,HttpServletRequest request) throws Exception{
 		HttpSession session=request.getSession();
-		int qid=(int)session.getAttribute("qid");
+		int qid;
+		if(session.getAttribute("qid")==null){
+			qid=1;
+		}else{
+			qid=(int)session.getAttribute("qid");
+		}
 		t.setQid(qid);
 		if(teacherService.saveTeacher(t)){
 			return "{\"result\":true}";
@@ -95,7 +110,12 @@ public class TeacherHandler {
 	@ResponseBody
 	public String findimgurl(HttpServletRequest request) throws Exception{
 		HttpSession session=request.getSession();
-		int qid=(int)session.getAttribute("qid");
+		int qid;
+		if(session.getAttribute("qid")==null){
+			qid=1;
+		}else{
+			qid=(int)session.getAttribute("qid");
+		}
 		String imgurl="/upload/"+teacherService.findimgurl(qid).getImgurl();
 		return imgurl;
 	}
@@ -140,5 +160,16 @@ public class TeacherHandler {
 			}
 		}
 	}
-	
+	@RequestMapping(value="/test/TeacherHandler_findCount")
+	@ResponseBody
+	public int findCount(HttpServletRequest request) throws Exception{
+		HttpSession session = request.getSession();
+		int qid;
+		if(session.getAttribute("qid")==null){
+			qid=1;
+		}else{
+			qid=(int)session.getAttribute("qid");
+		}
+		return teacherService.findCount(qid);
+	}
 }

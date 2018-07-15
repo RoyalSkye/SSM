@@ -7,7 +7,7 @@ public class Refund {
 
     private String refundreason;
 
-    private Date refundtime;
+    private String refundtime;
 
     private String status;
 
@@ -27,11 +27,11 @@ public class Refund {
         this.refundreason = refundreason == null ? null : refundreason.trim();
     }
 
-    public Date getRefundtime() {
+    public String getRefundtime() {
         return refundtime;
     }
 
-    public void setRefundtime(Date refundtime) {
+    public void setRefundtime(String refundtime) {
         this.refundtime = refundtime;
     }
 

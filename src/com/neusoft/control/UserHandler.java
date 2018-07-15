@@ -29,9 +29,10 @@ public class UserHandler {
 			session.setAttribute("user", u);
 			session.setAttribute("isLoginOK", true);
 			session.setAttribute("phone", "138");
+			session.setAttribute("key", 1);//用于区分后端还是前端
 			session.setMaxInactiveInterval(60*10);
 			//return "{\"result\":true}";
-			return "redirect:/index.html";
+			return "redirect:/index2.html";
 		}else{
 			//return "{\"result\":false}";
 			return "redirect:/login.html";

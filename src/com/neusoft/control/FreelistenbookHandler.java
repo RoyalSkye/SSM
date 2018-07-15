@@ -33,7 +33,12 @@ public class FreelistenbookHandler {
 		int limit = Integer.parseInt(request.getParameter("limit"));
 		int pages = Integer.parseInt(request.getParameter("page"));
 		HttpSession session=request.getSession();
-		int qid=(int)session.getAttribute("qid");
+		int qid;
+		if(session.getAttribute("qid")==null){
+			qid=1;
+		}else{
+			qid=(int)session.getAttribute("qid");
+		}
 		Page page = new Page(limit,pages,qid);
 		page.setTotalPage(freelistenbookService.findCount());
 		return FileTools.addHeader(freelistenbookService.findAllFreelistenbook(page), page.getTotalPage());
@@ -82,7 +87,7 @@ public class FreelistenbookHandler {
 		freelistenbook.setStatus("´ý´¦Àí");
 		freelistenbook.setOpenid(phone);
 		Date date=new Date();
-		SimpleDateFormat ft =new SimpleDateFormat ("yyyy-MM-dd hh:mm:ss");
+		SimpleDateFormat ft =new SimpleDateFormat ("yyyy-MM-dd HH:mm:ss");
 		freelistenbook.setBooktime(ft.format(date));
 		if(freelistenbookService.saveFreelistenbook(freelistenbook)){
 			return "{\"result\":true}";
@@ -90,5 +95,16 @@ public class FreelistenbookHandler {
 			return "{\"result\":false}";
 		}
 	}
-
+	@RequestMapping(value="/test/FreelistenbookHandler_findCount")
+	@ResponseBody
+	public int findCount(HttpServletRequest request) throws Exception{
+		HttpSession session = request.getSession();
+		int qid;
+		if(session.getAttribute("qid")==null){
+			qid=1;
+		}else{
+			qid=(int)session.getAttribute("qid");
+		}
+		return	freelistenbookService.findCount();
+	}
 }

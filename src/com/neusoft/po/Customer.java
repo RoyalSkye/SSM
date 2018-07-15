@@ -4,8 +4,15 @@ public class Customer {
 	private int cid;
 	private String phone;
 	private String password;
-	private String nicknme;
+	private String nickname;
+	private double money;
 	
+	public double getMoney() {
+		return money;
+	}
+	public void setMoney(double money) {
+		this.money = money;
+	}
 	public int getCid() {
 		return cid;
 	}
@@ -24,11 +31,12 @@ public class Customer {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public String getNicknme() {
-		return nicknme;
+	public String getNickname() {
+		return nickname;
 	}
-	public void setNicknme(String nicknme) {
-		this.nicknme = nicknme;
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
+
 	
 }

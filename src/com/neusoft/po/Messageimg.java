@@ -1,14 +1,15 @@
 package com.neusoft.po;
 
 public class Messageimg {
-	int id;
+	int miid;
 	int mid;
 	String imgurl;
-	public int getId() {
-		return id;
+
+	public int getMiid() {
+		return miid;
 	}
-	public void setId(int id) {
-		this.id = id;
+	public void setMiid(int miid) {
+		this.miid = miid;
 	}
 	public int getMid() {
 		return mid;

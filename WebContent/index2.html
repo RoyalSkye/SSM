@@ -31,6 +31,70 @@
         left: 40px;;
     }
   </style>
+  
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.0.js"></script>
+  <script>
+  	
+  	$(function(){
+		$.ajax({
+			url:"test/LessonHandler_findCount",				
+			success:function(data1)
+			{
+				console.log(data1);
+				//var lessonCount=data1;
+				$("#lessonCount").append(data1);
+			}
+		})
+		$.ajax({
+			url:"test/BranchHandler_findCount",				
+			success:function(data)
+			{
+				console.log(data);
+				//var lessonCount=data1;
+				$("#branchCount").append(data);
+			}
+		})
+		$.ajax({
+			url:"test/OrderHandler_findCount",				
+			success:function(data2)
+			{
+				console.log(data2);
+				//var orderCount=data2;
+				$("#orderCount").append(data2);
+			}
+		})
+		$.ajax({
+			url:"test/TeacherHandler_findCount",				
+			success:function(data3)
+			{
+				console.log(data3);
+				//var TeacherCount=data3;
+				$("#TeacherCount").append(data3);
+			}
+		})
+		$.ajax({
+			url:"test/FreelistenHandler_findCount",				
+			success:function(data4)
+			{
+				console.log(data4);
+				//var freelistenCount=data4;
+				$("#freelistenCount").append(data4);
+			}
+		})
+		
+		$.ajax({
+			url:"test/FreelistenbookHandler_findCount",				
+			success:function(data5)
+			{
+				console.log(data5);
+				//var freelistenbookCount=data5;
+				$("#freelistenbookCount").append(data5);
+			}
+		})
+		
+	})
+  	
+  </script>
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
@@ -44,10 +108,6 @@
           <img src="../SSM/img/profile.jpg" class="layui-nav-img">
           RoyalSkye
         </a>
-        <dl class="layui-nav-child">
-          <dd><a href="">基本资料</a></dd>
-          <dd><a href="">安全设置</a></dd>
-        </dl>
       </li>
       <li class="layui-nav-item"><a href="">Logout</a></li>
     </ul>
@@ -60,6 +120,7 @@
         <li class="layui-nav-item layui-nav-itemed">
           <a class="" href="javascript:;">企业管理</a>
           <dl class="layui-nav-child">
+          <dd><a href="index2.html">数据统计</a></dd>
             <dd><a href="index.html">企业基本信息</a></dd>
             <dd><a href="branchinfo.html">企业分部信息</a></dd>
           </dl>
@@ -97,7 +158,6 @@
           <a href="javascript:;">朋友圈管理</a>
           <dl class="layui-nav-child">
             <dd><a href="messageinfo.html">消息列表</a></dd>
-            <dd><a href="messagereply.html">评论列表</a></dd>
             <dd><a href="messageimg.html">朋友圈首页图片</a></dd>
           </dl>
         </li>
@@ -113,37 +173,42 @@
 
 <!-- <div class="layui-collapse"> -->
     <div class="layui-row">
-        <div class="layui-col-xs3">
+    <div class="layui-col-xs3">
             <div class="card">
-                <div class="card-title">访问量</div>
-                <div class="card-content">123<i class="layui-icon-template-1 layui-icon"></i></div>
+                <div class="card-title">企业分部数量</div>
+                <div class="card-content"><div id="branchCount"></div><i class="layui-icon-template-1 layui-icon"></i></div>
             </div>
         </div>
         <div class="layui-col-xs3">
             <div class="card">
-                <div class="card-title">课程数量</div>
-                <div class="card-content">456<i class="layui-icon-app layui-icon"></i></div>
+                <div class="card-title">精品课数量</div>
+                <div class="card-content"><div id="lessonCount"></div><i class="layui-icon-template-1 layui-icon"></i></div>
             </div>
         </div>
         <div class="layui-col-xs3">
             <div class="card">
-                <div class="card-title">体验课数量</div>
-                <div class="card-content">100<i class="layui-icon-component layui-icon"></i></div>
+                <div class="card-title">订单数量</div>
+                <div class="card-content"><div id="orderCount"></div><i class="layui-icon-app layui-icon"></i></div>
             </div>
         </div>
         <div class="layui-col-xs3">
             <div class="card">
-                <div class="card-title">订单量</div>
-                <div class="card-content">77<i class="layui-icon-tabs layui-icon"></i></div>
+                <div class="card-title">教师数量</div>
+                <div class="card-content"><div id="TeacherCount"></div><i class="layui-icon-component layui-icon"></i></div>
             </div>
         </div>
-    </div>
+        <div class="layui-col-xs3">
+            <div class="card">
+                <div class="card-title">试听课数量</div>
+                <div class="card-content"><div id="freelistenCount"></div><i class="layui-icon-tabs layui-icon"></i></div>
+            </div>
+        </div>
 
-    <div class="layui-row">
+
             <div class="layui-col-xs3">
                 <div class="card">
-                    <div class="card-title">朋友圈数量</div>
-                    <div class="card-content">123<i class="layui-icon-cellphone-fine layui-icon"></i></div>
+                    <div class="card-title">试听课预约数量</div>
+                    <div class="card-content"><div id="freelistenbookCount"></div><i class="layui-icon-cellphone-fine layui-icon"></i></div>
                 </div>
             </div>
             

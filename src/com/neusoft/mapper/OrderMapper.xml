@@ -14,19 +14,19 @@
 	
 	<select id="findOrder"  parameterType="Map" resultType="com.neusoft.po.Order">
 		select * from `order` where qid=#{qid}
-		<if test="oid != null">
+		<if test="oid != ''">
 			and oid=#{oid}
 		</if>
-		<if test="status != null">
-			and status like '%${status}%'
+		<if test="status != ''">
+			and status=#{status}
 		</if>
-		<if test="starttime != null">
-			and ordertime &gt;='%${beginDate}%'
+		<if test="starttime != ''">
+			and ordertime &gt;= #{starttime}
 		</if>
-		<if test="endtime != null">
-			and ordertime &lt;= '%${endDate}%'
+		<if test="endtime != ''">
+			and ordertime &lt;= #{endtime}
 		</if>	
-		limit#{minNum},#{quantity}	
+		limit #{minNum},#{quantity}	
 	</select>
 	
 	<update id="updateOrder" parameterType="com.neusoft.po.Order">
@@ -40,6 +40,24 @@
 
 	<select id="findCount" parameterType="int" resultType="int">
 	SELECT COUNT(*) from `order` where qid=#{qid}
+	</select>
+	
+	<select id="findCountByCondition" parameterType="Map" resultType="int">
+	select COUNT(*) from
+		(select * from `order` where qid=#{qid}
+		<if test="oid != ''">
+			and oid=#{oid}
+		</if>
+		<if test="status != ''">
+			and status=#{status}
+		</if>
+		<if test="starttime != ''">
+			and ordertime &gt;= #{starttime}
+		</if>
+		<if test="endtime != ''">
+			and ordertime &lt;= #{endtime}
+		</if>	
+		)as temp
 	</select>
 	
 </mapper>

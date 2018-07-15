@@ -15,4 +15,5 @@ public interface OrderMapper {
 	public List<Order> findAllOrderByPhone(String phone) throws Exception;  //返回一个用户的所有订单
 	public int saveOrder(Order order) throws Exception;
 	public int findCount(int qid) throws Exception;
+	public int findCountByCondition(Map map) throws Exception;
 }

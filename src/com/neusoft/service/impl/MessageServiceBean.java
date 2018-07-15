@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.neusoft.mapper.MessageMapper;
 import com.neusoft.po.Message;
+import com.neusoft.po.Messageimg;
 import com.neusoft.po.Messagereply;
 import com.neusoft.po.Swiper;
 import com.neusoft.service.MessageService;
@@ -29,17 +30,51 @@ public class MessageServiceBean implements MessageService {
 	}
 
 	@Override
-	public boolean updateMessage(Message message) throws Exception {
+	public boolean updateMessage(Message message,String img) throws Exception {
 		boolean isok=false;
 		int result=mapper.updateMessage(message);
 		if(result>0){
 			isok=true;
+			int mid=message.getMid();
+			if(mapper.deleteMessageimg(mid)<=0) isok=false;
+			String[] splitimgurl=img.split(",");
+			for(int i=0;i<splitimgurl.length;i++){
+				String imgurl=splitimgurl[i];
+				System.out.println("imgurl="+imgurl);
+				Messageimg m=new Messageimg();
+				m.setImgurl(imgurl);
+				m.setMid(mid);
+				if(mapper.saveMessageimg(m)<=0) isok=false;
+			}
 		}else{
 			isok=false;
 		}
 		return isok;
 	}
 
+	@Override
+	public boolean saveMessage(Message message,String img) throws Exception {
+		boolean isok=false;
+		int result=mapper.saveMessage(message);
+		if(result>0){
+			isok=true;
+			int mid=mapper.selectLAST_INSERT_ID();
+			String[] splitimgurl=img.split(",");
+			for(int i=0;i<splitimgurl.length;i++){
+				String imgurl=splitimgurl[i];
+				System.out.println("imgurl="+imgurl);
+				Messageimg m=new Messageimg();
+				m.setImgurl(imgurl);
+				m.setMid(mid);
+				if(mapper.saveMessageimg(m)<=0) isok=false;
+			}
+		}else{
+			isok=false;
+		}
+		return isok;
+	}
+	
+	
 	@Override
 	public boolean deleteMessage(int mid) throws Exception {
 		boolean isok=false;
@@ -58,9 +93,9 @@ public class MessageServiceBean implements MessageService {
 	}
 
 	@Override
-	public boolean deleteMessagereply(int id) throws Exception {
+	public boolean deleteMessagereply(int mrid) throws Exception {
 		boolean isok=false;
-		int result=mapper.deleteMessage(id);
+		int result=mapper.deleteMessagereply(mrid);
 		if(result>0){
 			isok=true;
 		}else{
@@ -76,9 +111,8 @@ public class MessageServiceBean implements MessageService {
 	
 	
 	@Override
-	public int findCount(int mid)throws Exception{
-		return mapper.findCount(mid);
+	public int findMessageCount(int qid)throws Exception{
+		return mapper.findMessageCount(qid);
 	}
-	
 
 }

@@ -5,32 +5,39 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <title>NeuSoft introduction</title>
   <link rel="stylesheet" href="../SSM/layui/css/layui.css">
-  <style type="text/css">
-    .button-wrap {
-      margin: 10px;
-      display: flex;
-      justify-content: flex-start;
-    }
-    .per-button {
-      border-radius: 20px;
-      margin: 10px;
-    }
-  </style>
-  <!-- 配置文件 -->
-	<script type="text/javascript" src="./js/ueditor.config.js"></script>
-	<!-- 编辑器源码文件 -->
-	<script type="text/javascript" src="./js/ueditor.all.js"></script>
-	<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.0.js"></script>
-<script>
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.0.js"></script>
+  <script>
+  var message="";
 	$(function(){
 		$.ajax({
-			url:"/SSM/test/TeacherHandler_findAllTeacher",
+			url:"/SSM/test/MessageHandler_findAllMessage",				
 			success:function(data)
 			{
 				console.log(data);
-				alert(JSON.stringify( data ));
+				for(var i=0;i<data.length;i++){
+					message+='<div class="layui-col-md6"><div class="layui-card"><div class="layui-card-header">'+data[i].mtitle;
+		        	message+='<a href="updatemessage.html" style="margin-left: 400px"><button class="layui-btn layui-btn-sm">编辑</button></a><a href="" style="margin-left: 20px"><button class="layui-btn layui-btn-sm">删除</button></a></div><div class="layui-card-body">';
+		        	for(var j=0;j<data[i].messageimgList.length;j++){
+		        		if(data[i].messageimgList[j].imgurl===null) continue;
+		        		message+='<img src="/upload/'+data[i].messageimgList[j].imgurl+'"  width="150" height="150">';
+		        	}
+		        	message+='</div><div class="layui-col-md12"><div class="layui-card"><div class="layui-card-header"><i class="layui-icon layui-icon-praise" style="font-size: 20px; color: #787878;"></i>点赞	:</div><div class="layui-card-body">';
+		        	for(var j=0;j<data[i].messagelikeList.length;j++){
+		        		if(data[i].messagelikeList[j].mlnickname===null) continue;
+		        		message+=data[i].messagelikeList[j].mlnickname;
+		        		if(j!=data[i].messagelikeList.length-1) message+=' , ';
+		        	}
+		        	message+='</div></div></div><div class="layui-col-md12"><div class="layui-card"><div class="layui-card-header"><i class="layui-icon layui-icon-reply-fill" style="font-size: 20px; color: #787878;"></i>评论:</div><div class="layui-card-body">';
+		        	for(var j=0;j<data[i].messagereplyList.length;j++){
+		        		if(data[i].messagereplyList[j].content===null) continue;
+		        		message+=data[i].messagereplyList[j].mrnickname+': '+data[i].messagereplyList[j].content+' '+data[i].messagereplyList[j].mrtime+'<br>';
+		        	}
+		        	message+='</div></div></div></div></div>';
+				}
+				$("#message").html(message);
 			}
 		})
+		
 	})
 </script>
 </head>
@@ -50,7 +57,7 @@
           <dd><a href="">安全设置</a></dd>
         </dl>
       </li>
-      <li class="layui-nav-item"><a href="">Logout</a></li>
+      <li class="layui-nav-item"><a href="login.html">Logout</a></li>
     </ul>
   </div>
   
@@ -58,7 +65,7 @@
     <div class="layui-side-scroll">
       <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
       <ul class="layui-nav layui-nav-tree"  lay-filter="test">
-        <li class="layui-nav-item layui-nav-itemed">
+        <li class="layui-nav-item">
           <a class="" href="javascript:;">企业管理</a>
           <dl class="layui-nav-child">
             <dd><a href="index.html">企业基本信息</a></dd>
@@ -94,7 +101,7 @@
             <dd><a href="ordercancel.html">订单核销</a></dd>
           </dl>
         </li>
-        <li class="layui-nav-item">
+        <li class="layui-nav-item layui-nav-itemed">
           <a href="javascript:;">朋友圈管理</a>
           <dl class="layui-nav-child">
             <dd><a href="messageinfo.html">消息列表</a></dd>
@@ -109,54 +116,37 @@
   <div class="layui-body">
     <!-- 内容主体区域 -->
     <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
-  <legend>修改企业信息</legend>
+  <legend>朋友圈</legend>
 </fieldset>
-
-<form class="layui-form" action="">
-<div class="layui-collapse">
-  <div class="layui-colla-item">
-    <h2 class="layui-colla-title">企业名称</h2>
-    <div class="layui-colla-content layui-show">东软睿道
-    	<br><input type="text" name="name" id="name" required  lay-verify="required" value="东软睿道">
-    </div>
-  </div>
-  <div class="layui-colla-item">
-    <h2 class="layui-colla-title">企业图片</h2>
-    <div class="layui-colla-content layui-show">
-      <img src="../SSM/img/mainBg0.jpg"  width="300" height="300"><img src="../SSM/img/mainBg1.jpg"  width="300" height="300">
-      <div class="button-wrap">
-        <button type="button" class="layui-btn layui-btn-radius" id="test7"><i class="layui-icon"></i>上传图片</button>
-      </div>
-    </div>
-  </div>
-  <div class="layui-colla-item">
-    <h2 class="layui-colla-title">企业简介</h2>
-    <div class="layui-colla-content layui-show">沈阳东软睿道教育服务有限公司（简称东软睿道）由东软创办，基于东软的产业发展与人才培养实践，提供更加符合IT行业发展需求的人才培养体系和方法学，精准提升大学生和大学后的就业、创业技能，为新经济时代的转型发展提供高质量规模化的人才供给。
-    	<br><textarea cols="100" rows="5" name="introduction" id="introduction" style="resize: none;" required  lay-verify="required" value="沈阳东软睿道教育服务有限公司（简称东软睿道）由东软创办，基于东软的产业发展与人才培养实践，提供更加符合IT行业发展需求的人才培养体系和方法学，精准提升大学生和大学后的就业、创业技能，为新经济时代的转型发展提供高质量规模化的人才供给。">沈阳东软睿道教育服务有限公司（简称东软睿道）由东软创办，基于东软的产业发展与人才培养实践，提供更加符合IT行业发展需求的人才培养体系和方法学，精准提升大学生和大学后的就业、创业技能，为新经济时代的转型发展提供高质量规模化的人才供给。</textarea>
-    </div>
-  </div>
-  <div class="layui-colla-item">
-    <h2 class="layui-colla-title">企业视频</h2>
-    <div class="layui-colla-content layui-show"><video src="../SSM/img/1.mp4" controls="controls"></video>
-      <div class="button-wrap">
-        <button type="button" class="layui-btn layui-btn-radius" id="test5"><i class="layui-icon"></i>上传视频</button>
-      </div>
-    </div>
-  </div>
-  <div class="layui-colla-item">
-    <h2 class="layui-colla-title">精彩展示</h2>
-        <!-- 加载编辑器的容器 -->
-        <script id="container" name="content" type="text/plain">
-        		<div class="layui-colla-content layui-show"><img src="../SSM/img/mainBg0.jpg"  width="300" height="300"><img src="../SSM/img/mainBg1.jpg"  width="300" height="300"></div>
-        </script>
-  </div>
-</div>
-  <div class="button-wrap">
-  	<button class="layui-btn layui-btn-lg per-button" lay-submit lay-filter="updateindex">保存信息</button> 
-  </div>
-  </form>
-</div>
-
+<div style="padding: 20px; background-color: #F2F2F2;">
+	<div class="layui-row layui-col-space15" id="message">
+	
+	
+		   <div class="layui-col-md6"><div class="layui-card"><div class="layui-card-header">无阅读不生活
+	        		<a href="updatemessage.html" style="margin-left: 400px"><button class="layui-btn layui-btn-sm">编辑</button></a>
+	        		<a href="savebranch.html" style="margin-left: 20px"><button class="layui-btn layui-btn-sm">删除</button></a>
+			</div>
+	        <div class="layui-card-body">
+	        
+	          <img src="../SSM/img/mainBg0.jpg"  width="150" height="150">
+	          <img src="../SSM/img/mainBg1.jpg"  width="150" height="150">
+	        </div>
+	        
+	         <div class="layui-col-md12">
+	      <div class="layui-card">
+	      <div class="layui-card-header">评论</div>
+        	<div class="layui-card-body">
+ 			skye: 哈哈哈哈 
+ 			哈哈	
+	        </div>
+	     	 </div>
+	    	</div>
+	    	
+	      </div>
+	    </div>
+	   </div> 
+	</div>
+  
   <div class="layui-footer">
     <!-- 底部固定区域 -->
     © NeuSoft 
@@ -169,61 +159,7 @@ layui.use('element', function(){
   var element = layui.element;
   
 });
-layui.use('upload', function(){
-  var $ = layui.jquery
-  ,upload = layui.upload;
-  
-//上传视频
-	upload.render({
-    elem: '#test5'
-    ,url: '/upload/'
-    ,size: 102400 //限制文件大小，单位 KB
-    ,accept: 'video' //视频
-    ,done: function(res){
-      console.log(res)
-    }
- });
-//设定文件大小限制
-  upload.render({
-    elem: '#test7'
-    ,url: '/upload/'
-    ,size: 1024 //限制文件大小，单位 KB
-    ,done: function(res){
-      console.log(res)
-    }
-  });
- });
- 
- layui.use('form', function(){
-  var form = layui.form;
-  
- //监听提交，最后需要去掉！
-  form.on('submit(updateindex)', function(data){
-    layer.alert(JSON.stringify(data.field), {
-      title: '最终的提交信息'
-    })
-    return false;
-  }); 
-  
-});
 
-    UE.getEditor('container', {
-    toolbars: [
-    ['fullscreen', 'source', '|', 'undo', 'redo', '|',
-            'bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc', '|',
-            'rowspacingtop', 'rowspacingbottom', 'lineheight', '|',
-            'customstyle', 'paragraph', 'fontfamily', 'fontsize', '|',
-            'directionalityltr', 'directionalityrtl', 'indent', '|',
-            'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|', 'touppercase', 'tolowercase', '|',
-            'link', 'unlink', 'anchor', '|', 'imagenone', 'imageleft', 'imageright', 'imagecenter', '|',
-            'simpleupload', 'insertimage', 'emotion', 'scrawl', 'insertvideo', 'music', 'attachment', 'map', 'gmap', 'insertframe', 'insertcode', 'webapp', 'pagebreak', 'template', 'background', '|',
-            'horizontal', 'date', 'time', 'spechars', 'snapscreen', 'wordimage', '|',
-            'inserttable', 'deletetable', 'insertparagraphbeforetable', 'insertrow', 'deleterow', 'insertcol', 'deletecol', 'mergecells', 'mergeright', 'mergedown', 'splittocells', 'splittorows', 'splittocols', 'charts', '|',
-            'print', 'preview', 'searchreplace', 'drafts', 'help']
-    ],
-    autoHeightEnabled: true,
-    autoFloatEnabled: true
-    });
 </script>
 </body>
 </html>
