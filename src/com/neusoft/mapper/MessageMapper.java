@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.neusoft.po.Message;
 import com.neusoft.po.Messageimg;
+import com.neusoft.po.Messagelike;
 import com.neusoft.po.Messagereply;
 import com.neusoft.po.Swiper;
 import com.neusoft.tools.Page;
@@ -22,6 +23,8 @@ public interface MessageMapper {
 	public Swiper findimgurl(int qid) throws Exception;
 	public int selectLAST_INSERT_ID() throws Exception;
 	public int findMessageCount(int qid) throws Exception;
-	
-
+	public int saveMessagereply(Messagereply m) throws Exception;
+	public int saveMessagelike(Messagelike m) throws Exception;
+	//public int deleteMessagelike(Messagelike m) throws Exception;
+	public List<Messagelike> findAllMessagelike(String mlnickname) throws Exception;
 }

@@ -7,8 +7,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.neusoft.mapper.CustomerMapper;
 import com.neusoft.mapper.OrderMapper;
 import com.neusoft.mapper.RefundMapper;
+import com.neusoft.po.Customer;
 import com.neusoft.po.Order;
 import com.neusoft.po.Refund;
 import com.neusoft.service.RefundService;
@@ -20,6 +22,8 @@ public class RefundServiceBean  implements RefundService{
 	RefundMapper mapper;
 	@Autowired
 	private OrderMapper ordermapper;
+	@Autowired
+	private CustomerMapper customermapper;
 
 	@Override
 	public boolean saveRefund(Refund refund) throws Exception {
@@ -32,6 +36,11 @@ public class RefundServiceBean  implements RefundService{
 		}
 		return isok;
 	}
+	
+	@Override
+	public Refund findRefundByOid(int oid) throws Exception {
+		return mapper.findRefundByOid(oid);
+	}
 
 	@Override
 	public boolean updateconfirmRefund(Refund refund) throws Exception {
@@ -43,7 +52,12 @@ public class RefundServiceBean  implements RefundService{
 			order.setOid(refund.getOid());
 			order.setStatus("已退款");
 			if(ordermapper.updateOrder(order)<=0) isok=false;
-			//customer表中用户加钱 未写
+			//customer表中用户加钱
+			Customer customer=new Customer();
+			Order o=ordermapper.findOrderByOid(refund.getOid());
+			customer.setPhone(o.getOpenid());
+			customer.setMoney(0+o.getTotal());
+			if(customermapper.updateCustomer(customer)<=0) isok=false;
 		}else{
 			isok=false;
 		}

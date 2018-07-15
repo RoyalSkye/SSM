@@ -15,6 +15,13 @@ public class Order {
 	private String transactionid;
 	private String nickname;
 	private String tel;
+	Lesson lesson;
+	public Lesson getLesson() {
+		return lesson;
+	}
+	public void setLesson(Lesson lesson) {
+		this.lesson = lesson;
+	}
 	public int getOid() {
 		return oid;
 	}

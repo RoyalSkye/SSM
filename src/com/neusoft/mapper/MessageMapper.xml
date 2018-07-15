@@ -62,6 +62,10 @@
 		select * from message left join messageimg on message.mid=messageimg.mid where message.mid=#{mid}
 	</select>
 	
+	<select id="findAllMessagelike"  parameterType="String" resultType="com.neusoft.po.Messagelike">
+		select * from messagelike where mlnickname=#{_parameter}
+	</select>
+	
 	<delete id="deleteMessage"  parameterType="int">  <!-- 会删除此条朋友圈的所有相关内容 级联删除 cascade -->
 		delete from message where mid=#{mid}
 	</delete>
@@ -96,6 +100,14 @@
 	
 	<insert id="saveMessageimg"  parameterType="com.neusoft.po.Messageimg">
 		insert into messageimg(mid,imgurl) values(#{mid},#{imgurl})
+	</insert>
+	
+	<insert id="saveMessagereply"  parameterType="com.neusoft.po.Messagereply">
+		insert into messagereply(mid,content,mrnickname,mrtime) values(#{mid},#{content},#{mrnickname},#{mrtime})
+	</insert>
+	
+	<insert id="saveMessagelike"  parameterType="com.neusoft.po.Messagelike">
+		insert into messagelike(mid,mlnickname,mltime) values(#{mid},#{mlnickname},#{mltime})
 	</insert>
 	
 	<insert id="saveMessage"  parameterType="com.neusoft.po.Message">

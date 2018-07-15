@@ -32,6 +32,14 @@ public class CustomerHandler {
 		}
 	}
 	
+	@RequestMapping(value="/test/CustomerHandler_findCustomerByPhone",produces = "application/json; charset=utf-8")
+	@ResponseBody
+	public Customer findCustomerByPhone(HttpServletRequest request) throws Exception{
+		HttpSession session=request.getSession();
+		String phone=(String)session.getAttribute("phone");
+		return customerService.findCustomerByPhone(phone);
+	}
+	
 	@RequestMapping(value="/test/CustomerHandler_getcode",produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public String getcode(Customer customer,HttpServletRequest request) throws Exception{  //phone
@@ -80,7 +88,7 @@ public class CustomerHandler {
                 	session.setAttribute("customer", c);
                 	session.setAttribute("qid", 1);
                     session.setAttribute("phone", c.getPhone());
-                    session.setMaxInactiveInterval(60*100);
+                    session.setMaxInactiveInterval(60*30);
                     return "{\"result\":true}";
                 }
             }else{

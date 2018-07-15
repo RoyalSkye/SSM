@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.neusoft.mapper.MessageMapper;
 import com.neusoft.po.Message;
 import com.neusoft.po.Messageimg;
+import com.neusoft.po.Messagelike;
 import com.neusoft.po.Messagereply;
 import com.neusoft.po.Swiper;
 import com.neusoft.service.MessageService;
@@ -113,6 +114,35 @@ public class MessageServiceBean implements MessageService {
 	@Override
 	public int findMessageCount(int qid)throws Exception{
 		return mapper.findMessageCount(qid);
+	}
+
+	@Override
+	public boolean saveMessagereply(Messagereply m) throws Exception {
+		boolean isok=false;
+		int result=mapper.saveMessagereply(m);
+		if(result>0){
+			isok=true;
+		}else{
+			isok=false;
+		}
+		return isok;
+	}
+
+	@Override
+	public boolean saveMessagelike(Messagelike m) throws Exception {
+		boolean isok=false;
+		int result=mapper.saveMessagelike(m);
+		if(result>0){
+			isok=true;
+		}else{
+			isok=false;
+		}
+		return isok;
+	}
+
+	@Override
+	public List<Messagelike> findAllMessagelike(String mlnickname) throws Exception {
+		return mapper.findAllMessagelike(mlnickname);
 	}
 
 }

@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.neusoft.po.Customer;
 import com.neusoft.po.Freelistenbook;
 import com.neusoft.service.FreelistenbookService;
 import com.neusoft.service.impl.FreelistenbookServiceBean;
@@ -75,6 +76,15 @@ public class FreelistenbookHandler {
 		}else{
 			return "{\"result\":false}";
 		}
+	}
+	
+	@RequestMapping(value="/test/FreelistenbookHandler_findFreelistenbookByPhone")
+	@ResponseBody
+	public List<Freelistenbook> findFreelistenbookByPhone(HttpServletRequest request) throws Exception{
+		HttpSession session=request.getSession();
+		String phone=session.getAttribute("phone").toString();
+		//String phone="138";
+		return freelistenbookService.findFreelistenbookByPhone(phone);
 	}
 	
 	@RequestMapping(value="/test/FreelistenbookHandler_saveFreelistenbook")

@@ -4,8 +4,33 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.neusoft.mapper.FreelistenbookMapper">                                                                                                                               
 
+	<resultMap type="com.neusoft.po.Freelistenbook" id="freelistenbook_freelisten_map">
+		<id property="id" column="id"/>
+		<result property="fid" column="fid"/>
+		<result property="cname" column="cname"/>
+		<result property="tel" column="tel"/>
+		<result property="booktime" column="booktime"/>
+		<result property="status" column="status"/>
+		<result property="comment" column="comment"/>
+		<result property="openid" column="openid"/>
+			<association property="freelisten" javaType="com.neusoft.po.Freelisten">
+				<id property="fid" column="fid" />
+				<result property="title" column="title"/>
+				<result property="imgurl" column="imgurl"/>
+				<result property="fdesc" column="fdesc"/>
+				<result property="status" column="status"/>
+				<result property="qid" column="qid"/>
+				<result property="bid" column="bid"/>
+				<result property="pubtime" column="pubtime"/>
+			</association>
+	</resultMap>
+
 	<select id="findAllFreelistenbook" parameterType="com.neusoft.tools.Page" resultType="com.neusoft.po.Freelistenbook">
 		select * from freelistenbook where status="待处理" limit #{minNum},#{quantity}
+	</select>
+	
+	<select id="findFreelistenbookByPhone" parameterType="String" resultMap="freelistenbook_freelisten_map">
+		select * from freelistenbook left join freelisten on freelistenbook.fid=freelisten.fid where freelistenbook.openid=#{_parameter}
 	</select>
 	
 	<select id="findFreelistenbook"  parameterType="Map" resultType="com.neusoft.po.Freelistenbook">

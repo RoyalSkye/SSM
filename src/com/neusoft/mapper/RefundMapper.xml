@@ -6,6 +6,10 @@
 		update refund set status=#{status} where oid=#{oid}
 	</update>
 	
+	<select id="findRefundByOid"  parameterType="int" resultType="com.neusoft.po.Refund">
+		select * from refund where oid=#{oid}
+	</select>
+	
 	<insert id="saveRefund"  parameterType="com.neusoft.po.Refund">
 		insert into refund(oid,refundreason,refundtime,status) values(#{oid},#{refundreason},#{refundtime},#{status})
 	</insert>

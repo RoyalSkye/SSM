@@ -8,26 +8,15 @@
 
 	$(function(){
 		
-		//注册提交按钮的点击事件
-		$("#teacher_imgsave").click(function(){
-			//1.获得整个表单
-			var formdata=new FormData(document.getElementById("myform"));
-			//2.发送ajax请求
-			$.ajax({
-				url:"test/TeacherHandler_saveimg",
-				type:"post",
-				data:formdata,
-				processData:false,
-				contentType:false,
-				dataType:"json",
-				success:function(data)
-				{
-					alert(data.result);
-				}
-			})
-		})
+		$.ajax({
+			url:"/SSM/test/MessageHandler_findAllMessagelike",				
+			success:function(data)
+			{
+				console.log(data);
+			}
 		
 	})
+})
 
 </script>
 </head>

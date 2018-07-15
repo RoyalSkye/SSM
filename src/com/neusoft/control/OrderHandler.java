@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.neusoft.po.Customer;
 import com.neusoft.po.Freelistenbook;
 import com.neusoft.po.Order;
 import com.neusoft.service.OrderService;
@@ -44,6 +45,14 @@ public class OrderHandler {
 		return FileTools.addHeader(orderService.findAllOrder(page),page.getTotalPage());
 	}
 	
+	@RequestMapping(value="/test/OrderHandler_findOrderByPhone")
+	@ResponseBody
+	public List<Order> findOrderByPhone(HttpServletRequest request) throws Exception{
+		HttpSession session=request.getSession();
+		String phone=session.getAttribute("phone").toString();
+		//String phone="136";
+		return orderService.findOrderByPhone(phone);
+	}
 	
 	@RequestMapping(value="/test/OrderHandler_findOrder",produces = "application/json; charset=utf-8")
 	@ResponseBody
@@ -81,7 +90,11 @@ public class OrderHandler {
 	
 	@RequestMapping(value="/test/OrderHandler_updateOrder")
 	@ResponseBody
-	public String updateOrder(Order order) throws Exception{
+	public String updateOrder(Order order,HttpServletRequest request) throws Exception{
+		//System.out.println("total="+order.getTotal());
+		HttpSession session=request.getSession();
+		String phone=(String)session.getAttribute("phone");
+		order.setOpenid(phone);
 		if(orderService.updateOrder(order)){
 			return "{\"result\":true}";
 		}else{
@@ -116,7 +129,6 @@ public class OrderHandler {
 		String transactionid=System.currentTimeMillis()+"";
 		order.setTransactionid(transactionid);
 		System.out.println("transactionid"+transactionid+"test");
-		order.setStatus("´ý¸¶¿î");
 		order.setActual(0);
 		if(orderService.saveOrder(order)){
 			return "{\"result\":true}";

@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.neusoft.po.Customer;
 import com.neusoft.po.Message;
 import com.neusoft.po.Messageimg;
+import com.neusoft.po.Messagelike;
 import com.neusoft.po.Messagereply;
 import com.neusoft.po.Swiper;
 import com.neusoft.service.MessageService;
@@ -134,6 +136,65 @@ public class MessageHandler {
 		}else{
 			return "{\"result\":false}";
 		}
+	}
+	
+	@RequestMapping(value="/test/MessageHandler_saveMessagereply")
+	@ResponseBody
+	public String saveMessagereply(Messagereply m,HttpServletRequest request) throws Exception{
+		HttpSession session=request.getSession();
+		String phone=session.getAttribute("phone").toString();
+		Date date=new Date();
+		SimpleDateFormat ft =new SimpleDateFormat ("yyyy-MM-dd HH:mm:ss");
+		m.setMrtime(ft.format(date));
+		/*Customer c=(Customer)session.getAttribute("customer");
+		String mrnickname=c.getNickname();*/
+		m.setMrnickname(phone);
+		if(messageService.saveMessagereply(m)){
+			return "{\"result\":true}";
+		}else{
+			return "{\"result\":false}";
+		}
+	}
+	
+	@RequestMapping(value="/test/MessageHandler_saveMessagelike")
+	@ResponseBody
+	public String saveMessagelike(Messagelike m,HttpServletRequest request) throws Exception{
+		HttpSession session=request.getSession();
+		String phone=session.getAttribute("phone").toString();
+		Date date=new Date();
+		SimpleDateFormat ft =new SimpleDateFormat ("yyyy-MM-dd HH:mm:ss");
+		m.setMltime(ft.format(date));
+		//Customer c=(Customer)session.getAttribute("customer");
+		//String mrnickname=c.getNickname();
+		m.setMlnickname(phone);
+		if(messageService.saveMessagelike(m)){
+			return "{\"result\":true}";
+		}else{
+			return "{\"result\":false}";
+		}
+	}
+	
+	@RequestMapping(value="/test/MessageHandler_deleteMessagelike")
+	@ResponseBody
+	public String deleteMessagelike(Messagelike m,HttpServletRequest request) throws Exception{
+		if(messageService.saveMessagelike(m)){
+			return "{\"result\":true}";
+		}else{
+			return "{\"result\":false}";
+		}
+	}
+	
+	@RequestMapping(value="/test/MessageHandler_findAllMessagelike")
+	@ResponseBody
+	public List<Messagelike> findAllMessagelike(HttpServletRequest request) throws Exception{
+		HttpSession session=request.getSession();
+		String phone=session.getAttribute("phone").toString();
+		//Customer c=(Customer)session.getAttribute("customer");
+		//String mlnickname=c.getNickname();
+		//System.out.println("phone"+phone);
+		//System.out.println("2"+c.getNickname());
+		//System.out.println("3"+c.getMoney());
+		return messageService.findAllMessagelike(phone);
 	}
 	
 	@RequestMapping(value="/test/MessageHandler_findimgurl")
