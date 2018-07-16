@@ -86,12 +86,16 @@
 		delete from messagereply where mrid=#{mrid}
 	</delete>
 	
+	<delete id="deleteMessagelike"  parameterType="com.neusoft.po.Messagelike">
+		delete from messagelike where mid=#{mid} and mlnickname=#{mlnickname}
+	</delete>
+	
 	<select id="findimgurl" parameterType="int" resultType="com.neusoft.po.Swiper">
 		select * from swiper where qid=#{qid} and category="D"
 	</select>
 	
 	<select id="findMessageCount" parameterType="int" resultType="int">
-	SELECT COUNT(*) from message  where qid=#{qid}
+		SELECT COUNT(*) from message  where qid=#{qid}
 	</select>
 	
 	<select id="selectLAST_INSERT_ID" resultType="int">
@@ -105,6 +109,10 @@
 	<insert id="saveMessagereply"  parameterType="com.neusoft.po.Messagereply">
 		insert into messagereply(mid,content,mrnickname,mrtime) values(#{mid},#{content},#{mrnickname},#{mrtime})
 	</insert>
+	
+	<select id="findMessagelike" parameterType="com.neusoft.po.Messagelike" resultType="com.neusoft.po.Messagelike">
+		select * from messagelike where mid=#{mid} and mlnickname=#{mlnickname}
+	</select>
 	
 	<insert id="saveMessagelike"  parameterType="com.neusoft.po.Messagelike">
 		insert into messagelike(mid,mlnickname,mltime) values(#{mid},#{mlnickname},#{mltime})

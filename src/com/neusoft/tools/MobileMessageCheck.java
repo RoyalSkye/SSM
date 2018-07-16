@@ -20,8 +20,8 @@ import com.neusoft.tools.CheckSumBuilder;
 //校验验证码工具类
 public class MobileMessageCheck {
 	private static final String SERVER_URL="https://api.netease.im/sms/verifycode.action";//校验验证码的请求路径URL
-    private static final String APP_KEY="bc7823059d25a5f022dc0839a42c691c";//账号
-    private static final String APP_SECRET="e5d9fd83d121";//密钥
+    private static final String APP_KEY="c1841ce6b4a956c8adf15b3cdf82c70a";//账号
+    private static final String APP_SECRET="5d0c9f4f5211";//密钥
     private static final String NONCE="123456";//随机数
 
     public static String checkMsg(String phone,String sum) throws IOException {

@@ -23,8 +23,9 @@ public interface MessageMapper {
 	public Swiper findimgurl(int qid) throws Exception;
 	public int selectLAST_INSERT_ID() throws Exception;
 	public int findMessageCount(int qid) throws Exception;
+	public Messagelike findMessagelike(Messagelike m) throws Exception;
 	public int saveMessagereply(Messagereply m) throws Exception;
 	public int saveMessagelike(Messagelike m) throws Exception;
-	//public int deleteMessagelike(Messagelike m) throws Exception;
+	public int deleteMessagelike(Messagelike m) throws Exception;
 	public List<Messagelike> findAllMessagelike(String mlnickname) throws Exception;
 }

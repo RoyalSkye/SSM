@@ -164,6 +164,7 @@ public class MessageHandler {
 		Date date=new Date();
 		SimpleDateFormat ft =new SimpleDateFormat ("yyyy-MM-dd HH:mm:ss");
 		m.setMltime(ft.format(date));
+		m.setMlnickname(phone);
 		//Customer c=(Customer)session.getAttribute("customer");
 		//String mrnickname=c.getNickname();
 		m.setMlnickname(phone);

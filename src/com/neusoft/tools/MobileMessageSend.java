@@ -18,8 +18,8 @@ import java.util.List;
 //短信发送工具类
 public class MobileMessageSend {
 	private static final String SERVER_URL="https://api.netease.im/sms/sendcode.action";//发送验证码的请求路径URL
-    private static final String APP_KEY="bc7823059d25a5f022dc0839a42c691c";//网易云信分配的账号
-    private static final String APP_SECRET="e5d9fd83d121";//网易云信分配的密钥
+    private static final String APP_KEY="c1841ce6b4a956c8adf15b3cdf82c70a";//网易云信分配的账号
+    private static final String APP_SECRET="5d0c9f4f5211";//网易云信分配的密钥
     private static final String NONCE="123456";//随机数
 
     public static String sendMsg(String phone) throws IOException {
@@ -39,7 +39,7 @@ public class MobileMessageSend {
         //设置请求参数
         List<NameValuePair> nameValuePairs =new ArrayList<>();
         nameValuePairs.add(new BasicNameValuePair("mobile",phone));
-        nameValuePairs.add(new BasicNameValuePair("templateid", "3913124"));
+        //nameValuePairs.add(new BasicNameValuePair("templateid", "3913124"));
 
         post.setEntity(new UrlEncodedFormEntity(nameValuePairs,"utf-8"));
 

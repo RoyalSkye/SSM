@@ -131,11 +131,21 @@ public class MessageServiceBean implements MessageService {
 	@Override
 	public boolean saveMessagelike(Messagelike m) throws Exception {
 		boolean isok=false;
-		int result=mapper.saveMessagelike(m);
-		if(result>0){
-			isok=true;
-		}else{
-			isok=false;
+		Messagelike ml=mapper.findMessagelike(m);
+		if(ml==null){  //点赞
+			int result=mapper.saveMessagelike(m);
+			if(result>0){
+				isok=true;
+			}else{
+				isok=false;
+			}
+		}else{  //取消点赞
+			int result=mapper.deleteMessagelike(ml);
+			if(result>0){
+				isok=true;
+			}else{
+				isok=false;
+			}
 		}
 		return isok;
 	}
